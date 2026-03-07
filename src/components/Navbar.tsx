@@ -69,7 +69,7 @@ const Navbar = () => {
                   key={link.href}
                   to={link.href}
                   onClick={() => setOpen(false)}
-                  className="block py-2 text-sm font-medium text-foreground/80 hover:text-foreground"
+                  className="block py-2 text-sm font-medium text-primary-foreground/70 hover:text-primary-foreground"
                 >
                   {link.label}
                 </Link>
