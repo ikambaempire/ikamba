@@ -17,9 +17,9 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-surface-elevated/90 backdrop-blur-md border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/90 backdrop-blur-md border-b border-primary-foreground/10">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16">
-        <Link to="/" className="font-heading text-xl font-extrabold tracking-tight text-primary">
+        <Link to="/" className="font-heading text-xl font-extrabold tracking-tight text-primary-foreground">
           IKAMBA<span className="text-accent">.</span>
         </Link>
 
@@ -30,7 +30,7 @@ const Navbar = () => {
               <Button
                 variant="nav"
                 size="sm"
-                className={location.pathname === link.href ? "text-foreground" : ""}
+                className={`text-primary-foreground/70 hover:text-primary-foreground ${location.pathname === link.href ? "text-primary-foreground" : ""}`}
               >
                 {link.label}
               </Button>
@@ -38,7 +38,12 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-2">
+          <Link to="/login">
+            <Button variant="nav" size="sm" className="text-primary-foreground/70 hover:text-primary-foreground">
+              Login
+            </Button>
+          </Link>
           <Link to="/start-a-project">
             <Button variant="hero" size="sm">Start a Project</Button>
           </Link>
@@ -61,7 +66,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-surface-elevated border-b border-border overflow-hidden"
+            className="md:hidden bg-navy border-b border-primary-foreground/10 overflow-hidden"
           >
             <div className="px-6 py-4 space-y-2">
               {navLinks.map((link) => (
@@ -69,7 +74,7 @@ const Navbar = () => {
                   key={link.href}
                   to={link.href}
                   onClick={() => setOpen(false)}
-                  className="block py-2 text-sm font-medium text-foreground/80 hover:text-foreground"
+                  className="block py-2 text-sm font-medium text-primary-foreground/70 hover:text-primary-foreground"
                 >
                   {link.label}
                 </Link>
