@@ -30,7 +30,7 @@ const Navbar = () => {
               <Button
                 variant="nav"
                 size="sm"
-                className={location.pathname === link.href ? "text-foreground" : ""}
+                className={`text-primary-foreground/70 hover:text-primary-foreground ${location.pathname === link.href ? "text-primary-foreground" : ""}`}
               >
                 {link.label}
               </Button>
