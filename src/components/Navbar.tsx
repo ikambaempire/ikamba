@@ -38,7 +38,12 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-2">
+          <Link to="/login">
+            <Button variant="nav" size="sm" className="text-primary-foreground/70 hover:text-primary-foreground">
+              Login
+            </Button>
+          </Link>
           <Link to="/start-a-project">
             <Button variant="hero" size="sm">Start a Project</Button>
           </Link>
