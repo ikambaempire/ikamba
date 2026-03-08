@@ -141,7 +141,7 @@ const ClientDashboard = () => {
               </TableHeader>
               <TableBody>
                 {projects.map((p) => (
-                  <TableRow key={p.id} className="border-primary-foreground/5 hover:bg-primary-foreground/5">
+                  <TableRow key={p.id} className="border-primary-foreground/5 hover:bg-primary-foreground/5 cursor-pointer" onClick={() => navigate(`/project/${p.id}`)}>
                     <TableCell className="text-primary-foreground font-medium">{p.name}</TableCell>
                     <TableCell className="text-primary-foreground/60 text-sm">{p.project_type || "—"}</TableCell>
                     <TableCell>
