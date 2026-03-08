@@ -318,6 +318,9 @@ export type Database = {
         | "editor"
         | "client"
         | "viewer"
+        | "platform_owner"
+        | "org_admin"
+        | "client_admin"
       priority_level: "low" | "medium" | "high" | "urgent"
       project_status:
         | "brief_received"
@@ -461,6 +464,9 @@ export const Constants = {
         "editor",
         "client",
         "viewer",
+        "platform_owner",
+        "org_admin",
+        "client_admin",
       ],
       priority_level: ["low", "medium", "high", "urgent"],
       project_status: [
