@@ -33,9 +33,9 @@ const allStatuses: ProjectStatus[] = [
 
 const priorityColors: Record<PriorityLevel, string> = {
   low: "bg-muted text-muted-foreground",
-  medium: "bg-blue-500/20 text-blue-300",
-  high: "bg-accent/20 text-accent",
-  urgent: "bg-destructive/20 text-destructive",
+  medium: "bg-primary/10 text-primary",
+  high: "bg-accent/15 text-accent-foreground",
+  urgent: "bg-destructive/15 text-destructive",
 };
 
 const AdminDashboard = () => {
