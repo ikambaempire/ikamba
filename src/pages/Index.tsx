@@ -11,6 +11,7 @@ import DashboardMockup from "@/components/home/DashboardMockup";
 import WorkflowMockup from "@/components/home/WorkflowMockup";
 import ProjectTrackerMockup from "@/components/home/ProjectTrackerMockup";
 import AssetLibraryMockup from "@/components/home/AssetLibraryMockup";
+import TrustedBySlider from "@/components/home/TrustedBySlider";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
