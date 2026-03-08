@@ -186,7 +186,7 @@ const AdminDashboard = () => {
                   const risk = getDeadlineRisk(p.deadline, p.status);
                   const days = getDaysInStage(p.stage_entered_at);
                   return (
-                    <TableRow key={p.id} className="border-primary-foreground/5 hover:bg-primary-foreground/5">
+                    <TableRow key={p.id} className="border-primary-foreground/5 hover:bg-primary-foreground/5 cursor-pointer" onClick={() => navigate(`/project/${p.id}`)}>
                       <TableCell className="text-primary-foreground/60 text-sm">{getClientName(p.client_id)}</TableCell>
                       <TableCell className="text-primary-foreground font-medium text-sm">{p.name}</TableCell>
                       <TableCell className="text-primary-foreground/60 text-xs">{p.project_type || "—"}</TableCell>

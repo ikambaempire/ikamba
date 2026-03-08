@@ -40,6 +40,7 @@ const ClientDashboard = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [assets, setAssets] = useState<number>(0);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {

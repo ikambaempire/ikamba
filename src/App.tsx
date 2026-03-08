@@ -49,6 +49,9 @@ const App = () => (
             <Route path="/workspace" element={<ProtectedRoute><ClientDashboard /></ProtectedRoute>} />
             <Route path="/workspace/new-brief" element={<ProtectedRoute><NewBrief /></ProtectedRoute>} />
 
+            {/* Shared */}
+            <Route path="/project/:id" element={<ProtectedRoute><ProjectDetail /></ProtectedRoute>} />
+
             {/* Admin */}
             <Route path="/admin" element={<ProtectedRoute requireInternal><AdminDashboard /></ProtectedRoute>} />
 
