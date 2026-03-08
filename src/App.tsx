@@ -7,6 +7,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Solutions from "./pages/Solutions";
+import Platform from "./pages/Platform";
 import CaseStudies from "./pages/CaseStudies";
 import Insights from "./pages/Insights";
 import About from "./pages/About";
@@ -33,6 +34,7 @@ const App = () => (
           <Routes>
             {/* Public */}
             <Route path="/" element={<Index />} />
+            <Route path="/platform" element={<Platform />} />
             <Route path="/solutions" element={<Solutions />} />
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/insights" element={<Insights />} />
