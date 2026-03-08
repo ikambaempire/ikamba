@@ -12,15 +12,14 @@ const AuthRedirect = () => {
       navigate("/login", { replace: true });
       return;
     }
-    // Wait a moment for roles to load
     const timer = setTimeout(() => {
       if (isInternal) {
         navigate("/admin", { replace: true });
       } else if (isClient) {
         navigate("/workspace", { replace: true });
       } else {
-        // No role yet - default to workspace
-        navigate("/workspace", { replace: true });
+        // Regular users (including Google sign-ups with no role yet)
+        navigate("/dashboard", { replace: true });
       }
     }, 300);
     return () => clearTimeout(timer);
