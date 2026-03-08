@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import {
-  BarChart3, Clock, AlertTriangle, CheckCircle2, LogOut, Layers, Users, TrendingUp,
+  BarChart3, Clock, AlertTriangle, CheckCircle2, LogOut, Layers, TrendingUp, Building2,
 } from "lucide-react";
 import type { Database } from "@/integrations/supabase/types";
 
@@ -33,10 +32,10 @@ const allStatuses: ProjectStatus[] = [
 ];
 
 const priorityColors: Record<PriorityLevel, string> = {
-  low: "bg-gray-500/20 text-gray-300",
+  low: "bg-muted text-muted-foreground",
   medium: "bg-blue-500/20 text-blue-300",
-  high: "bg-orange-500/20 text-orange-300",
-  urgent: "bg-red-500/20 text-red-300",
+  high: "bg-accent/20 text-accent",
+  urgent: "bg-destructive/20 text-destructive",
 };
 
 const AdminDashboard = () => {
@@ -45,6 +44,7 @@ const AdminDashboard = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
+  const [orgName, setOrgName] = useState("");
 
   const fetchData = async () => {
     const [projRes, clientRes] = await Promise.all([
@@ -53,19 +53,18 @@ const AdminDashboard = () => {
     ]);
     if (projRes.data) setProjects(projRes.data);
     if (clientRes.data) setClients(clientRes.data);
+
+    if (profile?.organization_id) {
+      const { data: org } = await supabase.from("organizations").select("name").eq("id", profile.organization_id).single();
+      if (org) setOrgName(org.name);
+    }
     setLoading(false);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(() => { fetchData(); }, [profile?.organization_id]);
 
   const getClientName = (clientId: string) => clients.find((c) => c.id === clientId)?.name || "—";
-
-  const getDaysInStage = (stageEnteredAt: string) => {
-    const days = Math.floor((Date.now() - new Date(stageEnteredAt).getTime()) / 86400000);
-    return days;
-  };
+  const getDaysInStage = (stageEnteredAt: string) => Math.floor((Date.now() - new Date(stageEnteredAt).getTime()) / 86400000);
 
   const getDeadlineRisk = (deadline: string | null, status: ProjectStatus) => {
     if (!deadline || ["final_delivery", "archive"].includes(status)) return "green";
@@ -109,31 +108,33 @@ const AdminDashboard = () => {
   const metrics = [
     { icon: Layers, label: "Active Projects", value: active.length, color: "text-blue-400" },
     { icon: Clock, label: "In Review", value: inReview.length, color: "text-cyan-400" },
-    { icon: AlertTriangle, label: "Overdue", value: overdue.length, color: "text-red-400" },
-    { icon: CheckCircle2, label: "Delivered This Month", value: deliveredThisMonth.length, color: "text-emerald-400" },
-    { icon: TrendingUp, label: "Avg Revisions", value: avgRevisions, color: "text-amber-400" },
+    { icon: AlertTriangle, label: "Overdue", value: overdue.length, color: "text-destructive" },
+    { icon: CheckCircle2, label: "Delivered This Month", value: deliveredThisMonth.length, color: "text-success" },
+    { icon: TrendingUp, label: "Avg Revisions", value: avgRevisions, color: "text-accent" },
   ];
 
   return (
-    <div className="min-h-screen bg-navy">
-      {/* Top bar */}
-      <header className="border-b border-primary-foreground/10 bg-navy-light/50 backdrop-blur-sm">
+    <div className="min-h-screen bg-background">
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="font-heading text-lg font-extrabold text-primary-foreground">
+            <span className="font-heading text-lg font-extrabold text-foreground">
               IKAMBA<span className="text-accent">.</span>
             </span>
-            <span className="text-primary-foreground/30 text-xs">|</span>
-            <span className="text-primary-foreground/50 text-sm">Admin Dashboard</span>
+            <span className="text-muted-foreground/30 text-xs">|</span>
+            <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
+              <Building2 size={14} />
+              <span>{orgName || "Admin Dashboard"}</span>
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-xs text-accent border border-accent/30 px-2 py-0.5 rounded-full">
               {roles[0]?.replace("_", " ").toUpperCase()}
             </span>
-            <span className="text-primary-foreground/50 text-sm hidden sm:block">
+            <span className="text-muted-foreground text-sm hidden sm:block">
               {profile?.full_name || user?.email}
             </span>
-            <Button variant="ghost" size="sm" onClick={signOut} className="text-primary-foreground/40 hover:text-primary-foreground hover:bg-primary-foreground/5">
+            <Button variant="ghost" size="sm" onClick={signOut} className="text-muted-foreground hover:text-foreground">
               <LogOut size={16} />
             </Button>
           </div>
@@ -142,43 +143,41 @@ const AdminDashboard = () => {
 
       <main className="max-w-[1400px] mx-auto px-6 py-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-primary-foreground">Global Overview</h1>
-          <p className="text-primary-foreground/40 text-sm mt-1">Operational status across all projects</p>
+          <h1 className="text-2xl font-bold text-foreground">Global Overview</h1>
+          <p className="text-muted-foreground text-sm mt-1">Operational status across all projects</p>
         </div>
 
-        {/* Metrics */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">
           {metrics.map((m, i) => (
-            <div key={i} className="bg-primary-foreground/5 border border-primary-foreground/10 rounded-lg p-5">
+            <div key={i} className="bg-card border border-border rounded-lg p-5">
               <m.icon className={`${m.color} mb-2`} size={20} />
-              <p className="text-2xl font-bold text-primary-foreground">{loading ? "—" : m.value}</p>
-              <p className="text-xs text-primary-foreground/40 mt-1">{m.label}</p>
+              <p className="text-2xl font-bold text-foreground">{loading ? "—" : m.value}</p>
+              <p className="text-xs text-muted-foreground mt-1">{m.label}</p>
             </div>
           ))}
         </div>
 
-        {/* Master Project Table */}
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-primary-foreground">Master Project Table</h2>
-          <span className="text-primary-foreground/30 text-sm">{projects.length} projects</span>
+          <h2 className="text-lg font-bold text-foreground">Master Project Table</h2>
+          <span className="text-muted-foreground text-sm">{projects.length} projects</span>
         </div>
 
-        <div className="bg-primary-foreground/5 border border-primary-foreground/10 rounded-lg overflow-x-auto">
+        <div className="bg-card border border-border rounded-lg overflow-x-auto">
           {loading ? (
-            <div className="p-12 text-center text-primary-foreground/30">Loading...</div>
+            <div className="p-12 text-center text-muted-foreground">Loading...</div>
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="border-primary-foreground/10 hover:bg-transparent">
-                  <TableHead className="text-primary-foreground/40 text-xs">Client</TableHead>
-                  <TableHead className="text-primary-foreground/40 text-xs">Project</TableHead>
-                  <TableHead className="text-primary-foreground/40 text-xs">Type</TableHead>
-                  <TableHead className="text-primary-foreground/40 text-xs">Status</TableHead>
-                  <TableHead className="text-primary-foreground/40 text-xs">Priority</TableHead>
-                  <TableHead className="text-primary-foreground/40 text-xs">Deadline</TableHead>
-                  <TableHead className="text-primary-foreground/40 text-xs">Days in Stage</TableHead>
-                  <TableHead className="text-primary-foreground/40 text-xs">Revisions</TableHead>
-                  <TableHead className="text-primary-foreground/40 text-xs">Updated</TableHead>
+                <TableRow className="border-border hover:bg-transparent">
+                  <TableHead className="text-muted-foreground text-xs">Client</TableHead>
+                  <TableHead className="text-muted-foreground text-xs">Project</TableHead>
+                  <TableHead className="text-muted-foreground text-xs">Type</TableHead>
+                  <TableHead className="text-muted-foreground text-xs">Status</TableHead>
+                  <TableHead className="text-muted-foreground text-xs">Priority</TableHead>
+                  <TableHead className="text-muted-foreground text-xs">Deadline</TableHead>
+                  <TableHead className="text-muted-foreground text-xs">Days in Stage</TableHead>
+                  <TableHead className="text-muted-foreground text-xs">Revisions</TableHead>
+                  <TableHead className="text-muted-foreground text-xs">Updated</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -186,13 +185,13 @@ const AdminDashboard = () => {
                   const risk = getDeadlineRisk(p.deadline, p.status);
                   const days = getDaysInStage(p.stage_entered_at);
                   return (
-                    <TableRow key={p.id} className="border-primary-foreground/5 hover:bg-primary-foreground/5 cursor-pointer" onClick={() => navigate(`/project/${p.id}`)}>
-                      <TableCell className="text-primary-foreground/60 text-sm">{getClientName(p.client_id)}</TableCell>
-                      <TableCell className="text-primary-foreground font-medium text-sm">{p.name}</TableCell>
-                      <TableCell className="text-primary-foreground/60 text-xs">{p.project_type || "—"}</TableCell>
+                    <TableRow key={p.id} className="border-border hover:bg-muted/30 cursor-pointer" onClick={() => navigate(`/project/${p.id}`)}>
+                      <TableCell className="text-muted-foreground text-sm">{getClientName(p.client_id)}</TableCell>
+                      <TableCell className="text-foreground font-medium text-sm">{p.name}</TableCell>
+                      <TableCell className="text-muted-foreground text-xs">{p.project_type || "—"}</TableCell>
                       <TableCell>
-                        <Select value={p.status} onValueChange={(v) => updateProjectStatus(p.id, v as ProjectStatus)}>
-                          <SelectTrigger className="h-7 text-xs bg-transparent border-primary-foreground/10 text-primary-foreground w-[140px]">
+                        <Select value={p.status} onValueChange={(v) => { updateProjectStatus(p.id, v as ProjectStatus); }}>
+                          <SelectTrigger className="h-7 text-xs bg-transparent border-border text-foreground w-[140px]" onClick={(e) => e.stopPropagation()}>
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
@@ -203,8 +202,8 @@ const AdminDashboard = () => {
                         </Select>
                       </TableCell>
                       <TableCell>
-                        <Select value={p.priority} onValueChange={(v) => updatePriority(p.id, v as PriorityLevel)}>
-                          <SelectTrigger className={`h-7 text-xs border-0 w-[90px] ${priorityColors[p.priority]}`}>
+                        <Select value={p.priority} onValueChange={(v) => { updatePriority(p.id, v as PriorityLevel); }}>
+                          <SelectTrigger className={`h-7 text-xs border-0 w-[90px] ${priorityColors[p.priority]}`} onClick={(e) => e.stopPropagation()}>
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
@@ -215,23 +214,17 @@ const AdminDashboard = () => {
                         </Select>
                       </TableCell>
                       <TableCell>
-                        <span className={`text-sm ${risk === "red" ? "text-red-400 font-semibold" : risk === "orange" ? "text-orange-400" : "text-primary-foreground/60"}`}>
+                        <span className={`text-sm ${risk === "red" ? "text-destructive font-semibold" : risk === "orange" ? "text-accent" : "text-muted-foreground"}`}>
                           {p.deadline ? new Date(p.deadline).toLocaleDateString() : "—"}
                         </span>
                       </TableCell>
                       <TableCell>
-                        <span className={`text-sm ${days > 7 ? "text-orange-400" : "text-primary-foreground/60"}`}>
-                          {days}d
-                        </span>
+                        <span className={`text-sm ${days > 7 ? "text-accent" : "text-muted-foreground"}`}>{days}d</span>
                       </TableCell>
                       <TableCell>
-                        <span className={`text-sm ${p.revision_count > 2 ? "text-orange-400 font-semibold" : "text-primary-foreground/60"}`}>
-                          {p.revision_count}
-                        </span>
+                        <span className={`text-sm ${p.revision_count > 2 ? "text-accent font-semibold" : "text-muted-foreground"}`}>{p.revision_count}</span>
                       </TableCell>
-                      <TableCell className="text-primary-foreground/40 text-xs">
-                        {new Date(p.updated_at).toLocaleDateString()}
-                      </TableCell>
+                      <TableCell className="text-muted-foreground text-xs">{new Date(p.updated_at).toLocaleDateString()}</TableCell>
                     </TableRow>
                   );
                 })}

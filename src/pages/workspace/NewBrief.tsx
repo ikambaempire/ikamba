@@ -48,29 +48,29 @@ const NewBrief = () => {
     }
   };
 
-  const fieldClass = "bg-primary-foreground/5 border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/30";
-  const labelClass = "text-xs font-semibold uppercase tracking-widest text-primary-foreground/40 mb-1.5 block";
+  const fieldClass = "bg-card border-border text-foreground placeholder:text-muted-foreground/50";
+  const labelClass = "text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block";
 
   return (
-    <div className="min-h-screen bg-navy">
-      <header className="border-b border-primary-foreground/10 bg-navy-light/50 backdrop-blur-sm">
+    <div className="min-h-screen bg-background">
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="max-w-3xl mx-auto px-6 h-16 flex items-center gap-4">
           <Link to="/workspace">
-            <Button variant="ghost" size="sm" className="text-primary-foreground/40 hover:text-primary-foreground hover:bg-primary-foreground/5">
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
               <ArrowLeft size={16} />
             </Button>
           </Link>
-          <span className="font-heading text-lg font-extrabold text-primary-foreground">
+          <span className="font-heading text-lg font-extrabold text-foreground">
             IKAMBA<span className="text-accent">.</span>
           </span>
-          <span className="text-primary-foreground/30 text-xs">|</span>
-          <span className="text-primary-foreground/50 text-sm">Submit Brief</span>
+          <span className="text-muted-foreground/30 text-xs">|</span>
+          <span className="text-muted-foreground text-sm">Submit Brief</span>
         </div>
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-10">
-        <h1 className="text-2xl font-bold text-primary-foreground mb-2">New Project Brief</h1>
-        <p className="text-primary-foreground/40 text-sm mb-8">Fill in the details below to start a new project.</p>
+        <h1 className="text-2xl font-bold text-foreground mb-2">New Project Brief</h1>
+        <p className="text-muted-foreground text-sm mb-8">Fill in the details below to start a new project.</p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
