@@ -8,6 +8,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Solutions from "./pages/Solutions";
 import Platform from "./pages/Platform";
+import CaseStudies from "./pages/CaseStudies";
 import Insights from "./pages/Insights";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
