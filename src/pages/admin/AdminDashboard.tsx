@@ -46,6 +46,7 @@ const AdminDashboard = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
   const [orgName, setOrgName] = useState("");
+  const [view, setView] = useState<"table" | "kanban">("table");
 
   const fetchData = async () => {
     const [projRes, clientRes] = await Promise.all([
