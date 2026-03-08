@@ -25,12 +25,12 @@ const statusLabels: Record<ProjectStatus, string> = {
 };
 
 const statusColors: Record<ProjectStatus, string> = {
-  brief_received: "bg-blue-500/20 text-blue-300 border-blue-500/30",
-  strategy_alignment: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-  production: "bg-accent/20 text-accent border-accent/30",
-  editing: "bg-orange-500/20 text-orange-300 border-orange-500/30",
-  client_review: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30",
-  final_delivery: "bg-success/20 text-success border-success/30",
+  brief_received: "bg-primary/10 text-primary border-primary/20",
+  strategy_alignment: "bg-primary/10 text-primary border-primary/20",
+  production: "bg-accent/15 text-accent-foreground border-accent/30",
+  editing: "bg-muted text-foreground border-border",
+  client_review: "bg-accent/15 text-accent-foreground border-accent/30",
+  final_delivery: "bg-success/15 text-foreground border-success/30",
   archive: "bg-muted text-muted-foreground border-border",
 };
 

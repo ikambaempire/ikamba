@@ -33,9 +33,9 @@ const allStatuses: ProjectStatus[] = [
 
 const priorityColors: Record<PriorityLevel, string> = {
   low: "bg-muted text-muted-foreground",
-  medium: "bg-blue-500/20 text-blue-300",
-  high: "bg-accent/20 text-accent",
-  urgent: "bg-destructive/20 text-destructive",
+  medium: "bg-primary/10 text-primary",
+  high: "bg-accent/15 text-accent-foreground",
+  urgent: "bg-destructive/15 text-destructive",
 };
 
 const AdminDashboard = () => {
@@ -106,8 +106,8 @@ const AdminDashboard = () => {
   };
 
   const metrics = [
-    { icon: Layers, label: "Active Projects", value: active.length, color: "text-blue-400" },
-    { icon: Clock, label: "In Review", value: inReview.length, color: "text-cyan-400" },
+    { icon: Layers, label: "Active Projects", value: active.length, color: "text-primary" },
+    { icon: Clock, label: "In Review", value: inReview.length, color: "text-muted-foreground" },
     { icon: AlertTriangle, label: "Overdue", value: overdue.length, color: "text-destructive" },
     { icon: CheckCircle2, label: "Delivered This Month", value: deliveredThisMonth.length, color: "text-success" },
     { icon: TrendingUp, label: "Avg Revisions", value: avgRevisions, color: "text-accent" },
