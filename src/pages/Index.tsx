@@ -5,6 +5,7 @@ import {
   ArrowRight, Layers, Target, ShieldCheck, FileText, Video,
   BarChart3, CheckCircle2, AlertTriangle, Clock, Users, FolderOpen,
   Camera, Film, Clapperboard, Aperture, Focus, MonitorPlay,
+  Mic, Headphones, Radio, Tv, Projector, Podcast, ScanLine,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
