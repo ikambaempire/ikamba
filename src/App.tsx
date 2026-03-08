@@ -19,6 +19,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AuthRedirect from "./pages/AuthRedirect";
 import ClientDashboard from "./pages/workspace/ClientDashboard";
+import UserDashboard from "./pages/workspace/UserDashboard";
 import NewBrief from "./pages/workspace/NewBrief";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ProjectDetail from "./pages/ProjectDetail";
@@ -50,6 +51,9 @@ const AnimatedRoutes = () => {
         {/* Client Workspace */}
         <Route path="/workspace" element={<PageTransition><ProtectedRoute><ClientDashboard /></ProtectedRoute></PageTransition>} />
         <Route path="/workspace/new-brief" element={<PageTransition><ProtectedRoute><NewBrief /></ProtectedRoute></PageTransition>} />
+
+        {/* User Dashboard */}
+        <Route path="/dashboard" element={<PageTransition><ProtectedRoute><UserDashboard /></ProtectedRoute></PageTransition>} />
 
         {/* Shared */}
         <Route path="/project/:id" element={<PageTransition><ProtectedRoute><ProjectDetail /></ProtectedRoute></PageTransition>} />
