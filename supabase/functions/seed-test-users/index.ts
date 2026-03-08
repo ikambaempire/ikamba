@@ -1,120 +1,103 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-}
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders })
-  }
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
-  const supabaseUrl = Deno.env.get('SUPABASE_URL')!
-  const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-  const admin = createClient(supabaseUrl, serviceRoleKey, {
-    auth: { autoRefreshToken: false, persistSession: false }
-  })
+  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const admin = createClient(supabaseUrl, serviceKey, { auth: { autoRefreshToken: false, persistSession: false } });
 
-  const results: string[] = []
+  try {
+    // 1. Create organization
+    const { data: org, error: orgErr } = await admin.from("organizations").insert({
+      name: "Ikamba Empire",
+      slug: "ikamba-empire",
+    }).select().single();
+    if (orgErr) throw orgErr;
 
-  // 1. Create admin user
-  const { data: adminUser, error: adminErr } = await admin.auth.admin.createUser({
-    email: 'admin@ikamba.test',
-    password: 'Admin@Ikamba2026',
-    email_confirm: true,
-    user_metadata: { full_name: 'Super Admin' }
-  })
-  if (adminErr && !adminErr.message.includes('already been registered')) {
-    results.push(`Admin error: ${adminErr.message}`)
-  } else {
-    const adminId = adminUser?.user?.id
-    if (adminId) {
-      await admin.from('user_roles').upsert({ user_id: adminId, role: 'super_admin' }, { onConflict: 'user_id,role' })
-      results.push(`Admin created: admin@ikamba.test`)
-    } else {
-      results.push('Admin user already exists')
+    // 2. Create clients
+    const { data: clients, error: clErr } = await admin.from("clients").insert([
+      { name: "MTN Rwanda", industry: "Telecommunications", contact_person: "Jean Bosco", contact_email: "jb@mtn.rw", organization_id: org.id },
+      { name: "UNICEF Rwanda", industry: "International Development", contact_person: "Alice Uwimana", contact_email: "alice@unicef.org", organization_id: org.id },
+      { name: "MINEDUC", industry: "Government", contact_person: "Patrick Nshimiye", contact_email: "patrick@mineduc.gov.rw", organization_id: org.id },
+    ]).select();
+    if (clErr) throw clErr;
+
+    // 3. Create admin user
+    const { data: adminUser, error: adminErr } = await admin.auth.admin.createUser({
+      email: "admin@ikamba.test",
+      password: "Admin@Ikamba2026",
+      email_confirm: true,
+      user_metadata: { full_name: "System Admin", organization_id: org.id },
+    });
+    if (adminErr) throw adminErr;
+
+    await admin.from("user_roles").insert({ user_id: adminUser.user.id, role: "org_admin", organization_id: org.id });
+
+    // 4. Create client user (linked to MTN)
+    const { data: clientUser, error: clientErr } = await admin.auth.admin.createUser({
+      email: "client@ikamba.test",
+      password: "Client@Ikamba2026",
+      email_confirm: true,
+      user_metadata: { full_name: "MTN Client User", organization_id: org.id },
+    });
+    if (clientErr) throw clientErr;
+
+    await admin.from("profiles").update({ client_id: clients![0].id }).eq("user_id", clientUser.user.id);
+    await admin.from("user_roles").insert({ user_id: clientUser.user.id, role: "client", organization_id: org.id });
+
+    // 5. Create project manager
+    const { data: pmUser, error: pmErr } = await admin.auth.admin.createUser({
+      email: "pm@ikamba.test",
+      password: "PM@Ikamba2026",
+      email_confirm: true,
+      user_metadata: { full_name: "Project Manager", organization_id: org.id },
+    });
+    if (pmErr) throw pmErr;
+    await admin.from("user_roles").insert({ user_id: pmUser.user.id, role: "project_manager", organization_id: org.id });
+
+    // 6. Create sample projects
+    const now = new Date();
+    const projects = [
+      { name: "Annual Report 2026", project_type: "Corporate Video", client_id: clients![0].id, status: "production", priority: "high", deadline: new Date(now.getTime() + 5 * 86400000).toISOString().split("T")[0], revision_count: 1 },
+      { name: "Brand Campaign Q2", project_type: "Social Content", client_id: clients![0].id, status: "client_review", priority: "urgent", deadline: new Date(now.getTime() + 2 * 86400000).toISOString().split("T")[0], revision_count: 3 },
+      { name: "Child Protection Campaign", project_type: "Documentary", client_id: clients![1].id, status: "editing", priority: "medium", deadline: new Date(now.getTime() + 14 * 86400000).toISOString().split("T")[0], revision_count: 0 },
+      { name: "Education Reform Video", project_type: "Corporate Film", client_id: clients![2].id, status: "brief_received", priority: "low", deadline: new Date(now.getTime() + 30 * 86400000).toISOString().split("T")[0], revision_count: 0 },
+      { name: "MTN 5G Launch", project_type: "Event Coverage", client_id: clients![0].id, status: "final_delivery", priority: "high", revision_count: 2 },
+    ];
+
+    const { data: projData, error: projErr } = await admin.from("projects").insert(projects).select();
+    if (projErr) throw projErr;
+
+    // 7. Sample revisions
+    const reviewProject = projData!.find((p: any) => p.status === "client_review");
+    if (reviewProject) {
+      await admin.from("revisions").insert([
+        { project_id: reviewProject.id, revision_number: 1, feedback: "Colors need to align with brand guidelines.", submitted_by: clientUser.user.id },
+        { project_id: reviewProject.id, revision_number: 2, feedback: "Music needs to be more upbeat. Logo placement adjusted.", submitted_by: clientUser.user.id },
+        { project_id: reviewProject.id, revision_number: 3, feedback: "Final cut looks good. Minor text correction needed.", submitted_by: clientUser.user.id },
+      ]);
     }
-  }
 
-  // 2. Create client org
-  const { data: existingClient } = await admin.from('clients').select('id').eq('name', 'Acme Corp').single()
-  let clientId = existingClient?.id
-  if (!clientId) {
-    const { data: newClient } = await admin.from('clients').insert({
-      name: 'Acme Corp',
-      industry: 'Financial Services',
-      contact_person: 'Jane Client',
-      contact_email: 'client@acme.test'
-    }).select('id').single()
-    clientId = newClient?.id
-    results.push(`Client org created: Acme Corp`)
-  }
-
-  // 3. Create client user
-  const { data: clientUser, error: clientErr } = await admin.auth.admin.createUser({
-    email: 'client@ikamba.test',
-    password: 'Client@Ikamba2026',
-    email_confirm: true,
-    user_metadata: { full_name: 'Jane Client' }
-  })
-  if (clientErr && !clientErr.message.includes('already been registered')) {
-    results.push(`Client error: ${clientErr.message}`)
-  } else {
-    const clientUserId = clientUser?.user?.id
-    if (clientUserId) {
-      await admin.from('user_roles').upsert({ user_id: clientUserId, role: 'client' }, { onConflict: 'user_id,role' })
-      if (clientId) {
-        await admin.from('profiles').update({ client_id: clientId }).eq('user_id', clientUserId)
-      }
-      results.push(`Client user created: client@ikamba.test`)
-    } else {
-      results.push('Client user already exists')
+    // 8. Sample status logs
+    const productionProject = projData!.find((p: any) => p.status === "production");
+    if (productionProject) {
+      await admin.from("project_status_logs").insert([
+        { project_id: productionProject.id, old_status: null, new_status: "brief_received", changed_by: adminUser.user.id },
+        { project_id: productionProject.id, old_status: "brief_received", new_status: "strategy_alignment", changed_by: adminUser.user.id, notes: "Strategy call completed with client." },
+        { project_id: productionProject.id, old_status: "strategy_alignment", new_status: "production", changed_by: pmUser.user.id, notes: "Production crew assigned. Shooting scheduled." },
+      ]);
     }
-  }
 
-  // 4. Create sample projects
-  if (clientId) {
-    const { data: existingProj } = await admin.from('projects').select('id').eq('name', 'Annual Report 2026').single()
-    if (!existingProj) {
-      await admin.from('projects').insert([
-        {
-          name: 'Annual Report 2026',
-          client_id: clientId,
-          project_type: 'Corporate Video',
-          objective: 'Produce the annual report video for stakeholder presentation',
-          target_audience: 'Board members, investors, staff',
-          status: 'production',
-          priority: 'high',
-          deadline: '2026-04-15',
-          key_message: 'Growth and stability',
-        },
-        {
-          name: 'Social Media Campaign Q2',
-          client_id: clientId,
-          project_type: 'Social Content',
-          objective: 'Create social media content series for Q2 campaign',
-          target_audience: 'General public, youth demographic',
-          status: 'brief_received',
-          priority: 'medium',
-          deadline: '2026-05-01',
-        },
-        {
-          name: 'Brand Guidelines Update',
-          client_id: clientId,
-          project_type: 'Brand Identity',
-          objective: 'Refresh brand guidelines document',
-          status: 'client_review',
-          priority: 'low',
-          deadline: '2026-03-20',
-          revision_count: 3,
-        },
-      ])
-      results.push('Sample projects created')
-    }
+    return new Response(JSON.stringify({ success: true, org: org.id }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  } catch (err: any) {
+    return new Response(JSON.stringify({ error: err.message }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
   }
-
-  return new Response(JSON.stringify({ success: true, results }), {
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-  })
-})
+});
