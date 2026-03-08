@@ -48,7 +48,7 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="section-padding pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
+      <section className="section-padding pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden gradient-navy">
         {/* Floating creative icons */}
         {[
           { Icon: Camera, x: "8%", y: "18%", size: 28, delay: 0.5, dur: 6 },
@@ -60,11 +60,11 @@ const Index = () => {
         ].map(({ Icon, x, y, size, delay, dur }, i) => (
           <motion.div
             key={i}
-            className="absolute pointer-events-none text-accent/15"
+            className="absolute pointer-events-none text-primary-foreground/10"
             style={{ left: x, top: y }}
             initial={{ opacity: 0, scale: 0 }}
             animate={{
-              opacity: [0, 0.6, 0.3, 0.6, 0],
+              opacity: [0, 0.5, 0.25, 0.5, 0],
               scale: [0.5, 1, 1.1, 1, 0.5],
               y: [0, -12, 0, 12, 0],
               rotate: [0, 5, -5, 3, 0],
@@ -83,13 +83,13 @@ const Index = () => {
           transition={{ duration: 1 }}
         >
           <motion.div
-            className="absolute w-[600px] h-[2px] bg-gradient-to-r from-transparent via-accent/20 to-transparent"
+            className="absolute w-[600px] h-[2px] bg-gradient-to-r from-transparent via-accent/30 to-transparent"
             style={{ top: "30%", left: "-300px", rotate: "-12deg" }}
             animate={{ x: ["-300px", "calc(100vw + 300px)"] }}
             transition={{ duration: 4, delay: 1, repeat: Infinity, repeatDelay: 8, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute w-[400px] h-[1px] bg-gradient-to-r from-transparent via-primary/10 to-transparent"
+            className="absolute w-[400px] h-[1px] bg-gradient-to-r from-transparent via-primary-foreground/10 to-transparent"
             style={{ top: "60%", left: "-200px", rotate: "-8deg" }}
             animate={{ x: ["-200px", "calc(100vw + 200px)"] }}
             transition={{ duration: 3.5, delay: 5, repeat: Infinity, repeatDelay: 10, ease: "easeInOut" }}
@@ -100,7 +100,7 @@ const Index = () => {
         <motion.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
           style={{
-            background: "radial-gradient(circle, hsl(var(--accent) / 0.04) 0%, transparent 70%)",
+            background: "radial-gradient(circle, hsl(var(--accent) / 0.08) 0%, transparent 70%)",
           }}
           animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -109,13 +109,13 @@ const Index = () => {
         <div className="max-w-5xl mx-auto relative z-10">
           {/* Viewfinder frame accent */}
           <motion.div
-            className="hidden md:block absolute -top-6 -left-8 w-16 h-16 border-l-2 border-t-2 border-accent/30 rounded-tl-sm"
+            className="hidden md:block absolute -top-6 -left-8 w-16 h-16 border-l-2 border-t-2 border-accent/40 rounded-tl-sm"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           />
           <motion.div
-            className="hidden md:block absolute -bottom-6 -right-8 w-16 h-16 border-r-2 border-b-2 border-accent/30 rounded-br-sm"
+            className="hidden md:block absolute -bottom-6 -right-8 w-16 h-16 border-r-2 border-b-2 border-accent/40 rounded-br-sm"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
@@ -132,7 +132,7 @@ const Index = () => {
               animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
-            <p className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground">
+            <p className="text-xs uppercase tracking-[0.2em] font-semibold text-primary-foreground/60">
               Communication & Production Operating System
             </p>
           </motion.div>
@@ -141,7 +141,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-foreground mb-6 text-balance"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-primary-foreground mb-6 text-balance"
           >
             <span>Structured </span>
             <motion.span
@@ -158,7 +158,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-10"
+            className="text-lg md:text-xl text-primary-foreground/70 max-w-2xl leading-relaxed mb-10"
           >
             We help communication teams plan, produce, track, and archive content through a structured production system — not chaos.
           </motion.p>
@@ -178,7 +178,7 @@ const Index = () => {
             </Link>
             <Link to="/solutions">
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                <Button variant="outline" size="lg" className="font-semibold">
+                <Button variant="outline" size="lg" className="font-semibold border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                   Explore the Platform
                 </Button>
               </motion.div>
