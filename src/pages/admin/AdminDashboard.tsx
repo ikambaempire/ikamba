@@ -41,6 +41,7 @@ const priorityColors: Record<PriorityLevel, string> = {
 
 const AdminDashboard = () => {
   const { user, profile, signOut, roles } = useAuth();
+  const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
