@@ -6,52 +6,52 @@
 
 @layer base {
   :root {
-    --background: 213 52% 8%;
-    --foreground: 210 40% 95%;
+    --background: 0 0% 100%;
+    --foreground: 213 52% 12%;
 
-    --card: 213 52% 10%;
-    --card-foreground: 210 40% 95%;
+    --card: 210 20% 97%;
+    --card-foreground: 213 52% 12%;
 
-    --popover: 213 52% 12%;
-    --popover-foreground: 210 40% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 52% 12%;
 
-    --primary: 210 40% 95%;
-    --primary-foreground: 213 52% 8%;
+    --primary: 213 52% 14%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 213 32% 15%;
-    --secondary-foreground: 210 40% 95%;
+    --secondary: 210 20% 94%;
+    --secondary-foreground: 213 52% 12%;
 
-    --muted: 213 32% 17%;
-    --muted-foreground: 213 20% 65%;
+    --muted: 210 15% 92%;
+    --muted-foreground: 213 15% 45%;
 
     --accent: 38 92% 50%;
     --accent-foreground: 213 52% 10%;
 
     --destructive: 0 62% 50%;
-    --destructive-foreground: 210 40% 95%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 213 32% 17%;
-    --input: 213 32% 17%;
-    --ring: 210 26% 83%;
+    --border: 210 15% 88%;
+    --input: 210 15% 88%;
+    --ring: 213 52% 40%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 213 52% 8%;
+    --sidebar-background: 213 52% 12%;
     --sidebar-foreground: 210 40% 95%;
     --sidebar-primary: 213 76% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 213 30% 15%;
+    --sidebar-accent: 213 30% 20%;
     --sidebar-accent-foreground: 210 40% 95%;
-    --sidebar-border: 213 30% 15%;
+    --sidebar-border: 213 30% 20%;
     --sidebar-ring: 213 91% 59%;
 
     /* Custom tokens */
-    --navy: 213 52% 8%;
-    --navy-light: 213 40% 14%;
-    --charcoal: 213 20% 18%;
+    --navy: 213 52% 12%;
+    --navy-light: 213 40% 18%;
+    --charcoal: 213 20% 25%;
     --warm-gray: 210 12% 55%;
-    --surface: 213 52% 10%;
-    --surface-elevated: 213 52% 12%;
+    --surface: 210 20% 97%;
+    --surface-elevated: 0 0% 100%;
     --gold: 38 92% 50%;
     --gold-muted: 38 40% 85%;
     --success: 152 60% 40%;
