@@ -423,7 +423,7 @@ const Index = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="section-padding gradient-navy text-primary-foreground text-center">
+      <section className="section-padding bg-primary text-primary-foreground text-center">
         <div className="max-w-3xl mx-auto">
           <motion.h2
             variants={fadeUp}
