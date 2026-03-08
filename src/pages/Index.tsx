@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import {
   ArrowRight, Layers, Target, ShieldCheck, FileText, Video,
   BarChart3, CheckCircle2, AlertTriangle, Clock, Users, FolderOpen,
+  Camera, Film, Clapperboard, Aperture, Focus, MonitorPlay,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -47,39 +48,140 @@ const Index = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="section-padding pt-32 pb-24 md:pt-40 md:pb-32">
-        <div className="max-w-5xl mx-auto">
-          <motion.p
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}
-            className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground mb-6"
+      <section className="section-padding pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
+        {/* Floating creative icons */}
+        {[
+          { Icon: Camera, x: "8%", y: "18%", size: 28, delay: 0.5, dur: 6 },
+          { Icon: Film, x: "88%", y: "12%", size: 24, delay: 1.2, dur: 7 },
+          { Icon: Clapperboard, x: "92%", y: "55%", size: 22, delay: 0.8, dur: 8 },
+          { Icon: Aperture, x: "5%", y: "65%", size: 20, delay: 1.5, dur: 5 },
+          { Icon: Focus, x: "78%", y: "80%", size: 18, delay: 2, dur: 6.5 },
+          { Icon: MonitorPlay, x: "15%", y: "85%", size: 20, delay: 0.3, dur: 7.5 },
+        ].map(({ Icon, x, y, size, delay, dur }, i) => (
+          <motion.div
+            key={i}
+            className="absolute pointer-events-none text-accent/15"
+            style={{ left: x, top: y }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{
+              opacity: [0, 0.6, 0.3, 0.6, 0],
+              scale: [0.5, 1, 1.1, 1, 0.5],
+              y: [0, -12, 0, 12, 0],
+              rotate: [0, 5, -5, 3, 0],
+            }}
+            transition={{ duration: dur, delay, repeat: Infinity, ease: "easeInOut" }}
           >
-            Communication & Production Operating System
-          </motion.p>
+            <Icon size={size} />
+          </motion.div>
+        ))}
+
+        {/* Cinematic light streak */}
+        <motion.div
+          className="absolute top-0 left-0 w-full h-full pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <motion.div
+            className="absolute w-[600px] h-[2px] bg-gradient-to-r from-transparent via-accent/20 to-transparent"
+            style={{ top: "30%", left: "-300px", rotate: "-12deg" }}
+            animate={{ x: ["-300px", "calc(100vw + 300px)"] }}
+            transition={{ duration: 4, delay: 1, repeat: Infinity, repeatDelay: 8, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute w-[400px] h-[1px] bg-gradient-to-r from-transparent via-primary/10 to-transparent"
+            style={{ top: "60%", left: "-200px", rotate: "-8deg" }}
+            animate={{ x: ["-200px", "calc(100vw + 200px)"] }}
+            transition={{ duration: 3.5, delay: 5, repeat: Infinity, repeatDelay: 10, ease: "easeInOut" }}
+          />
+        </motion.div>
+
+        {/* Soft radial glow */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
+          style={{
+            background: "radial-gradient(circle, hsl(var(--accent) / 0.04) 0%, transparent 70%)",
+          }}
+          animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        <div className="max-w-5xl mx-auto relative z-10">
+          {/* Viewfinder frame accent */}
+          <motion.div
+            className="hidden md:block absolute -top-6 -left-8 w-16 h-16 border-l-2 border-t-2 border-accent/30 rounded-tl-sm"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          />
+          <motion.div
+            className="hidden md:block absolute -bottom-6 -right-8 w-16 h-16 border-r-2 border-b-2 border-accent/30 rounded-br-sm"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          />
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2 mb-6"
+          >
+            <motion.div
+              className="w-2 h-2 rounded-full bg-accent"
+              animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <p className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground">
+              Communication & Production Operating System
+            </p>
+          </motion.div>
+
           <motion.h1
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-foreground mb-6 text-balance"
           >
-            Structured Storytelling for Organizations That Lead.
+            <span>Structured </span>
+            <motion.span
+              className="inline-block text-accent"
+              animate={{ rotateX: [0, 8, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              Storytelling
+            </motion.span>
+            <span> for Organizations That Lead.</span>
           </motion.h1>
+
           <motion.p
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-10"
           >
             We help communication teams plan, produce, track, and archive content through a structured production system — not chaos.
           </motion.p>
+
           <motion.div
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
             className="flex flex-col sm:flex-row gap-3"
           >
             <Link to="/start-a-project">
-              <Button variant="hero" size="lg">
-                Start a Project <ArrowRight className="ml-1" size={16} />
-              </Button>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Button variant="hero" size="lg">
+                  Start a Project <ArrowRight className="ml-1" size={16} />
+                </Button>
+              </motion.div>
             </Link>
             <Link to="/solutions">
-              <Button variant="outline" size="lg" className="font-semibold">
-                Explore the Platform
-              </Button>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Button variant="outline" size="lg" className="font-semibold">
+                  Explore the Platform
+                </Button>
+              </motion.div>
             </Link>
           </motion.div>
         </div>
