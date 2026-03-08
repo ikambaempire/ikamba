@@ -1,55 +1,86 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Camera, Film, Clapperboard, Aperture, Focus, MonitorPlay } from "lucide-react";
+import {
+  Camera, Film, Clapperboard, Aperture, Focus, MonitorPlay,
+  Video, Mic, Headphones, Radio, Tv, Projector, Podcast, ScanLine,
+} from "lucide-react";
+
+const floatingIcons = [
+  { Icon: Camera, x: "5%", y: "10%", size: 26, delay: 0, dur: 6 },
+  { Icon: Film, x: "18%", y: "5%", size: 22, delay: 0.8, dur: 7 },
+  { Icon: Clapperboard, x: "30%", y: "15%", size: 24, delay: 0.4, dur: 5.5 },
+  { Icon: Video, x: "45%", y: "8%", size: 20, delay: 1.2, dur: 6.5 },
+  { Icon: Aperture, x: "60%", y: "12%", size: 28, delay: 0.6, dur: 7.5 },
+  { Icon: MonitorPlay, x: "75%", y: "6%", size: 22, delay: 1.5, dur: 6 },
+  { Icon: Mic, x: "88%", y: "14%", size: 20, delay: 0.3, dur: 5 },
+  { Icon: Focus, x: "8%", y: "40%", size: 20, delay: 1, dur: 8 },
+  { Icon: Headphones, x: "22%", y: "50%", size: 24, delay: 0.5, dur: 6 },
+  { Icon: Projector, x: "38%", y: "42%", size: 22, delay: 1.8, dur: 7 },
+  { Icon: Radio, x: "55%", y: "48%", size: 18, delay: 0.7, dur: 5.5 },
+  { Icon: ScanLine, x: "70%", y: "38%", size: 26, delay: 1.3, dur: 6.5 },
+  { Icon: Podcast, x: "85%", y: "45%", size: 20, delay: 0.2, dur: 7.5 },
+  { Icon: Tv, x: "92%", y: "52%", size: 22, delay: 1.6, dur: 6 },
+  { Icon: Camera, x: "12%", y: "75%", size: 22, delay: 0.9, dur: 5.5 },
+  { Icon: Film, x: "28%", y: "82%", size: 20, delay: 1.4, dur: 7 },
+  { Icon: Clapperboard, x: "42%", y: "70%", size: 26, delay: 0.1, dur: 6 },
+  { Icon: Video, x: "58%", y: "78%", size: 22, delay: 2, dur: 8 },
+  { Icon: Aperture, x: "72%", y: "72%", size: 24, delay: 0.6, dur: 5 },
+  { Icon: MonitorPlay, x: "86%", y: "80%", size: 20, delay: 1.1, dur: 6.5 },
+];
 
 const Footer = () => (
   <footer className="relative bg-primary text-primary-foreground overflow-hidden">
-    {/* Floating creative icons — same style as hero */}
-    {[
-      { Icon: Camera, x: "6%", y: "15%", size: 22, delay: 0.3, dur: 7 },
-      { Icon: Film, x: "85%", y: "10%", size: 20, delay: 1, dur: 6 },
-      { Icon: Clapperboard, x: "90%", y: "60%", size: 18, delay: 0.6, dur: 8 },
-      { Icon: Aperture, x: "4%", y: "70%", size: 16, delay: 1.5, dur: 5.5 },
-      { Icon: Focus, x: "75%", y: "80%", size: 16, delay: 2, dur: 6.5 },
-      { Icon: MonitorPlay, x: "20%", y: "85%", size: 18, delay: 0.8, dur: 7 },
-    ].map(({ Icon, x, y, size, delay, dur }, i) => (
+    {/* Many floating icons */}
+    {floatingIcons.map(({ Icon, x, y, size, delay, dur }, i) => (
       <motion.div
         key={i}
-        className="absolute pointer-events-none text-primary-foreground/10"
+        className="absolute pointer-events-none text-primary-foreground"
         style={{ left: x, top: y }}
         initial={{ opacity: 0, scale: 0 }}
         animate={{
-          opacity: [0, 0.5, 0.25, 0.5, 0],
-          scale: [0.5, 1, 1.1, 1, 0.5],
-          y: [0, -10, 0, 10, 0],
-          rotate: [0, 5, -5, 3, 0],
+          opacity: [0, 0.15, 0.08, 0.15, 0],
+          scale: [0.6, 1, 1.15, 1, 0.6],
+          y: [0, -8, 0, 8, 0],
+          rotate: [0, 6, -4, 3, 0],
         }}
         transition={{ duration: dur, delay, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Icon size={size} />
+        <Icon size={size} strokeWidth={1.5} />
       </motion.div>
     ))}
 
     {/* Light streaks */}
     <motion.div
-      className="absolute w-[500px] h-[1px] bg-gradient-to-r from-transparent via-accent/15 to-transparent pointer-events-none"
-      style={{ top: "35%", left: "-250px", rotate: "-10deg" }}
-      animate={{ x: ["-250px", "calc(100vw + 250px)"] }}
-      transition={{ duration: 5, delay: 2, repeat: Infinity, repeatDelay: 10, ease: "easeInOut" }}
+      className="absolute w-[600px] h-[2px] bg-gradient-to-r from-transparent via-accent/20 to-transparent pointer-events-none"
+      style={{ top: "30%", left: "-300px", rotate: "-10deg" }}
+      animate={{ x: ["-300px", "calc(100vw + 300px)"] }}
+      transition={{ duration: 4, delay: 1, repeat: Infinity, repeatDelay: 8, ease: "easeInOut" }}
     />
     <motion.div
-      className="absolute w-[300px] h-[1px] bg-gradient-to-r from-transparent via-primary-foreground/8 to-transparent pointer-events-none"
-      style={{ top: "65%", left: "-150px", rotate: "-6deg" }}
-      animate={{ x: ["-150px", "calc(100vw + 150px)"] }}
-      transition={{ duration: 4, delay: 7, repeat: Infinity, repeatDelay: 12, ease: "easeInOut" }}
+      className="absolute w-[400px] h-[1.5px] bg-gradient-to-r from-transparent via-primary-foreground/10 to-transparent pointer-events-none"
+      style={{ top: "55%", left: "-200px", rotate: "-7deg" }}
+      animate={{ x: ["-200px", "calc(100vw + 200px)"] }}
+      transition={{ duration: 3.5, delay: 5, repeat: Infinity, repeatDelay: 10, ease: "easeInOut" }}
+    />
+    <motion.div
+      className="absolute w-[500px] h-[1px] bg-gradient-to-r from-transparent via-accent/15 to-transparent pointer-events-none"
+      style={{ top: "75%", left: "-250px", rotate: "-12deg" }}
+      animate={{ x: ["-250px", "calc(100vw + 250px)"] }}
+      transition={{ duration: 4.5, delay: 3, repeat: Infinity, repeatDelay: 9, ease: "easeInOut" }}
     />
 
-    {/* Soft glow */}
+    {/* Soft glows */}
     <motion.div
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-      style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.06) 0%, transparent 70%)" }}
-      animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.7, 0.4] }}
-      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
+      style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.07) 0%, transparent 70%)" }}
+      animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
+      transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+    />
+    <motion.div
+      className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
+      style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.05) 0%, transparent 70%)" }}
+      animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
+      transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
     />
 
     <div className="relative z-10 max-w-7xl mx-auto section-padding">
