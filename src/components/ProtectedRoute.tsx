@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ProtectedRoute = ({ children, requireInternal, requireClient }: Props) => {
-  const { user, loading, isInternal, isClient, roles } = useAuth();
+  const { user, loading, isInternal, isClient } = useAuth();
 
   if (loading) {
     return (
