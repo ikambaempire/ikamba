@@ -188,7 +188,7 @@ const Index = () => {
       </section>
 
       {/* Client Workspace */}
-      <section className="section-padding gradient-navy text-primary-foreground">
+      <section className="section-padding bg-primary text-primary-foreground">
         <div className="max-w-5xl mx-auto">
           <motion.h2
             variants={fadeUp}

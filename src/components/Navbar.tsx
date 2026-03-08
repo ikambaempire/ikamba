@@ -66,7 +66,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-navy border-b border-primary-foreground/10 overflow-hidden"
+            className="md:hidden bg-primary border-b border-primary-foreground/10 overflow-hidden"
           >
             <div className="px-6 py-4 space-y-2">
               {navLinks.map((link) => (
