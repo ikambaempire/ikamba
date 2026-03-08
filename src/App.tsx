@@ -18,6 +18,7 @@ import AuthRedirect from "./pages/AuthRedirect";
 import ClientDashboard from "./pages/workspace/ClientDashboard";
 import NewBrief from "./pages/workspace/NewBrief";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import ProjectDetail from "./pages/ProjectDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
