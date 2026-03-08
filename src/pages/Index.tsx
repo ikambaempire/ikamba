@@ -5,6 +5,7 @@ import {
   ArrowRight, Layers, Target, ShieldCheck, FileText, Video,
   BarChart3, CheckCircle2, AlertTriangle, Clock, Users, FolderOpen,
   Camera, Film, Clapperboard, Aperture, Focus, MonitorPlay,
+  Mic, Headphones, Radio, Tv, Projector, Podcast, ScanLine,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -51,27 +52,41 @@ const Index = () => {
       <section className="section-padding pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden gradient-navy">
         {/* Floating creative icons */}
         {[
-          { Icon: Camera, x: "8%", y: "18%", size: 28, delay: 0.5, dur: 6 },
-          { Icon: Film, x: "88%", y: "12%", size: 24, delay: 1.2, dur: 7 },
-          { Icon: Clapperboard, x: "92%", y: "55%", size: 22, delay: 0.8, dur: 8 },
-          { Icon: Aperture, x: "5%", y: "65%", size: 20, delay: 1.5, dur: 5 },
-          { Icon: Focus, x: "78%", y: "80%", size: 18, delay: 2, dur: 6.5 },
-          { Icon: MonitorPlay, x: "15%", y: "85%", size: 20, delay: 0.3, dur: 7.5 },
+          { Icon: Camera, x: "5%", y: "10%", size: 28, delay: 0, dur: 6 },
+          { Icon: Film, x: "18%", y: "5%", size: 22, delay: 0.8, dur: 7 },
+          { Icon: Clapperboard, x: "32%", y: "14%", size: 24, delay: 0.4, dur: 5.5 },
+          { Icon: Video, x: "48%", y: "8%", size: 20, delay: 1.2, dur: 6.5 },
+          { Icon: Aperture, x: "62%", y: "12%", size: 28, delay: 0.6, dur: 7.5 },
+          { Icon: MonitorPlay, x: "78%", y: "6%", size: 22, delay: 1.5, dur: 6 },
+          { Icon: Mic, x: "90%", y: "14%", size: 20, delay: 0.3, dur: 5 },
+          { Icon: Focus, x: "7%", y: "38%", size: 22, delay: 1, dur: 8 },
+          { Icon: Headphones, x: "20%", y: "48%", size: 24, delay: 0.5, dur: 6 },
+          { Icon: Projector, x: "40%", y: "42%", size: 22, delay: 1.8, dur: 7 },
+          { Icon: Radio, x: "58%", y: "46%", size: 20, delay: 0.7, dur: 5.5 },
+          { Icon: ScanLine, x: "72%", y: "36%", size: 26, delay: 1.3, dur: 6.5 },
+          { Icon: Podcast, x: "88%", y: "44%", size: 20, delay: 0.2, dur: 7.5 },
+          { Icon: Tv, x: "94%", y: "55%", size: 22, delay: 1.6, dur: 6 },
+          { Icon: Camera, x: "10%", y: "72%", size: 24, delay: 0.9, dur: 5.5 },
+          { Icon: Film, x: "25%", y: "80%", size: 20, delay: 1.4, dur: 7 },
+          { Icon: Clapperboard, x: "42%", y: "68%", size: 26, delay: 0.1, dur: 6 },
+          { Icon: Video, x: "56%", y: "76%", size: 22, delay: 2, dur: 8 },
+          { Icon: Aperture, x: "70%", y: "70%", size: 24, delay: 0.6, dur: 5 },
+          { Icon: MonitorPlay, x: "84%", y: "78%", size: 22, delay: 1.1, dur: 6.5 },
         ].map(({ Icon, x, y, size, delay, dur }, i) => (
           <motion.div
             key={i}
-            className="absolute pointer-events-none text-primary-foreground/10"
+            className="absolute pointer-events-none text-primary-foreground"
             style={{ left: x, top: y }}
             initial={{ opacity: 0, scale: 0 }}
             animate={{
-              opacity: [0, 0.5, 0.25, 0.5, 0],
-              scale: [0.5, 1, 1.1, 1, 0.5],
-              y: [0, -12, 0, 12, 0],
-              rotate: [0, 5, -5, 3, 0],
+              opacity: [0, 0.15, 0.08, 0.15, 0],
+              scale: [0.6, 1, 1.15, 1, 0.6],
+              y: [0, -8, 0, 8, 0],
+              rotate: [0, 6, -4, 3, 0],
             }}
             transition={{ duration: dur, delay, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Icon size={size} />
+            <Icon size={size} strokeWidth={1.5} />
           </motion.div>
         ))}
 
