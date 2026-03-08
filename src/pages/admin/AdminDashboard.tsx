@@ -186,6 +186,17 @@ const AdminDashboard = () => {
           </div>
         </div>
 
+        {view === "kanban" ? (
+          loading ? (
+            <div className="p-12 text-center text-muted-foreground">Loading...</div>
+          ) : (
+            <KanbanBoard
+              projects={projects}
+              clients={clients.map((c) => ({ id: c.id, name: c.name }))}
+              onStatusChange={updateProjectStatus}
+            />
+          )
+        ) : (
         <div className="bg-card border border-border rounded-lg overflow-x-auto">
           {loading ? (
             <div className="p-12 text-center text-muted-foreground">Loading...</div>
@@ -256,6 +267,7 @@ const AdminDashboard = () => {
             </Table>
           )}
         </div>
+        )}
       </main>
     </div>
   );
