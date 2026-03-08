@@ -7,7 +7,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Solutions from "./pages/Solutions";
-import CaseStudies from "./pages/CaseStudies";
+import Platform from "./pages/Platform";
 import Insights from "./pages/Insights";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
