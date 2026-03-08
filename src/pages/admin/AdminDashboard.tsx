@@ -106,8 +106,8 @@ const AdminDashboard = () => {
   };
 
   const metrics = [
-    { icon: Layers, label: "Active Projects", value: active.length, color: "text-blue-400" },
-    { icon: Clock, label: "In Review", value: inReview.length, color: "text-cyan-400" },
+    { icon: Layers, label: "Active Projects", value: active.length, color: "text-primary" },
+    { icon: Clock, label: "In Review", value: inReview.length, color: "text-muted-foreground" },
     { icon: AlertTriangle, label: "Overdue", value: overdue.length, color: "text-destructive" },
     { icon: CheckCircle2, label: "Delivered This Month", value: deliveredThisMonth.length, color: "text-success" },
     { icon: TrendingUp, label: "Avg Revisions", value: avgRevisions, color: "text-accent" },
