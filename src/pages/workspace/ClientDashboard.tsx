@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -40,6 +40,7 @@ const ClientDashboard = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [assets, setAssets] = useState<number>(0);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -141,7 +142,7 @@ const ClientDashboard = () => {
               </TableHeader>
               <TableBody>
                 {projects.map((p) => (
-                  <TableRow key={p.id} className="border-primary-foreground/5 hover:bg-primary-foreground/5">
+                  <TableRow key={p.id} className="border-primary-foreground/5 hover:bg-primary-foreground/5 cursor-pointer" onClick={() => navigate(`/project/${p.id}`)}>
                     <TableCell className="text-primary-foreground font-medium">{p.name}</TableCell>
                     <TableCell className="text-primary-foreground/60 text-sm">{p.project_type || "—"}</TableCell>
                     <TableCell>

@@ -18,6 +18,7 @@ import AuthRedirect from "./pages/AuthRedirect";
 import ClientDashboard from "./pages/workspace/ClientDashboard";
 import NewBrief from "./pages/workspace/NewBrief";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import ProjectDetail from "./pages/ProjectDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +48,9 @@ const App = () => (
             {/* Client Workspace */}
             <Route path="/workspace" element={<ProtectedRoute><ClientDashboard /></ProtectedRoute>} />
             <Route path="/workspace/new-brief" element={<ProtectedRoute><NewBrief /></ProtectedRoute>} />
+
+            {/* Shared */}
+            <Route path="/project/:id" element={<ProtectedRoute><ProjectDetail /></ProtectedRoute>} />
 
             {/* Admin */}
             <Route path="/admin" element={<ProtectedRoute requireInternal><AdminDashboard /></ProtectedRoute>} />

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -40,6 +41,7 @@ const priorityColors: Record<PriorityLevel, string> = {
 
 const AdminDashboard = () => {
   const { user, profile, signOut, roles } = useAuth();
+  const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
@@ -184,7 +186,7 @@ const AdminDashboard = () => {
                   const risk = getDeadlineRisk(p.deadline, p.status);
                   const days = getDaysInStage(p.stage_entered_at);
                   return (
-                    <TableRow key={p.id} className="border-primary-foreground/5 hover:bg-primary-foreground/5">
+                    <TableRow key={p.id} className="border-primary-foreground/5 hover:bg-primary-foreground/5 cursor-pointer" onClick={() => navigate(`/project/${p.id}`)}>
                       <TableCell className="text-primary-foreground/60 text-sm">{getClientName(p.client_id)}</TableCell>
                       <TableCell className="text-primary-foreground font-medium text-sm">{p.name}</TableCell>
                       <TableCell className="text-primary-foreground/60 text-xs">{p.project_type || "—"}</TableCell>
