@@ -3,8 +3,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { AuthProvider } from "@/hooks/useAuth";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import PageTransition from "@/components/PageTransition";
 import Index from "./pages/Index";
 import Solutions from "./pages/Solutions";
 import Platform from "./pages/Platform";
@@ -24,6 +26,43 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* Public */}
+        <Route path="/" element={<PageTransition><Index /></PageTransition>} />
+        <Route path="/platform" element={<PageTransition><Platform /></PageTransition>} />
+        <Route path="/solutions" element={<PageTransition><Solutions /></PageTransition>} />
+        <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
+        <Route path="/insights" element={<PageTransition><Insights /></PageTransition>} />
+        <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/start-a-project" element={<PageTransition><StartAProject /></PageTransition>} />
+
+        {/* Auth */}
+        <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
+        <Route path="/signup" element={<PageTransition><Signup /></PageTransition>} />
+        <Route path="/auth-redirect" element={<AuthRedirect />} />
+
+        {/* Client Workspace */}
+        <Route path="/workspace" element={<PageTransition><ProtectedRoute><ClientDashboard /></ProtectedRoute></PageTransition>} />
+        <Route path="/workspace/new-brief" element={<PageTransition><ProtectedRoute><NewBrief /></ProtectedRoute></PageTransition>} />
+
+        {/* Shared */}
+        <Route path="/project/:id" element={<PageTransition><ProtectedRoute><ProjectDetail /></ProtectedRoute></PageTransition>} />
+
+        {/* Admin */}
+        <Route path="/admin" element={<PageTransition><ProtectedRoute requireInternal><AdminDashboard /></ProtectedRoute></PageTransition>} />
+
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -31,34 +70,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            {/* Public */}
-            <Route path="/" element={<Index />} />
-            <Route path="/platform" element={<Platform />} />
-            <Route path="/solutions" element={<Solutions />} />
-            <Route path="/case-studies" element={<CaseStudies />} />
-            <Route path="/insights" element={<Insights />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/start-a-project" element={<StartAProject />} />
-
-            {/* Auth */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/auth-redirect" element={<AuthRedirect />} />
-
-            {/* Client Workspace */}
-            <Route path="/workspace" element={<ProtectedRoute><ClientDashboard /></ProtectedRoute>} />
-            <Route path="/workspace/new-brief" element={<ProtectedRoute><NewBrief /></ProtectedRoute>} />
-
-            {/* Shared */}
-            <Route path="/project/:id" element={<ProtectedRoute><ProjectDetail /></ProtectedRoute>} />
-
-            {/* Admin */}
-            <Route path="/admin" element={<ProtectedRoute requireInternal><AdminDashboard /></ProtectedRoute>} />
-
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AnimatedRoutes />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
