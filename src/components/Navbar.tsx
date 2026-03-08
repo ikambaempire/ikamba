@@ -17,7 +17,7 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/90 backdrop-blur-md border-b border-primary-foreground/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary-foreground/10">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16">
         <Link to="/" className="font-heading text-xl font-extrabold tracking-tight text-primary-foreground">
           IKAMBA<span className="text-accent">.</span>
