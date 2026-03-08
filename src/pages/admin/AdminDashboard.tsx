@@ -160,8 +160,30 @@ const AdminDashboard = () => {
         </div>
 
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-foreground">Master Project Table</h2>
-          <span className="text-muted-foreground text-sm">{projects.length} projects</span>
+          <h2 className="text-lg font-bold text-foreground">
+            {view === "table" ? "Master Project Table" : "Workflow Pipeline"}
+          </h2>
+          <div className="flex items-center gap-3">
+            <span className="text-muted-foreground text-sm">{projects.length} projects</span>
+            <div className="flex items-center bg-muted rounded-md p-0.5">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setView("table")}
+                className={`h-7 px-2.5 ${view === "table" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <TableIcon size={14} />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setView("kanban")}
+                className={`h-7 px-2.5 ${view === "kanban" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <LayoutGrid size={14} />
+              </Button>
+            </div>
+          </div>
         </div>
 
         <div className="bg-card border border-border rounded-lg overflow-x-auto">
