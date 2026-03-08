@@ -178,7 +178,7 @@ const Index = () => {
             </Link>
             <Link to="/solutions">
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                <Button variant="outline" size="lg" className="font-semibold border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
+                <Button variant="outline" size="lg" className="font-semibold border-primary-foreground/30 bg-primary-foreground text-primary hover:bg-primary-foreground/90">
                   Explore the Platform
                 </Button>
               </motion.div>
