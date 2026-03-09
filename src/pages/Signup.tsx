@@ -28,15 +28,15 @@ const Signup = () => {
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success("Account created! Please check your email to verify your account.");
-      navigate("/login");
+      toast.success("Account created! Signing you in...");
+      setTimeout(() => navigate("/auth-redirect"), 500);
     }
   };
 
   const handleGoogleSignUp = async () => {
     setGoogleLoading(true);
     const { error } = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+      redirect_uri: window.location.origin + "/auth-redirect",
     });
     setGoogleLoading(false);
     if (error) {
