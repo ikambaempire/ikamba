@@ -28,8 +28,8 @@ const Signup = () => {
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success("Account created! Please check your email to verify your account.");
-      navigate("/login");
+      toast.success("Account created! Signing you in...");
+      setTimeout(() => navigate("/auth-redirect"), 500);
     }
   };
 
