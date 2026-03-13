@@ -15,6 +15,7 @@ import Insights from "./pages/Insights";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import StartAProject from "./pages/StartAProject";
+import CaptionGenerator from "./pages/CaptionGenerator";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AuthRedirect from "./pages/AuthRedirect";
