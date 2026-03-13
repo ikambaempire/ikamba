@@ -14,6 +14,11 @@ import WorkflowMockup from "@/components/home/WorkflowMockup";
 import ProjectTrackerMockup from "@/components/home/ProjectTrackerMockup";
 import AssetLibraryMockup from "@/components/home/AssetLibraryMockup";
 import TrustedBySlider from "@/components/home/TrustedBySlider";
+import heroProductionImg from "@/assets/hero-production.jpg";
+import caseStudyCorporateImg from "@/assets/case-study-corporate.jpg";
+import caseStudyCampaignImg from "@/assets/case-study-campaign.jpg";
+import workflowOverviewImg from "@/assets/workflow-overview.jpg";
+import solutionsVideoImg from "@/assets/solutions-video.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -200,6 +205,29 @@ const Index = () => {
             </Link>
           </motion.div>
         </div>
+
+        {/* Hero cinematic image */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="max-w-6xl mx-auto mt-16 relative z-10"
+        >
+          <div className="relative rounded-xl overflow-hidden shadow-2xl border border-primary-foreground/10">
+            <img
+              src={heroProductionImg}
+              alt="Professional video production studio with cinematic lighting and RED camera setup"
+              className="w-full h-auto object-cover"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <p className="text-primary-foreground/80 text-sm font-medium">
+                Enterprise-grade production — structured, governed, delivered.
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* Trusted By */}
@@ -258,14 +286,32 @@ const Index = () => {
       {/* The Ikamba Production System */}
       <section className="section-padding bg-secondary">
         <div className="max-w-5xl mx-auto">
-          <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}
-            className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
-            The Ikamba Production System
-          </motion.h2>
-          <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}
-            className="text-muted-foreground mb-12 max-w-xl">
-            A 4-step governance framework that brings structure, accountability, and visibility to every project.
-          </motion.p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-12">
+            <div>
+              <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}
+                className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
+                The Ikamba Production System
+              </motion.h2>
+              <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}
+                className="text-muted-foreground max-w-xl">
+                A 4-step governance framework that brings structure, accountability, and visibility to every project.
+              </motion.p>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="rounded-xl overflow-hidden shadow-lg border border-border"
+            >
+              <img
+                src={workflowOverviewImg}
+                alt="Organized production workflow with storyboards, brand guidelines, and project management tools"
+                className="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </motion.div>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((step, i) => (
               <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
@@ -319,6 +365,23 @@ const Index = () => {
             className="text-muted-foreground mb-12 max-w-xl">
             End-to-end production capabilities, governed by structure.
           </motion.p>
+
+          {/* Solutions hero image */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="rounded-xl overflow-hidden shadow-lg border border-border mb-10"
+          >
+            <img
+              src={solutionsVideoImg}
+              alt="Professional video shoot with cinema camera and lighting setup"
+              className="w-full h-64 md:h-80 object-cover"
+              loading="lazy"
+            />
+          </motion.div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {solutions.map((s, i) => (
               <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
@@ -350,14 +413,17 @@ const Index = () => {
           </motion.p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { client: "Regional Bank", type: "Annual Report Production", result: "Delivered 3 weeks early with zero revision overruns." },
-              { client: "International NGO", type: "Campaign Content System", result: "80+ assets produced and archived within a unified governance framework." },
+              { client: "Regional Bank", type: "Annual Report Production", result: "Delivered 3 weeks early with zero revision overruns.", img: caseStudyCorporateImg, imgAlt: "Corporate boardroom strategy presentation" },
+              { client: "International NGO", type: "Campaign Content System", result: "80+ assets produced and archived within a unified governance framework.", img: caseStudyCampaignImg, imgAlt: "Creative team collaborating on video editing" },
             ].map((c, i) => (
               <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
-                className="bg-card border border-border rounded-lg p-6">
-                <span className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">{c.type}</span>
-                <h3 className="text-lg font-bold mt-2 mb-2 text-foreground">{c.client}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{c.result}</p>
+                className="bg-card border border-border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                <img src={c.img} alt={c.imgAlt} className="w-full h-48 object-cover" loading="lazy" />
+                <div className="p-6">
+                  <span className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">{c.type}</span>
+                  <h3 className="text-lg font-bold mt-2 mb-2 text-foreground">{c.client}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{c.result}</p>
+                </div>
               </motion.div>
             ))}
           </div>
