@@ -286,14 +286,32 @@ const Index = () => {
       {/* The Ikamba Production System */}
       <section className="section-padding bg-secondary">
         <div className="max-w-5xl mx-auto">
-          <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}
-            className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
-            The Ikamba Production System
-          </motion.h2>
-          <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}
-            className="text-muted-foreground mb-12 max-w-xl">
-            A 4-step governance framework that brings structure, accountability, and visibility to every project.
-          </motion.p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-12">
+            <div>
+              <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}
+                className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
+                The Ikamba Production System
+              </motion.h2>
+              <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}
+                className="text-muted-foreground max-w-xl">
+                A 4-step governance framework that brings structure, accountability, and visibility to every project.
+              </motion.p>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="rounded-xl overflow-hidden shadow-lg border border-border"
+            >
+              <img
+                src={workflowOverviewImg}
+                alt="Organized production workflow with storyboards, brand guidelines, and project management tools"
+                className="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </motion.div>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((step, i) => (
               <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
