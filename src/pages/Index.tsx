@@ -413,14 +413,17 @@ const Index = () => {
           </motion.p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { client: "Regional Bank", type: "Annual Report Production", result: "Delivered 3 weeks early with zero revision overruns." },
-              { client: "International NGO", type: "Campaign Content System", result: "80+ assets produced and archived within a unified governance framework." },
+              { client: "Regional Bank", type: "Annual Report Production", result: "Delivered 3 weeks early with zero revision overruns.", img: caseStudyCorporateImg, imgAlt: "Corporate boardroom strategy presentation" },
+              { client: "International NGO", type: "Campaign Content System", result: "80+ assets produced and archived within a unified governance framework.", img: caseStudyCampaignImg, imgAlt: "Creative team collaborating on video editing" },
             ].map((c, i) => (
               <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
-                className="bg-card border border-border rounded-lg p-6">
-                <span className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">{c.type}</span>
-                <h3 className="text-lg font-bold mt-2 mb-2 text-foreground">{c.client}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{c.result}</p>
+                className="bg-card border border-border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                <img src={c.img} alt={c.imgAlt} className="w-full h-48 object-cover" loading="lazy" />
+                <div className="p-6">
+                  <span className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">{c.type}</span>
+                  <h3 className="text-lg font-bold mt-2 mb-2 text-foreground">{c.client}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{c.result}</p>
+                </div>
               </motion.div>
             ))}
           </div>
