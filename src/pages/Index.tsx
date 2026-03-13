@@ -14,7 +14,6 @@ import WorkflowMockup from "@/components/home/WorkflowMockup";
 import ProjectTrackerMockup from "@/components/home/ProjectTrackerMockup";
 import AssetLibraryMockup from "@/components/home/AssetLibraryMockup";
 import TrustedBySlider from "@/components/home/TrustedBySlider";
-import heroProductionImg from "@/assets/hero-production.jpg";
 import caseStudyCorporateImg from "@/assets/case-study-corporate.jpg";
 import caseStudyCampaignImg from "@/assets/case-study-campaign.jpg";
 import workflowOverviewImg from "@/assets/workflow-overview.jpg";
