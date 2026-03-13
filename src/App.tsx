@@ -15,6 +15,7 @@ import Insights from "./pages/Insights";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import StartAProject from "./pages/StartAProject";
+import CaptionGenerator from "./pages/CaptionGenerator";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AuthRedirect from "./pages/AuthRedirect";
@@ -42,6 +43,7 @@ const AnimatedRoutes = () => {
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
         <Route path="/start-a-project" element={<PageTransition><StartAProject /></PageTransition>} />
+        <Route path="/caption-generator" element={<PageTransition><CaptionGenerator /></PageTransition>} />
 
         {/* Auth */}
         <Route path="/login" element={<PageTransition><Login /></PageTransition>} />

@@ -14,7 +14,6 @@ import WorkflowMockup from "@/components/home/WorkflowMockup";
 import ProjectTrackerMockup from "@/components/home/ProjectTrackerMockup";
 import AssetLibraryMockup from "@/components/home/AssetLibraryMockup";
 import TrustedBySlider from "@/components/home/TrustedBySlider";
-import heroProductionImg from "@/assets/hero-production.jpg";
 import caseStudyCorporateImg from "@/assets/case-study-corporate.jpg";
 import caseStudyCampaignImg from "@/assets/case-study-campaign.jpg";
 import workflowOverviewImg from "@/assets/workflow-overview.jpg";
@@ -196,38 +195,15 @@ const Index = () => {
                 </Button>
               </motion.div>
             </Link>
-            <Link to="/solutions">
+            <Link to="/caption-generator">
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Button variant="outline" size="lg" className="font-semibold border-primary-foreground/30 bg-primary-foreground text-primary hover:bg-primary-foreground/90">
-                  Explore the Platform
+                  ✨ Get Free Caption
                 </Button>
               </motion.div>
             </Link>
           </motion.div>
         </div>
-
-        {/* Hero cinematic image */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="max-w-6xl mx-auto mt-16 relative z-10"
-        >
-          <div className="relative rounded-xl overflow-hidden shadow-2xl border border-primary-foreground/10">
-            <img
-              src={heroProductionImg}
-              alt="Professional video production studio with cinematic lighting and RED camera setup"
-              className="w-full h-auto object-cover"
-              loading="eager"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <p className="text-primary-foreground/80 text-sm font-medium">
-                Enterprise-grade production — structured, governed, delivered.
-              </p>
-            </div>
-          </div>
-        </motion.div>
       </section>
 
       {/* Trusted By */}
