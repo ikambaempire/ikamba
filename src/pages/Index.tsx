@@ -365,6 +365,23 @@ const Index = () => {
             className="text-muted-foreground mb-12 max-w-xl">
             End-to-end production capabilities, governed by structure.
           </motion.p>
+
+          {/* Solutions hero image */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="rounded-xl overflow-hidden shadow-lg border border-border mb-10"
+          >
+            <img
+              src={solutionsVideoImg}
+              alt="Professional video shoot with cinema camera and lighting setup"
+              className="w-full h-64 md:h-80 object-cover"
+              loading="lazy"
+            />
+          </motion.div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {solutions.map((s, i) => (
               <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
