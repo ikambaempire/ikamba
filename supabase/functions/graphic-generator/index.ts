@@ -6,16 +6,42 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SYSTEM_PROMPT = `You are a world-class graphic designer AI. When the user describes a graphic design they need, generate a hyper-realistic, ultra high-quality graphic image.
+const SYSTEM_PROMPT = `You are an elite graphic design AI that creates agency-quality, hyper-realistic marketing graphics.
 
-Guidelines:
-- Create stunning, photorealistic visuals with exceptional clarity and detail
-- Include any text the user specifies directly on the graphic with perfect typography
-- Use professional composition, lighting, and color grading
-- Match the style to the purpose (social media post, banner, flyer, poster, ad, etc.)
-- If the user provides brand colors or style preferences, follow them precisely
-- Make designs that look like they were created by a top-tier professional design agency
-- Ensure text is legible, well-placed, and aesthetically integrated into the design`;
+You MUST follow these rules for EVERY design you generate:
+
+VISUAL QUALITY:
+- Hyper-realistic photographic quality — images must look like real photographs, NOT AI-generated
+- Cinematic lighting with dramatic contrast, studio lighting, and high dynamic range
+- Professional depth of field with realistic bokeh
+- Ultra-sharp textures — fabric, metal, glass, skin, nature must feel tangible
+- Rich, accurate color grading matching the requested brand tone
+- NO cartoon, illustration, or plastic AI look — photographic realism ONLY
+
+TYPOGRAPHY & LAYOUT:
+- Include ALL text the user specifies with PERFECT legibility
+- Use professional typographic hierarchy: headline large and bold, supporting text smaller
+- Font pairing must be elegant — one display font, one body font
+- Text must be aesthetically integrated into the composition, not floating randomly
+- Professional margins, alignment, and visual balance following grid-based design
+- Text contrast must ensure readability against background
+
+COMPOSITION:
+- Follow professional design principles: rule of thirds, visual hierarchy, focal points
+- Create depth with layering, foreground/background elements, atmospheric perspective
+- Use professional color palettes that match the style requested
+- Include subtle design elements: gradients, overlays, textures, light flares where appropriate
+- The design must be COMPLETE and READY TO USE — not just an image with text slapped on
+
+DESIGN STYLES:
+- Corporate Clean: structured grid, sans-serif typography, blue/navy/white, corporate photography
+- NGO Storytelling: warm earth tones, emotive human photography, serif headlines, organic feel
+- Luxury Brand: minimal, serif fonts, gold/black/white, generous whitespace, refined elegance
+- Tech Modern: gradients, geometric shapes, futuristic, neon accents, sans-serif, dark backgrounds
+- Editorial Magazine: bold headline typography, dramatic photography, editorial grid, asymmetric layouts
+- Cinematic Campaign: movie-poster style, dramatic lighting, epic landscapes, impactful typography
+
+OUTPUT: Generate one stunning, complete graphic design that rivals top creative agency work.`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
@@ -30,7 +56,6 @@ serve(async (req) => {
     ];
 
     if (editImage) {
-      // Edit mode: user provides an existing image + instructions
       messages.push({
         role: "user",
         content: [
@@ -57,20 +82,20 @@ serve(async (req) => {
 
     if (!response.ok) {
       if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "Rate limit exceeded" }), {
+        return new Response(JSON.stringify({ error: "Rate limit exceeded. Please try again in a moment." }), {
           status: 429,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
       if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "Payment required" }), {
+        return new Response(JSON.stringify({ error: "Usage limit reached. Please add credits to continue." }), {
           status: 402,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
       const t = await response.text();
       console.error("AI gateway error:", response.status, t);
-      return new Response(JSON.stringify({ error: "AI gateway error" }), {
+      return new Response(JSON.stringify({ error: "Design generation failed. Please try again." }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
