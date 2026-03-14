@@ -202,6 +202,13 @@ const Index = () => {
                 </Button>
               </motion.div>
             </Link>
+            <Link to="/design-studio">
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Button variant="hero-outline" size="lg">
+                  🎨 Graphics Portal
+                </Button>
+              </motion.div>
+            </Link>
           </motion.div>
         </div>
       </section>
