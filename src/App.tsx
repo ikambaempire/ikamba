@@ -16,6 +16,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import StartAProject from "./pages/StartAProject";
 import CaptionGenerator from "./pages/CaptionGenerator";
+import DesignStudio from "./pages/DesignStudio";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AuthRedirect from "./pages/AuthRedirect";
