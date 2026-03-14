@@ -43,7 +43,7 @@ DESIGN STYLES:
 
 OUTPUT: Generate one stunning, complete graphic design that rivals top creative agency work.`;
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
