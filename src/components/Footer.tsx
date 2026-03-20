@@ -4,6 +4,8 @@ import {
   Camera, Film, Clapperboard, Aperture, Focus, MonitorPlay,
   Video, Mic, Headphones, Radio, Tv, Projector, Podcast, ScanLine,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Phone, Mail } from "lucide-react";
 
 const floatingIcons = [
   { Icon: Camera, x: "5%", y: "10%", size: 26, delay: 0, dur: 6 },
@@ -30,7 +32,6 @@ const floatingIcons = [
 
 const Footer = () => (
   <footer className="relative bg-primary text-primary-foreground overflow-hidden">
-    {/* Many floating icons */}
     {floatingIcons.map(({ Icon, x, y, size, delay, dur }, i) => (
       <motion.div
         key={i}
@@ -49,7 +50,6 @@ const Footer = () => (
       </motion.div>
     ))}
 
-    {/* Light streaks */}
     <motion.div
       className="absolute w-[600px] h-[2px] bg-gradient-to-r from-transparent via-accent/20 to-transparent pointer-events-none"
       style={{ top: "30%", left: "-300px", rotate: "-10deg" }}
@@ -57,59 +57,44 @@ const Footer = () => (
       transition={{ duration: 4, delay: 1, repeat: Infinity, repeatDelay: 8, ease: "easeInOut" }}
     />
     <motion.div
-      className="absolute w-[400px] h-[1.5px] bg-gradient-to-r from-transparent via-primary-foreground/10 to-transparent pointer-events-none"
-      style={{ top: "55%", left: "-200px", rotate: "-7deg" }}
-      animate={{ x: ["-200px", "calc(100vw + 200px)"] }}
-      transition={{ duration: 3.5, delay: 5, repeat: Infinity, repeatDelay: 10, ease: "easeInOut" }}
-    />
-    <motion.div
-      className="absolute w-[500px] h-[1px] bg-gradient-to-r from-transparent via-accent/15 to-transparent pointer-events-none"
-      style={{ top: "75%", left: "-250px", rotate: "-12deg" }}
-      animate={{ x: ["-250px", "calc(100vw + 250px)"] }}
-      transition={{ duration: 4.5, delay: 3, repeat: Infinity, repeatDelay: 9, ease: "easeInOut" }}
-    />
-
-    {/* Soft glows */}
-    <motion.div
       className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
       style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.07) 0%, transparent 70%)" }}
       animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
       transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-    />
-    <motion.div
-      className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
-      style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.05) 0%, transparent 70%)" }}
-      animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
-      transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
     />
 
     <div className="relative z-10 max-w-7xl mx-auto section-padding">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
         <div className="md:col-span-1">
           <p className="font-heading text-xl font-extrabold tracking-tight mb-3">
-            IKAMBA<span className="text-accent">.</span>
+            IKAMBA<span className="text-accent"> IMPAKT</span>
           </p>
-          <p className="text-sm text-primary-foreground/60 leading-relaxed">
-            Structured Communication & Production Systems for organizations that lead.
+          <p className="text-sm text-primary-foreground/60 leading-relaxed mb-4">
+            Impact Storytelling & Media Production for Organizations.
           </p>
-        </div>
-
-        <div>
-          <h4 className="text-xs font-semibold uppercase tracking-widest text-primary-foreground/40 mb-4">Platform</h4>
-          <ul className="space-y-2 text-sm text-primary-foreground/70">
-            <li><Link to="/solutions" className="hover:text-primary-foreground transition-colors">Solutions</Link></li>
-            <li><Link to="/platform" className="hover:text-primary-foreground transition-colors">Platform</Link></li>
-            <li><Link to="/case-studies" className="hover:text-primary-foreground transition-colors">Case Studies</Link></li>
-            <li><Link to="/insights" className="hover:text-primary-foreground transition-colors">Insights</Link></li>
-          </ul>
+          <div className="flex flex-col gap-2">
+            <Link to="/start-a-project">
+              <Button variant="hero" size="sm" className="w-full">
+                Start a Project <ArrowRight className="ml-1" size={14} />
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button variant="outline" size="sm" className="w-full border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
+                Book Consultation
+              </Button>
+            </Link>
+          </div>
         </div>
 
         <div>
           <h4 className="text-xs font-semibold uppercase tracking-widest text-primary-foreground/40 mb-4">Company</h4>
           <ul className="space-y-2 text-sm text-primary-foreground/70">
+            <li><Link to="/" className="hover:text-primary-foreground transition-colors">Home</Link></li>
+            <li><Link to="/solutions" className="hover:text-primary-foreground transition-colors">Solutions</Link></li>
+            <li><Link to="/work" className="hover:text-primary-foreground transition-colors">Work</Link></li>
+            <li><Link to="/insights" className="hover:text-primary-foreground transition-colors">Insights</Link></li>
             <li><Link to="/about" className="hover:text-primary-foreground transition-colors">About</Link></li>
             <li><Link to="/contact" className="hover:text-primary-foreground transition-colors">Contact</Link></li>
-            <li><Link to="/start-a-project" className="hover:text-primary-foreground transition-colors">Start a Project</Link></li>
           </ul>
         </div>
 
@@ -117,15 +102,29 @@ const Footer = () => (
           <h4 className="text-xs font-semibold uppercase tracking-widest text-primary-foreground/40 mb-4">Connect</h4>
           <ul className="space-y-2 text-sm text-primary-foreground/70">
             <li><a href="#" className="hover:text-primary-foreground transition-colors">LinkedIn</a></li>
-            <li><a href="#" className="hover:text-primary-foreground transition-colors">Twitter / X</a></li>
             <li><a href="#" className="hover:text-primary-foreground transition-colors">Instagram</a></li>
+            <li><a href="#" className="hover:text-primary-foreground transition-colors">Twitter / X</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-xs font-semibold uppercase tracking-widest text-primary-foreground/40 mb-4">Contact</h4>
+          <ul className="space-y-3 text-sm text-primary-foreground/70">
+            <li className="flex items-center gap-2">
+              <Phone size={14} className="text-accent" />
+              <span>0796 889 527</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <Mail size={14} className="text-accent" />
+              <span>connect@ikambamedia.com</span>
+            </li>
           </ul>
         </div>
       </div>
 
       <div className="border-t border-primary-foreground/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-xs text-primary-foreground/40">© {new Date().getFullYear()} Ikamba Empire Ltd. All rights reserved.</p>
-        <p className="text-xs text-primary-foreground/40">Structured production governance.</p>
+        <p className="text-xs text-primary-foreground/40">© {new Date().getFullYear()} Ikamba Impakt. All rights reserved.</p>
+        <p className="text-xs text-primary-foreground/40">Impact Storytelling & Media Production.</p>
       </div>
     </div>
   </footer>

@@ -1,13 +1,24 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Target, ShieldCheck, Users, Layers } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { ArrowRight, Heart, Eye, Compass, Sparkles } from "lucide-react";
+import Card3D from "@/components/home/Card3D";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
+  visible: (i: number) => ({
+    opacity: 1, y: 0, filter: "blur(0px)",
+    transition: { delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
 
 const values = [
-  { icon: Target, title: "Structured by Design", desc: "Every engagement follows a documented production governance framework." },
-  { icon: ShieldCheck, title: "Accountability First", desc: "Clear ownership, approval chains, and revision protocols on every project." },
-  { icon: Users, title: "Client-Centric Systems", desc: "Private workspaces, transparent tracking, and secure asset delivery." },
-  { icon: Layers, title: "Built for Scale", desc: "Systems designed to grow with organizational complexity." },
+  { icon: Heart, title: "Authenticity", desc: "We capture real stories with honesty and respect for every community and organization we work with." },
+  { icon: Eye, title: "Clarity", desc: "Every story we produce communicates a clear message. No ambiguity, no jargon — just impactful storytelling." },
+  { icon: Compass, title: "Purpose-Driven", desc: "We work with organizations that create meaningful impact. Their mission becomes our creative direction." },
+  { icon: Sparkles, title: "Excellence", desc: "Professional-grade production quality in every deliverable — from photography to documentary filmmaking." },
 ];
 
 const About = () => (
@@ -16,33 +27,64 @@ const About = () => (
     <section className="section-padding pt-32 pb-16 md:pt-40">
       <div className="max-w-5xl mx-auto">
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground mb-4">
-          Who We Are
+          About Ikamba
         </motion.p>
-        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 text-balance">
-          A Communication & Production Systems Partner
+        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+          className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 text-balance">
+          Impact Storytelling & Media Production
         </motion.h1>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-muted-foreground max-w-2xl space-y-4 mb-16">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+          className="text-muted-foreground max-w-2xl space-y-4 mb-16">
           <p className="text-lg leading-relaxed">
-            Ikamba Empire Ltd is a structured communication and production systems partner serving corporates, NGOs, and institutions.
+            Ikamba is a storytelling and media production company supporting organizations that create meaningful impact.
           </p>
           <p className="leading-relaxed">
-            We don't operate like a traditional creative agency. We build production governance systems — frameworks that help communication teams plan, produce, track, and archive content with discipline and accountability.
+            We combine storytelling expertise with professional media production to help organizations communicate their work clearly. From documentaries to campaign visuals, we capture stories that inspire action and build trust.
           </p>
-          <p className="leading-relaxed">
-            Our approach is rooted in the belief that great organizational storytelling requires structure, not just creativity. Every project follows a documented 4-step production system with clear milestones, approval protocols, and archival procedures.
+        </motion.div>
+
+        {/* Mission */}
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}
+          className="bg-primary text-primary-foreground rounded-xl p-8 md:p-10 mb-16 shadow-lg">
+          <p className="text-xs uppercase tracking-[0.2em] font-semibold text-primary-foreground/50 mb-3">Our Mission</p>
+          <p className="text-xl md:text-2xl font-bold leading-relaxed">
+            Help organizations tell their stories with clarity, authenticity, and impact.
+          </p>
+        </motion.div>
+
+        {/* Founder Journey */}
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}
+          className="mb-16">
+          <h2 className="text-2xl font-bold mb-4">Founder Journey</h2>
+          <p className="text-muted-foreground leading-relaxed max-w-2xl">
+            Ikamba was founded with a deep belief in the power of storytelling. Our experience in media production and creative collaboration revealed an opportunity to help organizations communicate their impact more effectively while empowering African creators. Today, we partner with NGOs, corporations, and institutions across the continent to produce stories that matter.
           </p>
         </motion.div>
 
         <h2 className="text-2xl font-bold mb-8">Our Values</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {values.map((v, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-surface-elevated border border-border rounded-lg p-6">
-              <v.icon className="text-accent mb-3" size={22} />
-              <h3 className="text-base font-bold mb-1">{v.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
-            </motion.div>
+            <Card3D key={i} className="group">
+              <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
+                className="bg-card border border-border rounded-xl p-6 h-full shadow-[0_2px_12px_hsl(var(--foreground)/0.04)] hover:shadow-[0_12px_40px_hsl(var(--foreground)/0.1)] hover:border-accent/30 transition-all duration-300">
+                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+                  <v.icon className="text-accent" size={20} />
+                </div>
+                <h3 className="text-base font-bold mb-1">{v.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
+              </motion.div>
+            </Card3D>
           ))}
         </div>
+
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={8}
+          className="mt-16 text-center">
+          <Link to="/start-a-project">
+            <Button variant="hero" size="lg">
+              Start a Project <ArrowRight className="ml-1" size={16} />
+            </Button>
+          </Link>
+        </motion.div>
       </div>
     </section>
     <Footer />
