@@ -7,7 +7,7 @@ const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
   visible: (i: number) => ({
     opacity: 1, y: 0, filter: "blur(0px)",
-    transition: { delay: i * 0.06, duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    transition: { delay: i * 0.06, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
   }),
 };
 

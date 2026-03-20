@@ -9,8 +9,8 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import PageTransition from "@/components/PageTransition";
 import Index from "./pages/Index";
 import Solutions from "./pages/Solutions";
-import Platform from "./pages/Platform";
-import CaseStudies from "./pages/CaseStudies";
+import Work from "./pages/Work";
+import HowItWorks from "./pages/HowItWorks";
 import Insights from "./pages/Insights";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -37,15 +37,19 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         {/* Public */}
         <Route path="/" element={<PageTransition><Index /></PageTransition>} />
-        <Route path="/platform" element={<PageTransition><Platform /></PageTransition>} />
         <Route path="/solutions" element={<PageTransition><Solutions /></PageTransition>} />
-        <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
+        <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
+        <Route path="/how-it-works" element={<PageTransition><HowItWorks /></PageTransition>} />
         <Route path="/insights" element={<PageTransition><Insights /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
         <Route path="/start-a-project" element={<PageTransition><StartAProject /></PageTransition>} />
         <Route path="/caption-generator" element={<PageTransition><CaptionGenerator /></PageTransition>} />
         <Route path="/design-studio" element={<DesignStudio />} />
+
+        {/* Legacy redirects */}
+        <Route path="/platform" element={<PageTransition><Solutions /></PageTransition>} />
+        <Route path="/case-studies" element={<PageTransition><Work /></PageTransition>} />
 
         {/* Auth */}
         <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
