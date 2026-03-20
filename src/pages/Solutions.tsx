@@ -1,20 +1,26 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Video, BarChart3, Layers, ShieldCheck, Megaphone, FileSearch } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { ArrowRight, Film, Video, Image, Megaphone, Users, FileSearch } from "lucide-react";
+import Card3D from "@/components/home/Card3D";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
+  hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
+  visible: (i: number) => ({
+    opacity: 1, y: 0, filter: "blur(0px)",
+    transition: { delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+  }),
 };
 
 const allSolutions = [
-  { icon: Video, title: "Video & Motion Production", desc: "Corporate films, social content, animations, explainers, and campaign visuals — all produced through a structured workflow with documented milestones." },
-  { icon: BarChart3, title: "Content Strategy & Planning", desc: "Editorial calendars, messaging frameworks, audience mapping, and distribution systems designed for internal communication teams." },
-  { icon: Layers, title: "Brand & Identity Systems", desc: "Visual identity governance, brand guideline development, template systems, and asset standardization across departments." },
-  { icon: ShieldCheck, title: "Production Governance", desc: "Workflow structuring, approval protocols, revision management, and archival systems that create operational discipline." },
-  { icon: Megaphone, title: "Campaign Production", desc: "End-to-end campaign execution from brief through multi-format delivery, with structured timelines and approval checkpoints." },
-  { icon: FileSearch, title: "Content Audit & Archival", desc: "Systematic review, categorization, and structured archival of existing organizational content assets." },
+  { icon: Film, title: "Documentary Production", desc: "We produce short documentaries that highlight real stories, community impact, and organizational achievements. From concept through final cut, we manage the entire production process." },
+  { icon: Video, title: "Video Production", desc: "Professional video production for campaigns, programs, interviews, and events. Cinematic quality with structured workflows and clear timelines." },
+  { icon: Image, title: "Photography for Impact Storytelling", desc: "High-quality photography capturing communities, initiatives, and leadership stories. Images that tell powerful visual narratives." },
+  { icon: Megaphone, title: "Campaign Storytelling", desc: "Visual storytelling designed for advocacy campaigns and communication initiatives. Multi-format content that amplifies your message across platforms." },
+  { icon: Users, title: "NGO Storytelling", desc: "Specialized storytelling solutions for nonprofit organizations and development partners. We understand the unique needs and sensitivities of impact communication." },
+  { icon: FileSearch, title: "Content Strategy", desc: "Strategic communication planning that identifies the right stories, audiences, and formats to maximize organizational impact." },
 ];
 
 const Solutions = () => (
@@ -25,21 +31,44 @@ const Solutions = () => (
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground mb-4">
           What We Do
         </motion.p>
-        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-balance">
-          Solutions Built for Structured Production
+        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+          className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-balance">
+          Storytelling & Media Production Solutions
         </motion.h1>
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-lg text-muted-foreground max-w-2xl mb-16">
-          Every solution we offer follows a governed production framework — from intake to archive.
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+          className="text-lg text-muted-foreground max-w-2xl mb-16">
+          Ikamba Impakt provides storytelling and media production solutions designed for organizations that want to communicate their work clearly and effectively.
         </motion.p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {allSolutions.map((s, i) => (
-            <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} className="bg-surface-elevated border border-border rounded-lg p-8 hover:shadow-md transition-shadow">
-              <s.icon className="text-accent mb-4" size={24} />
-              <h3 className="text-lg font-bold mb-2">{s.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-            </motion.div>
+            <Card3D key={i} className="group">
+              <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}
+                className="bg-card border border-border rounded-xl p-8 h-full shadow-[0_2px_12px_hsl(var(--foreground)/0.04)] hover:shadow-[0_12px_40px_hsl(var(--foreground)/0.1)] hover:border-accent/30 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
+                  <s.icon className="text-accent" size={24} />
+                </div>
+                <h3 className="text-lg font-bold mb-2">{s.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+              </motion.div>
+            </Card3D>
           ))}
         </div>
+
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={8}
+          className="mt-16 text-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link to="/start-a-project">
+              <Button variant="hero" size="lg">
+                Start a Project <ArrowRight className="ml-1" size={16} />
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button variant="outline" size="lg" className="font-semibold">
+                Book Consultation
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
     <Footer />

@@ -2,9 +2,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, Phone, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", organization: "", message: "" });
@@ -21,10 +22,10 @@ const Contact = () => {
       <section className="section-padding pt-32 pb-16 md:pt-40">
         <div className="max-w-5xl mx-auto">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">
-            Contact Us
+            Contact Ikamba
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-lg text-muted-foreground max-w-xl mb-12">
-            Have a question about our production systems? We'd love to hear from you.
+            We would love to hear about your storytelling project. Reach out to our team or start a project with us.
           </motion.p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -53,25 +54,30 @@ const Contact = () => {
             </div>
             <div className="space-y-6">
               <div className="flex gap-3 items-start">
-                <Mail className="text-accent shrink-0 mt-0.5" size={18} />
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-1">Email</p>
-                  <p className="text-sm">hello@ikamba.com</p>
-                </div>
-              </div>
-              <div className="flex gap-3 items-start">
                 <Phone className="text-accent shrink-0 mt-0.5" size={18} />
                 <div>
                   <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-1">Phone</p>
-                  <p className="text-sm">+254 700 000 000</p>
+                  <p className="text-sm">0796 889 527</p>
                 </div>
               </div>
               <div className="flex gap-3 items-start">
-                <MapPin className="text-accent shrink-0 mt-0.5" size={18} />
+                <Mail className="text-accent shrink-0 mt-0.5" size={18} />
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-1">Location</p>
-                  <p className="text-sm">Nairobi, Kenya</p>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-1">Email</p>
+                  <p className="text-sm">connect@ikambamedia.com</p>
                 </div>
+              </div>
+
+              <div className="pt-6 border-t border-border space-y-3">
+                <Link to="/start-a-project">
+                  <Button variant="hero" className="w-full">
+                    Start a Project <ArrowRight className="ml-1" size={14} />
+                  </Button>
+                </Link>
+                <p className="text-xs text-muted-foreground text-center">or</p>
+                <Button variant="outline" className="w-full font-semibold">
+                  Book Consultation
+                </Button>
               </div>
             </div>
           </div>

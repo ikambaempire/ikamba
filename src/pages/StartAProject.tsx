@@ -7,65 +7,38 @@ import { toast } from "sonner";
 import { ArrowRight, Upload } from "lucide-react";
 
 const projectTypes = [
-  "Corporate Video",
-  "Social Content Campaign",
-  "Brand Identity",
-  "Annual Report",
-  "Documentary",
-  "Animation / Motion Graphics",
+  "Documentary Production",
+  "Video Production",
+  "Photography",
+  "Campaign Storytelling",
+  "NGO Storytelling",
   "Content Strategy",
   "Other",
 ];
 
-const budgetRanges = [
-  "Under $5,000",
-  "$5,000 – $15,000",
-  "$15,000 – $50,000",
-  "$50,000+",
-  "To Be Discussed",
+const timelines = [
+  "Within 2 weeks",
+  "1-2 months",
+  "3-6 months",
+  "Flexible",
 ];
 
 const StartAProject = () => {
   const [form, setForm] = useState({
-    companyName: "",
-    projectTitle: "",
+    name: "",
+    organization: "",
+    email: "",
+    phone: "",
     projectType: "",
-    objective: "",
-    targetAudience: "",
-    keyMessage: "",
-    distributionPlan: "",
     timeline: "",
-    budgetRange: "",
-    approvalContact: "",
-    contactEmail: "",
-    additionalNotes: "",
+    message: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Brief submitted successfully. We'll review and respond within 48 hours.");
-    setForm({
-      companyName: "", projectTitle: "", projectType: "", objective: "",
-      targetAudience: "", keyMessage: "", distributionPlan: "", timeline: "",
-      budgetRange: "", approvalContact: "", contactEmail: "", additionalNotes: "",
-    });
+    toast.success("Project brief submitted. Our team will contact you to discuss next steps.");
+    setForm({ name: "", organization: "", email: "", phone: "", projectType: "", timeline: "", message: "" });
   };
-
-  const field = (label: string, key: keyof typeof form, type: "text" | "textarea" | "select" = "text", options?: string[]) => (
-    <div>
-      <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">{label}</label>
-      {type === "textarea" ? (
-        <textarea value={form[key]} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))} required rows={3} className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none" />
-      ) : type === "select" && options ? (
-        <select value={form[key]} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))} required className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
-          <option value="">Select...</option>
-          {options.map(o => <option key={o} value={o}>{o}</option>)}
-        </select>
-      ) : (
-        <input value={form[key]} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))} required className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
-      )}
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -73,47 +46,53 @@ const StartAProject = () => {
       <section className="section-padding pt-32 pb-16 md:pt-40">
         <div className="max-w-3xl mx-auto">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl font-extrabold mb-4">
-            Start a Project
+            Start Your Storytelling Project
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-lg text-muted-foreground mb-10">
-            Complete this structured brief to help us understand your production needs. We'll respond within 48 hours with a tailored approach.
+            Tell us about your project and our team will contact you to discuss the next steps.
           </motion.p>
 
           <motion.form initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {field("Company Name", "companyName")}
-              {field("Project Title", "projectTitle")}
-            </div>
-            {field("Project Type", "projectType", "select", projectTypes)}
-            {field("Objective", "objective", "textarea")}
-            {field("Target Audience", "targetAudience", "textarea")}
-            {field("Key Message", "keyMessage", "textarea")}
-            {field("Distribution Plan", "distributionPlan", "textarea")}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {field("Timeline", "timeline")}
-              {field("Budget Range", "budgetRange", "select", budgetRanges)}
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {field("Approval Contact Name", "approvalContact")}
-              {field("Contact Email", "contactEmail")}
-            </div>
-
-            <div>
-              <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">File Upload (Optional)</label>
-              <div className="border-2 border-dashed border-border rounded-lg p-8 text-center text-muted-foreground cursor-pointer hover:border-accent transition-colors">
-                <Upload className="mx-auto mb-2" size={20} />
-                <p className="text-sm">Drop files here or click to upload</p>
-                <p className="text-xs mt-1">Reference materials, briefs, brand guidelines</p>
+              <div>
+                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Name</label>
+                <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Organization</label>
+                <input value={form.organization} onChange={e => setForm(f => ({ ...f, organization: e.target.value }))} required className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
               </div>
             </div>
-
-            <div>
-              <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Additional Notes (Optional)</label>
-              <textarea value={form.additionalNotes} onChange={e => setForm(f => ({ ...f, additionalNotes: e.target.value }))} rows={3} className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Email</label>
+                <input type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} required className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+              </div>
+              <div>
+                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Phone</label>
+                <input value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
+              </div>
             </div>
-
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Project Type</label>
+              <select value={form.projectType} onChange={e => setForm(f => ({ ...f, projectType: e.target.value }))} required className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+                <option value="">Select...</option>
+                {projectTypes.map(o => <option key={o} value={o}>{o}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Timeline</label>
+              <select value={form.timeline} onChange={e => setForm(f => ({ ...f, timeline: e.target.value }))} required className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+                <option value="">Select...</option>
+                {timelines.map(o => <option key={o} value={o}>{o}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Message</label>
+              <textarea value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} required rows={5} className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none" placeholder="Tell us about your storytelling project..." />
+            </div>
             <Button type="submit" variant="hero" size="lg">
-              Submit Brief <ArrowRight className="ml-1" size={16} />
+              Start Project <ArrowRight className="ml-1" size={16} />
             </Button>
           </motion.form>
         </div>
