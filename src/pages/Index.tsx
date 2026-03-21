@@ -12,6 +12,11 @@ import Footer from "@/components/Footer";
 import TrustedBySlider from "@/components/home/TrustedBySlider";
 import Card3D from "@/components/home/Card3D";
 
+import heroDocumentary from "@/assets/images/hero-documentary.jpg";
+import storytellingCommunity from "@/assets/images/storytelling-community.jpg";
+import impactCampaign from "@/assets/images/impact-campaign.jpg";
+import photographyLandscape from "@/assets/images/photography-landscape.jpg";
+
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
   visible: (i: number) => ({
@@ -44,10 +49,10 @@ const heroIcons = [
 ];
 
 const solutions = [
-  { icon: Film, title: "Documentary Production", desc: "Short documentaries highlighting real stories, community impact, and organizational achievements." },
-  { icon: Video, title: "Video Production", desc: "Professional video for campaigns, programs, interviews, and events." },
-  { icon: Image, title: "Photography", desc: "High-quality photography capturing communities, initiatives, and leadership stories." },
-  { icon: Megaphone, title: "Campaign Storytelling", desc: "Visual storytelling designed for advocacy campaigns and communication initiatives." },
+  { icon: Film, title: "Documentary Production", desc: "Short documentaries highlighting real stories, community impact, and organizational achievements.", image: storytellingCommunity },
+  { icon: Video, title: "Video Production", desc: "Professional video for campaigns, programs, interviews, and events.", image: impactCampaign },
+  { icon: Image, title: "Photography", desc: "High-quality photography capturing communities, initiatives, and leadership stories.", image: photographyLandscape },
+  { icon: Megaphone, title: "Campaign Storytelling", desc: "Visual storytelling designed for advocacy campaigns and communication initiatives.", image: heroDocumentary },
 ];
 
 const processSteps = [
@@ -77,16 +82,27 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* Hero */}
-      <section className="section-padding pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden gradient-navy">
+      {/* Hero with background image */}
+      <section className="section-padding pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
+        {/* Background image with overlay */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={heroDocumentary}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[hsl(213,52%,12%)]/95 via-[hsl(213,52%,12%)]/85 to-[hsl(213,52%,12%)]/70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(213,52%,12%)]/60 to-transparent" />
+        </div>
+
         {heroIcons.map(({ Icon, x, y, size, delay, dur }, i) => (
           <motion.div
             key={i}
-            className="absolute pointer-events-none text-primary-foreground"
+            className="absolute pointer-events-none text-white"
             style={{ left: x, top: y }}
             initial={{ opacity: 0, scale: 0 }}
             animate={{
-              opacity: [0, 0.15, 0.08, 0.15, 0],
+              opacity: [0, 0.12, 0.06, 0.12, 0],
               scale: [0.6, 1, 1.15, 1, 0.6],
               y: [0, -8, 0, 8, 0],
               rotate: [0, 6, -4, 3, 0],
@@ -98,7 +114,7 @@ const Index = () => {
         ))}
 
         <motion.div
-          className="absolute top-0 left-0 w-full h-full pointer-events-none"
+          className="absolute top-0 left-0 w-full h-full pointer-events-none z-[1]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
@@ -112,8 +128,8 @@ const Index = () => {
         </motion.div>
 
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, hsl(var(--accent) / 0.08) 0%, transparent 70%)" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none z-[1]"
+          style={{ background: "radial-gradient(circle, hsl(38 92% 50% / 0.08) 0%, transparent 70%)" }}
           animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -143,7 +159,7 @@ const Index = () => {
               animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
-            <p className="text-xs uppercase tracking-[0.2em] font-semibold text-primary-foreground/60">
+            <p className="text-xs uppercase tracking-[0.2em] font-semibold text-white/60">
               Impact Storytelling & Media Production
             </p>
           </motion.div>
@@ -151,8 +167,8 @@ const Index = () => {
           <motion.h1
             initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-primary-foreground mb-6 text-balance"
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] as const }}
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-white mb-6 text-balance"
           >
             <span>Powerful </span>
             <motion.span
@@ -169,7 +185,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="text-lg md:text-xl text-primary-foreground/70 max-w-2xl leading-relaxed mb-10"
+            className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed mb-10"
           >
             Ikamba Impakt helps NGOs, development organizations, and corporate teams produce powerful storytelling through documentary production, video, and photography.
           </motion.p>
@@ -187,10 +203,10 @@ const Index = () => {
                 </Button>
               </motion.div>
             </Link>
-            <Link to="/work">
+            <Link to="/caption-generator">
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                <Button variant="outline" size="lg" className="font-semibold border-primary-foreground/30 bg-primary-foreground text-primary hover:bg-primary-foreground/90">
-                  Explore Our Work
+                <Button variant="outline" size="lg" className="font-semibold border-white/30 bg-white text-primary hover:bg-white/90">
+                  ✨ Get Free Caption
                 </Button>
               </motion.div>
             </Link>
@@ -232,7 +248,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Our Solution / Solutions Overview */}
+      {/* Our Solutions with images */}
       <section className="section-padding bg-secondary">
         <div className="max-w-5xl mx-auto">
           <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} custom={0}
@@ -245,12 +261,17 @@ const Index = () => {
             {solutions.map((s, i) => (
               <Card3D key={i} className="group">
                 <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
-                  className="bg-card border border-border rounded-xl p-8 h-full shadow-[0_2px_12px_hsl(var(--foreground)/0.04)] hover:shadow-[0_12px_40px_hsl(var(--foreground)/0.1)] hover:border-accent/30 transition-all duration-300">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
-                    <s.icon className="text-accent" size={24} />
+                  className="bg-card border border-border rounded-xl overflow-hidden h-full shadow-[0_2px_12px_hsl(var(--foreground)/0.04)] hover:shadow-[0_12px_40px_hsl(var(--foreground)/0.1)] hover:border-accent/30 transition-all duration-300">
+                  <div className="h-48 overflow-hidden">
+                    <img src={s.image} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <h3 className="text-lg font-bold mb-2 text-foreground">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                  <div className="p-8">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5">
+                      <s.icon className="text-accent" size={24} />
+                    </div>
+                    <h3 className="text-lg font-bold mb-2 text-foreground">{s.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                  </div>
                 </motion.div>
               </Card3D>
             ))}
@@ -265,7 +286,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Featured Work */}
+      {/* Featured Work with images */}
       <section className="section-padding">
         <div className="max-w-5xl mx-auto">
           <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} custom={0}
@@ -276,18 +297,21 @@ const Index = () => {
           </motion.p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: "Documentary Storytelling", desc: "Real stories from the field, produced with cinematic quality." },
-              { title: "Impact Campaigns", desc: "Visual campaigns that amplify organizational missions." },
-              { title: "Photography Stories", desc: "Authentic photography that captures leadership and community." },
+              { title: "Documentary Storytelling", desc: "Real stories from the field, produced with cinematic quality.", image: storytellingCommunity },
+              { title: "Impact Campaigns", desc: "Visual campaigns that amplify organizational missions.", image: impactCampaign },
+              { title: "Photography Stories", desc: "Authentic photography that captures leadership and community.", image: photographyLandscape },
             ].map((item, i) => (
               <Card3D key={i} className="group">
                 <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
-                  className="bg-primary text-primary-foreground rounded-xl p-8 h-full shadow-[0_4px_20px_hsl(var(--foreground)/0.1)] hover:shadow-[0_12px_40px_hsl(var(--foreground)/0.15)] transition-shadow">
-                  <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center mb-4">
-                    <Film className="text-accent" size={20} />
+                  className="rounded-xl overflow-hidden h-full shadow-[0_4px_20px_hsl(var(--foreground)/0.1)] hover:shadow-[0_12px_40px_hsl(var(--foreground)/0.15)] transition-shadow">
+                  <div className="h-44 overflow-hidden relative">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent" />
                   </div>
-                  <h3 className="text-base font-bold mb-2">{item.title}</h3>
-                  <p className="text-sm text-primary-foreground/60 leading-relaxed">{item.desc}</p>
+                  <div className="bg-primary text-primary-foreground p-6">
+                    <h3 className="text-base font-bold mb-2">{item.title}</h3>
+                    <p className="text-sm text-primary-foreground/60 leading-relaxed">{item.desc}</p>
+                  </div>
                 </motion.div>
               </Card3D>
             ))}
@@ -338,9 +362,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Who We Work With */}
-      <section className="section-padding bg-primary text-primary-foreground">
-        <div className="max-w-5xl mx-auto">
+      {/* Who We Work With - with background image */}
+      <section className="section-padding relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src={photographyLandscape} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-primary/90" />
+        </div>
+        <div className="max-w-5xl mx-auto relative z-10 text-primary-foreground">
           <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} custom={0}
             className="text-2xl md:text-3xl font-bold mb-8">
             Who We Work With
@@ -348,9 +376,9 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {whoWeWorkWith.map((org, i) => (
               <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 1}
-                className="flex gap-3 items-center bg-primary-foreground/5 border border-primary-foreground/10 rounded-lg px-5 py-4">
+                className="flex gap-3 items-center bg-white/5 border border-white/10 rounded-lg px-5 py-4">
                 <Users className="text-accent shrink-0" size={18} />
-                <p className="text-sm text-primary-foreground/80">{org}</p>
+                <p className="text-sm text-white/80">{org}</p>
               </motion.div>
             ))}
           </div>
