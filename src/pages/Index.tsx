@@ -12,10 +12,11 @@ import Footer from "@/components/Footer";
 import TrustedBySlider from "@/components/home/TrustedBySlider";
 import Card3D from "@/components/home/Card3D";
 
-import heroDocumentary from "@/assets/images/hero-documentary.jpg";
+import heroVideo from "/hero-video.mp4.asset.json";
 import storytellingCommunity from "@/assets/images/storytelling-community.jpg";
 import impactCampaign from "@/assets/images/impact-campaign.jpg";
 import photographyLandscape from "@/assets/images/photography-landscape.jpg";
+import heroDocumentary from "@/assets/images/hero-documentary.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
