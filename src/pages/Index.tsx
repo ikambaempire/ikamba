@@ -78,6 +78,8 @@ const challenges = [
   "Important stories remaining undocumented",
 ];
 
+const typewriterWords = ["Storytelling", "Documentaries", "Campaigns", "Photography"];
+
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
