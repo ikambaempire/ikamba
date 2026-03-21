@@ -33,7 +33,7 @@ const TrustedBySlider = () => {
           {doubled.map((partner, i) => (
             <div
               key={i}
-              className="flex-shrink-0 h-14 w-40 flex items-center justify-center grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300"
+              className="flex-shrink-0 h-16 w-44 flex items-center justify-center opacity-90 hover:opacity-100 transition-all duration-300"
             >
               <img
                 src={partner.logo}
