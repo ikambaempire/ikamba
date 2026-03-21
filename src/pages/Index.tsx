@@ -85,17 +85,21 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* Hero with background image */}
+      {/* Hero with background video */}
       <section className="section-padding pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
-        {/* Background image with overlay */}
+        {/* Background video with overlay */}
         <div className="absolute inset-0 z-0">
-          <img
-            src={heroDocumentary}
-            alt=""
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover"
+            src={heroVideo.url}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[hsl(213,52%,12%)]/95 via-[hsl(213,52%,12%)]/85 to-[hsl(213,52%,12%)]/70" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(213,52%,12%)]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[hsl(213,52%,12%)]/95 via-[hsl(213,52%,12%)]/80 to-[hsl(213,52%,12%)]/65" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(213,52%,12%)]/70 to-transparent" />
+        </div>
         </div>
 
         {heroIcons.map(({ Icon, x, y, size, delay, dur }, i) => (
