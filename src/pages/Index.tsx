@@ -177,21 +177,61 @@ const Index = () => {
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] as const }}
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-white mb-6 text-balance"
           >
-            <span>Powerful </span>
+            {"Powerful ".split("").map((char, i) => (
+              <motion.span
+                key={`p-${i}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 + i * 0.04, duration: 0.3 }}
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
             <motion.span
-              className="inline-block text-accent"
-              animate={{ rotateX: [0, 8, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="inline-block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.7, duration: 0.5 }}
             >
-              Storytelling
+              {typewriterWords.map((word, wi) => (
+                <motion.span
+                  key={word}
+                  className="absolute text-accent"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{
+                    opacity: [0, 1, 1, 0],
+                    y: [20, 0, 0, -20],
+                  }}
+                  transition={{
+                    duration: 3,
+                    delay: 0.8 + wi * 3,
+                    repeat: Infinity,
+                    repeatDelay: (typewriterWords.length - 1) * 3,
+                    ease: "easeInOut",
+                    times: [0, 0.1, 0.9, 1],
+                  }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+              <span className="invisible">{typewriterWords[0]}</span>
             </motion.span>
-            <span> for Organizations That Create Impact.</span>
+            {" for Organizations That Create Impact.".split("").map((char, i) => (
+              <motion.span
+                key={`s-${i}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 + i * 0.02, duration: 0.3 }}
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.6, delay: 0.25 }}
+            transition={{ duration: 0.6, delay: 1.8 }}
             className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed mb-10"
           >
             Ikamba Impakt helps NGOs, development organizations, and corporate teams produce powerful storytelling through documentary production, video, and photography.
@@ -200,7 +240,7 @@ const Index = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
+            transition={{ duration: 0.6, delay: 2.0 }}
             className="flex flex-col sm:flex-row gap-3"
           >
             <Link to="/start-a-project">
@@ -210,10 +250,10 @@ const Index = () => {
                 </Button>
               </motion.div>
             </Link>
-            <Link to="/caption-generator">
+            <Link to="/design-studio">
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Button variant="outline" size="lg" className="font-semibold border-white/30 bg-white text-primary hover:bg-white/90">
-                  ✨ Get Free Caption
+                  ✨ Free AI Creative Tools
                 </Button>
               </motion.div>
             </Link>
