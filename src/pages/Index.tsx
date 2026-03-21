@@ -100,7 +100,6 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-[hsl(213,52%,12%)]/95 via-[hsl(213,52%,12%)]/80 to-[hsl(213,52%,12%)]/65" />
           <div className="absolute inset-0 bg-gradient-to-t from-[hsl(213,52%,12%)]/70 to-transparent" />
         </div>
-        </div>
 
         {heroIcons.map(({ Icon, x, y, size, delay, dur }, i) => (
           <motion.div
