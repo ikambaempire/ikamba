@@ -11,9 +11,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TrustedBySlider from "@/components/home/TrustedBySlider";
 import Card3D from "@/components/home/Card3D";
+import HeroBackgroundVideo from "@/components/home/HeroBackgroundVideo";
 
-// @ts-ignore
-import heroVideo from "/hero-video.mp4.asset.json";
 import storytellingCommunity from "@/assets/images/storytelling-community.jpg";
 import impactCampaign from "@/assets/images/impact-campaign.jpg";
 import photographyLandscape from "@/assets/images/photography-landscape.jpg";
@@ -88,19 +87,7 @@ const Index = () => {
 
       {/* Hero with background video */}
       <section className="section-padding pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
-        {/* Background video with overlay */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-            src={heroVideo.url}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[hsl(213,52%,12%)]/95 via-[hsl(213,52%,12%)]/80 to-[hsl(213,52%,12%)]/65" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(213,52%,12%)]/70 to-transparent" />
-        </div>
+        <HeroBackgroundVideo />
 
         {heroIcons.map(({ Icon, x, y, size, delay, dur }, i) => (
           <motion.div
