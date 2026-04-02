@@ -210,12 +210,12 @@ const DesignStudio = () => {
       });
 
       if (resp.status === 429) {
-        toast({ title: "Rate limit reached. Please wait a moment and try again.", variant: "destructive" });
+        toast({ title: "Too many requests", description: "Please wait 30 seconds and try again. You can generate up to 10 graphics per day.", variant: "destructive" });
         return;
       }
 
       if (resp.status === 402) {
-        toast({ title: "Usage limit reached. Please add credits.", variant: "destructive" });
+        toast({ title: "AI credits temporarily unavailable", description: "The platform's AI balance is being replenished. Please try again shortly — each user gets up to 10 free graphics per day.", variant: "destructive" });
         return;
       }
 
