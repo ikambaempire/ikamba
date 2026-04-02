@@ -8,9 +8,10 @@ import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import {
-  BarChart3, Clock, AlertTriangle, CheckCircle2, LogOut, Layers, TrendingUp, Building2, LayoutGrid, TableIcon,
+  BarChart3, Clock, AlertTriangle, CheckCircle2, LogOut, Layers, TrendingUp, Building2, LayoutGrid, TableIcon, FileText,
 } from "lucide-react";
 import KanbanBoard from "@/components/admin/KanbanBoard";
+import BlogManager from "@/components/admin/BlogManager";
 import type { Database } from "@/integrations/supabase/types";
 
 type Project = Database["public"]["Tables"]["projects"]["Row"];
