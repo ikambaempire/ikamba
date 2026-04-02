@@ -61,6 +61,51 @@ export type Database = {
           },
         ]
       }
+      blog_posts: {
+        Row: {
+          author: string | null
+          category: string | null
+          content: string
+          cover_image_url: string | null
+          created_at: string
+          excerpt: string | null
+          id: string
+          published: boolean
+          published_at: string | null
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string | null
+          category?: string | null
+          content: string
+          cover_image_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          published?: boolean
+          published_at?: string | null
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string | null
+          category?: string | null
+          content?: string
+          cover_image_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          published?: boolean
+          published_at?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       clients: {
         Row: {
           contact_email: string | null

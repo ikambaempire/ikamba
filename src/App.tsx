@@ -25,6 +25,7 @@ import UserDashboard from "./pages/workspace/UserDashboard";
 import NewBrief from "./pages/workspace/NewBrief";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ProjectDetail from "./pages/ProjectDetail";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const AnimatedRoutes = () => {
         <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
         <Route path="/how-it-works" element={<PageTransition><HowItWorks /></PageTransition>} />
         <Route path="/insights" element={<PageTransition><Insights /></PageTransition>} />
+        <Route path="/insights/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
         <Route path="/start-a-project" element={<PageTransition><StartAProject /></PageTransition>} />
