@@ -161,6 +161,20 @@ const AdminDashboard = () => {
           ))}
         </div>
 
+        {/* Tab switcher */}
+        <div className="flex items-center gap-1 mb-6 border-b border-border">
+          <button onClick={() => setTab("projects")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${tab === "projects" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+            Projects
+          </button>
+          <button onClick={() => setTab("blog")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 ${tab === "blog" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+            <FileText size={14} /> Blog
+          </button>
+        </div>
+
+        {tab === "blog" ? (
+          <BlogManager />
+        ) : (
+        <>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-foreground">
             {view === "table" ? "Master Project Table" : "Workflow Pipeline"}
@@ -168,20 +182,12 @@ const AdminDashboard = () => {
           <div className="flex items-center gap-3">
             <span className="text-muted-foreground text-sm">{projects.length} projects</span>
             <div className="flex items-center bg-muted rounded-md p-0.5">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setView("table")}
-                className={`h-7 px-2.5 ${view === "table" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}
-              >
+              <Button variant="ghost" size="sm" onClick={() => setView("table")}
+                className={`h-7 px-2.5 ${view === "table" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                 <TableIcon size={14} />
               </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setView("kanban")}
-                className={`h-7 px-2.5 ${view === "kanban" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}
-              >
+              <Button variant="ghost" size="sm" onClick={() => setView("kanban")}
+                className={`h-7 px-2.5 ${view === "kanban" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                 <LayoutGrid size={14} />
               </Button>
             </div>
@@ -269,6 +275,8 @@ const AdminDashboard = () => {
             </Table>
           )}
         </div>
+        )}
+        </>
         )}
       </main>
     </div>
