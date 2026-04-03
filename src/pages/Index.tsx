@@ -398,6 +398,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Featured Insights */}
+      <FeaturedInsights />
+
       {/* Who We Work With - with background image */}
       <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0 z-0">
