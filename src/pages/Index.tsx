@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import {
@@ -77,6 +79,50 @@ const challenges = [
   "Scattered media assets with no central archive",
   "Important stories remaining undocumented",
 ];
+
+const FeaturedInsights = () => {
+  const [posts, setPosts] = useState<{ id: string; title: string; slug: string; excerpt: string | null; category: string | null; cover_image_url: string | null; published_at: string | null }[]>([]);
+  useEffect(() => {
+    supabase.from("blog_posts").select("id, title, slug, excerpt, category, cover_image_url, published_at").eq("published", true).order("published_at", { ascending: false }).limit(3).then(({ data }) => { if (data) setPosts(data); });
+  }, []);
+  if (posts.length === 0) return null;
+  return (
+    <section className="section-padding bg-muted/30">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-end justify-between mb-8">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">Latest Insights</h2>
+            <p className="text-muted-foreground mt-1">Stories, strategies, and lessons from impact storytelling.</p>
+          </motion.div>
+          <Link to="/insights" className="hidden sm:inline-flex items-center gap-1 text-sm text-accent hover:underline font-medium">View all <ArrowRight size={14} /></Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {posts.map((post, i) => (
+            <motion.div key={post.id} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 1}>
+              <Link to={`/insights/${post.slug}`} className="group block">
+                <div className="rounded-xl overflow-hidden border border-border bg-card hover:shadow-lg transition-shadow">
+                  {post.cover_image_url && (
+                    <div className="aspect-video overflow-hidden">
+                      <img src={post.cover_image_url} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    </div>
+                  )}
+                  <div className="p-5">
+                    {post.category && <span className="text-[10px] uppercase tracking-widest text-accent font-semibold">{post.category}</span>}
+                    <h3 className="font-bold mt-1 mb-2 text-foreground group-hover:text-accent transition-colors line-clamp-2">{post.title}</h3>
+                    <p className="text-sm text-muted-foreground line-clamp-2">{post.excerpt}</p>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+        <div className="mt-6 text-center sm:hidden">
+          <Link to="/insights" className="text-sm text-accent hover:underline font-medium inline-flex items-center gap-1">View all insights <ArrowRight size={14} /></Link>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const typewriterWords = ["Storytelling", "Documentaries", "Campaigns", "Photography"];
 
@@ -395,6 +441,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Featured Insights */}
+      <FeaturedInsights />
 
       {/* Who We Work With - with background image */}
       <section className="section-padding relative overflow-hidden">
