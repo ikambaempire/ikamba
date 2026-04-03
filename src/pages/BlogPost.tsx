@@ -21,8 +21,9 @@ interface BlogPost {
 const estimateReadTime = (content: string) => Math.max(1, Math.ceil(content.split(/\s+/).length / 220));
 
 const renderMarkdown = (md: string) => {
-  // Simple markdown → HTML
   let html = md
+    .replace(/\[youtube:([a-zA-Z0-9_-]{11})\]/g, '<div class="my-6"><iframe width="100%" height="400" src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen style="border-radius:12px"></iframe></div>')
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="rounded-xl my-6 max-w-full" loading="lazy" />')
     .replace(/^### (.+)$/gm, '<h3 class="text-xl font-bold mt-8 mb-3 text-foreground">$1</h3>')
     .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold mt-10 mb-4 text-foreground">$1</h2>')
     .replace(/^\*\*(\d+)\. (.+?)\*\*$/gm, '<p class="font-bold mt-4 mb-1 text-foreground">$1. $2</p>')
