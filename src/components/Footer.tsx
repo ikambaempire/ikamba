@@ -67,7 +67,7 @@ const Footer = () => (
       <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
         <div className="md:col-span-1">
           <p className="font-heading text-xl font-extrabold tracking-tight mb-3">
-            IKAMBA<span className="text-accent"> IMPAKT</span>
+            <span className="text-accent">i</span>KAMBA<span className="text-primary-foreground/60 text-base font-semibold ml-1">Media</span>
           </p>
           <p className="text-sm text-primary-foreground/60 leading-relaxed mb-4">
             Impact Storytelling & Media Production for Organizations.
