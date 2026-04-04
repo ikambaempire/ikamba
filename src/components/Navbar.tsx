@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
-import ikambaLogo from "@/assets/ikamba-logo.png";
+import ikambaIcon from "@/assets/ikamba-icon.png";
 
 const navLinks = [
   { label: "Solutions", href: "/solutions" },
@@ -22,10 +22,10 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary-foreground/10">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={ikambaLogo} alt="Ikamba Media" className="h-8 w-auto" />
-          <span className="font-heading text-lg font-extrabold tracking-tight text-primary-foreground hidden sm:inline">
-            Media
+        <Link to="/" className="flex items-center gap-1.5 shrink-0">
+          <img src={ikambaIcon} alt="Ikamba Media" className="h-7 sm:h-8 w-auto" />
+          <span className="font-heading font-extrabold tracking-tight text-primary-foreground text-base sm:text-lg leading-none">
+            IKAMBA <span className="font-semibold text-primary-foreground/60">MEDIA</span>
           </span>
         </Link>
 

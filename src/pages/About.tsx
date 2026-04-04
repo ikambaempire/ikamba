@@ -52,14 +52,6 @@ const About = () => (
           </p>
         </motion.div>
 
-        {/* Founder Journey */}
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}
-          className="mb-16">
-          <h2 className="text-2xl font-bold mb-4">Founder Journey</h2>
-          <p className="text-muted-foreground leading-relaxed max-w-2xl">
-            Ikamba was founded with a deep belief in the power of storytelling. Our experience in media production and creative collaboration revealed an opportunity to help organizations communicate their impact more effectively while empowering African creators. Today, we partner with NGOs, corporations, and institutions across the continent to produce stories that matter.
-          </p>
-        </motion.div>
 
         <h2 className="text-2xl font-bold mb-8">Our Values</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
