@@ -23,9 +23,9 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary-foreground/10">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2">
-          <img src={ikambaLogo} alt="Ikamba Media" className="h-8 w-auto brightness-0 invert" style={{ filter: "none" }} />
-          <span className="font-heading text-xl font-extrabold tracking-tight text-primary-foreground">
-            <span className="text-accent">i</span>KAMBA<span className="text-primary-foreground/60 text-base font-semibold ml-1">Media</span>
+          <img src={ikambaLogo} alt="Ikamba Media" className="h-8 w-auto" />
+          <span className="font-heading text-lg font-extrabold tracking-tight text-primary-foreground hidden sm:inline">
+            Media
           </span>
         </Link>
 
