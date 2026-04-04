@@ -335,7 +335,7 @@ const Index = () => {
             className="text-2xl md:text-3xl font-bold mb-3 text-foreground">Our Solutions</motion.h2>
           <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} custom={1}
             className="text-muted-foreground mb-12 max-w-xl text-lg">
-            Ikamba Impakt provides a structured approach to storytelling and media production.
+            Ikamba Media provides a structured approach to storytelling and media production.
           </motion.p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {solutions.map((s, i) => (
