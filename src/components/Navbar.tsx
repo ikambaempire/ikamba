@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
-import ikambaLogo from "@/assets/ikamba-logo.png";
+import ikambaIcon from "@/assets/ikamba-icon.png";
 
 const navLinks = [
   { label: "Solutions", href: "/solutions" },
