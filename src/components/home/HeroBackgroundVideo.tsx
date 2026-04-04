@@ -7,7 +7,7 @@ const HeroBackgroundVideo = () => {
     <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
       <div className="absolute inset-0 scale-[1.35] sm:scale-[1.2] md:scale-[1.08] origin-center">
         <iframe
-          title="Ikamba Impakt background reel"
+          title="Ikamba Media background reel"
           src={embedUrl}
           className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 border-0"
           allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
