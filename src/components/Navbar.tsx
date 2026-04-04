@@ -25,7 +25,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-1.5 shrink-0">
           <img src={ikambaIcon} alt="Ikamba Media" className="h-7 sm:h-8 w-auto" />
           <span className="font-heading font-extrabold tracking-tight text-primary-foreground text-base sm:text-lg leading-none">
-            IKAMBA <span className="font-semibold text-primary-foreground/60">MEDIA</span>
+            IKAMBA <span className="font-semibold text-accent">MEDIA</span>
           </span>
         </Link>
 
