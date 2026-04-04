@@ -267,7 +267,7 @@ const Index = () => {
             transition={{ duration: 0.6, delay: 1.8 }}
             className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed mb-10"
           >
-            Ikamba Impakt helps NGOs, development organizations, and corporate teams produce powerful storytelling through documentary production, video, and photography.
+            Ikamba Media helps NGOs, development organizations, and corporate teams produce powerful storytelling through documentary production, video, and photography.
           </motion.p>
 
           <motion.div
