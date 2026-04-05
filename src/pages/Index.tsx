@@ -298,31 +298,31 @@ const Index = () => {
       <TrustedBySlider />
 
       {/* The Challenge */}
-      <section className="section-padding">
+      <section className="section-padding gradient-navy text-white">
         <div className="max-w-5xl mx-auto">
           <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} custom={0}
-            className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
+            className="text-2xl md:text-3xl font-bold mb-4 text-white">
             The Challenge
           </motion.h2>
           <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} custom={1}
-            className="text-muted-foreground mb-10 max-w-xl text-lg">
+            className="text-white/70 mb-10 max-w-xl text-lg">
             Many organizations struggle to manage storytelling and media production.
           </motion.p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {challenges.map((text, i) => (
               <Card3D key={i} className="group">
                 <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
-                  className="bg-card rounded-xl p-6 border border-border h-full shadow-[0_2px_12px_hsl(var(--foreground)/0.04)] hover:shadow-[0_8px_30px_hsl(var(--foreground)/0.08)] transition-shadow">
-                  <div className="w-8 h-8 rounded-lg bg-destructive/10 flex items-center justify-center mb-3">
-                    <span className="text-destructive font-bold text-sm">{i + 1}</span>
+                  className="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/10 h-full hover:bg-white/15 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center mb-3">
+                    <span className="text-accent font-bold text-sm">{i + 1}</span>
                   </div>
-                  <p className="text-sm text-foreground leading-relaxed">{text}</p>
+                  <p className="text-sm text-white/90 leading-relaxed">{text}</p>
                 </motion.div>
               </Card3D>
             ))}
           </div>
           <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={8}
-            className="text-muted-foreground mt-8 text-base">
+            className="text-white/60 mt-8 text-base">
             As a result, important stories often remain undocumented.
           </motion.p>
         </div>
@@ -407,27 +407,27 @@ const Index = () => {
       </section>
 
       {/* How It Works */}
-      <section className="section-padding bg-secondary">
+      <section className="section-padding gradient-navy text-white">
         <div className="max-w-5xl mx-auto">
           <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} custom={0}
-            className="text-2xl md:text-3xl font-bold mb-3 text-foreground">How It Works</motion.h2>
+            className="text-2xl md:text-3xl font-bold mb-3 text-white">How It Works</motion.h2>
           <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} custom={1}
-            className="text-muted-foreground mb-12 max-w-xl text-lg">
+            className="text-white/70 mb-12 max-w-xl text-lg">
             Our simple process makes storytelling production easier for communication teams.
           </motion.p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {processSteps.map((step, i) => (
               <Card3D key={i} className="group">
                 <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i + 2}
-                  className="relative bg-card rounded-xl p-8 border border-border h-full shadow-[0_2px_12px_hsl(var(--foreground)/0.04)] hover:shadow-[0_12px_40px_hsl(var(--foreground)/0.1)] hover:border-accent/30 transition-all duration-300">
+                  className="relative bg-white/10 backdrop-blur rounded-xl p-8 border border-white/10 h-full hover:bg-white/15 transition-all duration-300">
                   <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-accent flex items-center justify-center text-accent-foreground font-bold text-sm shadow-lg">
                     {i + 1}
                   </div>
                   <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 mt-2">
                     <step.icon className="text-accent" size={24} />
                   </div>
-                  <h3 className="text-lg font-bold mb-2 text-foreground">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <h3 className="text-lg font-bold mb-2 text-white">{step.title}</h3>
+                    <p className="text-sm text-white/70 leading-relaxed">{step.desc}</p>
                 </motion.div>
               </Card3D>
             ))}
