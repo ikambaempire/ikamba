@@ -6,6 +6,13 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Film, Camera, Megaphone } from "lucide-react";
 import Card3D from "@/components/home/Card3D";
 
+import workDocumentary from "@/assets/images/work-documentary.jpg";
+import workCampaign from "@/assets/images/work-campaign.jpg";
+import workPhotography from "@/assets/images/work-photography.jpg";
+import storytellingCommunity from "@/assets/images/storytelling-community.jpg";
+import impactCampaign from "@/assets/images/impact-campaign.jpg";
+import heroDocumentary from "@/assets/images/hero-documentary.jpg";
+
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
   visible: (i: number) => ({
@@ -22,6 +29,7 @@ const projects = [
     client: "International Development Foundation",
     desc: "A 20-minute documentary exploring how young entrepreneurs are reshaping local economies across Rwanda, Kenya, and Uganda.",
     result: "Featured at 3 international development conferences. 45K+ views across platforms.",
+    image: workDocumentary,
   },
   {
     icon: Megaphone,
@@ -30,6 +38,7 @@ const projects = [
     client: "Environmental NGO Coalition",
     desc: "Multi-format campaign content for a regional climate conference, including event visuals, social graphics, and recap video.",
     result: "12 content assets delivered. Campaign reached 200K+ across digital platforms.",
+    image: workCampaign,
   },
   {
     icon: Camera,
@@ -38,6 +47,7 @@ const projects = [
     client: "STEM Education Initiative",
     desc: "Photographic documentation of education programs reaching underserved communities, capturing classroom moments and community impact.",
     result: "Photography featured in annual report and donor communications.",
+    image: workPhotography,
   },
   {
     icon: Film,
@@ -46,6 +56,7 @@ const projects = [
     client: "Regional Financial Institution",
     desc: "Short documentary highlighting community banking programs and their impact on local families and small businesses.",
     result: "Used in investor presentations and annual stakeholder communications.",
+    image: storytellingCommunity,
   },
   {
     icon: Megaphone,
@@ -54,6 +65,7 @@ const projects = [
     client: "Healthcare NGO Coalition",
     desc: "Video series featuring health workers in rural clinics, highlighting challenges, resilience, and the impact of international health programs.",
     result: "8 videos produced. Content used across fundraising and advocacy channels.",
+    image: impactCampaign,
   },
   {
     icon: Camera,
@@ -62,6 +74,7 @@ const projects = [
     client: "Property Development Company",
     desc: "Architectural and lifestyle photography for a premium real estate portfolio, capturing properties, communities, and the vision behind developments.",
     result: "Photography integrated into marketing materials and online listings.",
+    image: heroDocumentary,
   },
 ];
 
