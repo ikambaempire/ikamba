@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Heart, Eye, Compass, Sparkles } from "lucide-react";
 import Card3D from "@/components/home/Card3D";
+import aboutTeam from "@/assets/images/about-team.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -52,6 +53,11 @@ const About = () => (
           </p>
         </motion.div>
 
+        {/* Team Image */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+          className="rounded-xl overflow-hidden mb-16 shadow-lg">
+          <img src={aboutTeam} alt="Ikamba Media team collaborating" className="w-full h-64 md:h-80 object-cover" loading="lazy" />
+        </motion.div>
 
         <h2 className="text-2xl font-bold mb-8">Our Values</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
