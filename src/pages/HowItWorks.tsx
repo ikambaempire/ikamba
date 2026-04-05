@@ -56,19 +56,24 @@ const steps = [
 const HowItWorks = () => (
   <div className="min-h-screen bg-background">
     <Navbar />
-    <section className="section-padding pt-32 pb-16 md:pt-40">
+    <section className="section-padding pt-32 pb-16 md:pt-40 gradient-navy text-white">
       <div className="max-w-5xl mx-auto">
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground mb-4">
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.2em] font-semibold text-white/60 mb-4">
           Our Process
         </motion.p>
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-balance">
+          className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-balance text-white">
           Our Storytelling Process
         </motion.h1>
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-          className="text-lg text-muted-foreground max-w-2xl mb-16">
+          className="text-lg text-white/70 max-w-2xl mb-16">
           Ikamba Media follows a simple and structured production process that makes storytelling easier for communication teams.
         </motion.p>
+      </div>
+    </section>
+
+    <section className="section-padding">
+      <div className="max-w-5xl mx-auto">
 
         <div className="space-y-10">
           {steps.map((step, i) => (
@@ -105,9 +110,13 @@ const HowItWorks = () => (
           ))}
         </div>
 
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={5}
-          className="mt-16 text-center">
-          <p className="text-lg text-muted-foreground mb-6">Ready to get started?</p>
+      </div>
+    </section>
+
+    <section className="section-padding gradient-navy text-center">
+      <div className="max-w-3xl mx-auto">
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}>
+          <p className="text-white/70 text-lg mb-6">Ready to get started?</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/start-a-project">
               <Button variant="hero" size="lg">
@@ -115,7 +124,7 @@ const HowItWorks = () => (
               </Button>
             </Link>
             <Link to="/contact">
-              <Button variant="outline" size="lg" className="font-semibold">
+              <Button variant="hero-outline" size="lg">
                 Book Consultation
               </Button>
             </Link>

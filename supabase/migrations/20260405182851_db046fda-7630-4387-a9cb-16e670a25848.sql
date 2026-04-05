@@ -1,0 +1,5 @@
+UPDATE blog_posts SET cover_image_url = 'https://salczjoiyeeebezilelp.supabase.co/storage/v1/object/public/blog-images/storytelling-ngo.jpg' WHERE slug = 'storytelling-powerful-tool-ngo-communication';
+UPDATE blog_posts SET cover_image_url = 'https://salczjoiyeeebezilelp.supabase.co/storage/v1/object/public/blog-images/documentary-storytelling.jpg' WHERE slug = 'documentary-storytelling-development-organizations';
+UPDATE blog_posts SET cover_image_url = 'https://salczjoiyeeebezilelp.supabase.co/storage/v1/object/public/blog-images/visual-storytelling.jpg' WHERE slug = 'visual-storytelling-strategies-impact-communication';
+UPDATE blog_posts SET cover_image_url = 'https://salczjoiyeeebezilelp.supabase.co/storage/v1/object/public/blog-images/storytelling-culture.jpg' WHERE slug = 'building-storytelling-culture-organization';
+UPDATE blog_posts SET cover_image_url = 'https://salczjoiyeeebezilelp.supabase.co/storage/v1/object/public/blog-images/photography-evidence.jpg' WHERE slug = 'photography-as-evidence-capturing-stories-build-trust';

@@ -19,14 +19,18 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <section className="section-padding pt-32 pb-16 md:pt-40">
+      <section className="section-padding pt-32 pb-16 md:pt-40 gradient-navy text-white">
         <div className="max-w-5xl mx-auto">
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-white">
             Contact Ikamba
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-lg text-muted-foreground max-w-xl mb-12">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-lg text-white/70 max-w-xl mb-12">
             We would love to hear about your storytelling project. Reach out to our team or start a project with us.
           </motion.p>
+        </div>
+      </section>
+      <section className="section-padding">
+        <div className="max-w-5xl mx-auto">
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="md:col-span-2">

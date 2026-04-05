@@ -25,17 +25,17 @@ const values = [
 const About = () => (
   <div className="min-h-screen bg-background">
     <Navbar />
-    <section className="section-padding pt-32 pb-16 md:pt-40">
+    <section className="section-padding pt-32 pb-16 md:pt-40 gradient-navy text-white">
       <div className="max-w-5xl mx-auto">
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground mb-4">
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs uppercase tracking-[0.2em] font-semibold text-white/60 mb-4">
           About Ikamba
         </motion.p>
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 text-balance">
+          className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-6 text-balance text-white">
           Impact Storytelling & Media Production
         </motion.h1>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-          className="text-muted-foreground max-w-2xl space-y-4 mb-16">
+          className="text-white/70 max-w-2xl space-y-4 mb-16">
           <p className="text-lg leading-relaxed">
             Ikamba is a storytelling and media production company supporting organizations that create meaningful impact.
           </p>
@@ -43,6 +43,11 @@ const About = () => (
             We combine storytelling expertise with professional media production to help organizations communicate their work clearly. From documentaries to campaign visuals, we capture stories that inspire action and build trust.
           </p>
         </motion.div>
+      </div>
+    </section>
+
+    <section className="section-padding">
+      <div className="max-w-5xl mx-auto">
 
         {/* Mission */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}
@@ -75,16 +80,20 @@ const About = () => (
           ))}
         </div>
 
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={8}
-          className="mt-16 text-center">
-          <Link to="/start-a-project">
-            <Button variant="hero" size="lg">
-              Start a Project <ArrowRight className="ml-1" size={16} />
-            </Button>
-          </Link>
-        </motion.div>
       </div>
     </section>
+    <section className="section-padding gradient-navy text-center">
+      <div className="max-w-3xl mx-auto">
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}>
+            <p className="text-white/70 text-lg mb-6">Ready to tell your story?</p>
+            <Link to="/start-a-project">
+              <Button variant="hero" size="lg">
+                Start a Project <ArrowRight className="ml-1" size={16} />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
     <Footer />
   </div>
 );
