@@ -99,19 +99,24 @@ const Work = () => (
           {projects.map((p, i) => (
             <Card3D key={i} className="group">
               <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}
-                className="bg-card border border-border rounded-xl p-8 h-full shadow-[0_2px_12px_hsl(var(--foreground)/0.04)] hover:shadow-[0_12px_40px_hsl(var(--foreground)/0.1)] hover:border-accent/30 transition-all duration-300">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-                    <p.icon className="text-accent" size={20} />
-                  </div>
-                  <span className="text-xs uppercase tracking-widest text-accent font-semibold">{p.category}</span>
+                className="bg-card border border-border rounded-xl overflow-hidden h-full shadow-[0_2px_12px_hsl(var(--foreground)/0.04)] hover:shadow-[0_12px_40px_hsl(var(--foreground)/0.1)] hover:border-accent/30 transition-all duration-300">
+                <div className="h-48 overflow-hidden">
+                  <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                 </div>
-                <h3 className="text-lg font-bold mb-1 text-foreground">{p.title}</h3>
-                <p className="text-xs text-muted-foreground mb-3">{p.client}</p>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{p.desc}</p>
-                <div className="bg-accent/5 border border-accent/10 rounded-lg px-4 py-3">
-                  <p className="text-xs font-semibold text-accent-foreground">Result</p>
-                  <p className="text-sm text-foreground">{p.result}</p>
+                <div className="p-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+                      <p.icon className="text-accent" size={20} />
+                    </div>
+                    <span className="text-xs uppercase tracking-widest text-accent font-semibold">{p.category}</span>
+                  </div>
+                  <h3 className="text-lg font-bold mb-1 text-foreground">{p.title}</h3>
+                  <p className="text-xs text-muted-foreground mb-3">{p.client}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">{p.desc}</p>
+                  <div className="bg-accent/5 border border-accent/10 rounded-lg px-4 py-3">
+                    <p className="text-xs font-semibold text-accent-foreground">Result</p>
+                    <p className="text-sm text-foreground">{p.result}</p>
+                  </div>
                 </div>
               </motion.div>
             </Card3D>
