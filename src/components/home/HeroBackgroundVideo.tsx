@@ -11,8 +11,8 @@ const HeroBackgroundVideo = () => {
       >
         <source src="/hero-video.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-gradient-to-r from-[hsl(213,52%,12%)]/95 via-[hsl(213,52%,12%)]/82 to-[hsl(213,52%,12%)]/68" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[hsl(213,52%,12%)]/72 via-[hsl(213,52%,12%)]/16 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[hsl(217,72%,14%)]/95 via-[hsl(217,72%,14%)]/88 to-[hsl(217,72%,14%)]/78" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[hsl(217,72%,14%)]/80 via-[hsl(217,72%,14%)]/30 to-[hsl(217,72%,14%)]/20" />
     </div>
   );
 };
