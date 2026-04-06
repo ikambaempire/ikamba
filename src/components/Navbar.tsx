@@ -19,6 +19,7 @@ const navLinks = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary-foreground/10">
@@ -47,6 +48,19 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-2">
           <ThemeToggle />
+          {user ? (
+            <Link to="/auth-redirect">
+              <Button variant="nav" size="sm" className="text-primary-foreground/70 hover:text-primary-foreground border border-primary-foreground/20">
+                Dashboard
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <Button variant="nav" size="sm" className="text-primary-foreground/70 hover:text-primary-foreground border border-primary-foreground/20">
+                <LogIn size={14} className="mr-1" /> Login
+              </Button>
+            </Link>
+          )}
           <Link to="/start-a-project">
             <Button variant="hero" size="sm">Start a Project</Button>
           </Link>
