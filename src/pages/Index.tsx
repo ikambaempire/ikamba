@@ -132,7 +132,7 @@ const Index = () => {
       <Navbar />
 
       {/* Hero with background video */}
-      <section className="section-padding pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
+      <section className="section-padding pt-28 pb-20 sm:pt-32 sm:pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
         <HeroBackgroundVideo />
 
         {heroIcons.map(({ Icon, x, y, size, delay, dur }, i) => (
@@ -199,7 +199,7 @@ const Index = () => {
               animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
-            <p className="text-xs uppercase tracking-[0.2em] font-semibold text-white/60">
+            <p className="text-xs uppercase tracking-[0.2em] font-semibold text-white/70 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
               Impact Storytelling & Media Production
             </p>
           </motion.div>
@@ -208,7 +208,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] as const }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-white mb-6 text-balance"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-white mb-6 text-balance drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
           >
             {"Powerful ".split("").map((char, i) => (
               <motion.span
@@ -265,7 +265,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.6, delay: 1.8 }}
-            className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed mb-10"
+            className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed mb-10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]"
           >
             Ikamba Media helps NGOs, development organizations, and corporate teams produce powerful storytelling through documentary production, video, and photography.
           </motion.p>
