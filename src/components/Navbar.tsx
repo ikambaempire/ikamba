@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useAuth } from "@/hooks/useAuth";
 import ikambaIcon from "@/assets/ikamba-icon.png";
 
 const navLinks = [
@@ -18,6 +19,7 @@ const navLinks = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary-foreground/10">
@@ -46,6 +48,19 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-2">
           <ThemeToggle />
+          {user ? (
+            <Link to="/auth-redirect">
+              <Button variant="nav" size="sm" className="text-primary-foreground/70 hover:text-primary-foreground border border-primary-foreground/20">
+                Dashboard
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <Button variant="nav" size="sm" className="text-primary-foreground/70 hover:text-primary-foreground border border-primary-foreground/20">
+                <LogIn size={14} className="mr-1" /> Login
+              </Button>
+            </Link>
+          )}
           <Link to="/start-a-project">
             <Button variant="hero" size="sm">Start a Project</Button>
           </Link>
@@ -89,6 +104,17 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
+              {user ? (
+                <Link to="/auth-redirect" onClick={() => setOpen(false)}>
+                  <Button variant="outline" className="w-full mt-2 border-primary-foreground/20 text-primary-foreground">Dashboard</Button>
+                </Link>
+              ) : (
+                <Link to="/login" onClick={() => setOpen(false)}>
+                  <Button variant="outline" className="w-full mt-2 border-primary-foreground/20 text-primary-foreground">
+                    <LogIn size={14} className="mr-1" /> Login
+                  </Button>
+                </Link>
+              )}
               <Link to="/start-a-project" onClick={() => setOpen(false)}>
                 <Button variant="hero" className="w-full mt-2">Start a Project</Button>
               </Link>
