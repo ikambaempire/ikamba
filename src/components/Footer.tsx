@@ -101,9 +101,8 @@ const Footer = () => (
         <div>
           <h4 className="text-xs font-semibold uppercase tracking-widest text-primary-foreground/40 mb-4">Connect</h4>
           <ul className="space-y-2 text-sm text-primary-foreground/70">
-            <li><a href="#" className="hover:text-primary-foreground transition-colors">LinkedIn</a></li>
-            <li><a href="#" className="hover:text-primary-foreground transition-colors">Instagram</a></li>
-            <li><a href="#" className="hover:text-primary-foreground transition-colors">Twitter / X</a></li>
+            <li><a href="https://www.linkedin.com/company/ikamba/" target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground transition-colors">LinkedIn</a></li>
+            <li><a href="https://www.instagram.com/ikamba_rw/" target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground transition-colors">Instagram</a></li>
           </ul>
         </div>
 

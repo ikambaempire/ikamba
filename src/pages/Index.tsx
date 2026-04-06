@@ -358,7 +358,7 @@ const Index = () => {
           </div>
           <div className="mt-10">
             <Link to="/solutions">
-              <Button variant="outline" size="sm" className="font-semibold">
+              <Button variant="outline" size="sm" className="font-semibold border-border text-foreground hover:bg-accent hover:text-accent-foreground">
                 View All Solutions <ArrowRight className="ml-1" size={14} />
               </Button>
             </Link>
@@ -398,7 +398,7 @@ const Index = () => {
           </div>
           <div className="mt-10">
             <Link to="/work">
-              <Button variant="outline" size="sm" className="font-semibold">
+              <Button variant="outline" size="sm" className="font-semibold border-border text-foreground hover:bg-accent hover:text-accent-foreground">
                 Explore Our Work <ArrowRight className="ml-1" size={14} />
               </Button>
             </Link>
@@ -434,7 +434,7 @@ const Index = () => {
           </div>
           <div className="mt-10">
             <Link to="/how-it-works">
-              <Button variant="outline" size="sm" className="font-semibold">
+              <Button variant="outline" size="sm" className="font-semibold border-white/30 text-white hover:bg-white/10">
                 Learn More <ArrowRight className="ml-1" size={14} />
               </Button>
             </Link>
