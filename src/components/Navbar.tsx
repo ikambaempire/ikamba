@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useAuth } from "@/hooks/useAuth";
 import ikambaIcon from "@/assets/ikamba-icon.png";
 
 const navLinks = [
