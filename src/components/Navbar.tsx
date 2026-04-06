@@ -104,6 +104,17 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
+              {user ? (
+                <Link to="/auth-redirect" onClick={() => setOpen(false)}>
+                  <Button variant="outline" className="w-full mt-2 border-primary-foreground/20 text-primary-foreground">Dashboard</Button>
+                </Link>
+              ) : (
+                <Link to="/login" onClick={() => setOpen(false)}>
+                  <Button variant="outline" className="w-full mt-2 border-primary-foreground/20 text-primary-foreground">
+                    <LogIn size={14} className="mr-1" /> Login
+                  </Button>
+                </Link>
+              )}
               <Link to="/start-a-project" onClick={() => setOpen(false)}>
                 <Button variant="hero" className="w-full mt-2">Start a Project</Button>
               </Link>
