@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, LogIn } from "lucide-react";
+import { Menu, X, LogIn, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useAuth } from "@/hooks/useAuth";
-import ikambaIcon from "@/assets/ikamba-icon.png";
+import cpcLogo from "@/assets/cpc-logo-full.png";
 
 const navLinks = [
-  { label: "Solutions", href: "/solutions" },
-  { label: "Work", href: "/work" },
-  { label: "How It Works", href: "/how-it-works" },
-  { label: "Insights", href: "/insights" },
+  { label: "Services", href: "/services" },
+  { label: "Training", href: "/training" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -22,13 +20,10 @@ const Navbar = () => {
   const { user } = useAuth();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary-foreground/10">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-1.5 shrink-0">
-          <img src={ikambaIcon} alt="Ikamba Media" className="h-7 sm:h-8 w-auto" />
-          <span className="font-heading font-extrabold tracking-tight text-primary-foreground text-base sm:text-lg leading-none">
-            IKAMBA <span className="font-semibold text-accent">MEDIA</span>
-          </span>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between h-16">
+        <Link to="/" className="flex items-center gap-2 shrink-0">
+          <img src={cpcLogo} alt="Correct Professional Consultants Ltd" className="h-8 sm:h-10 w-auto" />
         </Link>
 
         {/* Desktop */}
@@ -36,9 +31,9 @@ const Navbar = () => {
           {navLinks.map((link) => (
             <Link key={link.href} to={link.href}>
               <Button
-                variant="nav"
+                variant="ghost"
                 size="sm"
-                className={`text-primary-foreground/70 hover:text-primary-foreground ${location.pathname === link.href ? "text-primary-foreground" : ""}`}
+                className={`text-foreground/70 hover:text-primary hover:bg-primary/5 ${location.pathname === link.href ? "text-primary font-semibold" : ""}`}
               >
                 {link.label}
               </Button>
@@ -50,23 +45,18 @@ const Navbar = () => {
           <ThemeToggle />
           {user ? (
             <Link to="/auth-redirect">
-              <Button variant="nav" size="sm" className="text-primary-foreground/70 hover:text-primary-foreground border border-primary-foreground/20">
-                Dashboard
-              </Button>
+              <Button variant="outline" size="sm">Dashboard</Button>
             </Link>
           ) : (
             <Link to="/login">
-              <Button variant="nav" size="sm" className="text-primary-foreground/70 hover:text-primary-foreground border border-primary-foreground/20">
+              <Button variant="ghost" size="sm" className="text-foreground/70">
                 <LogIn size={14} className="mr-1" /> Login
               </Button>
             </Link>
           )}
-          <Link to="/start-a-project">
-            <Button variant="hero" size="sm">Start a Project</Button>
-          </Link>
           <Link to="/contact">
-            <Button variant="nav" size="sm" className="text-primary-foreground/70 hover:text-primary-foreground border border-primary-foreground/20">
-              Book Consultation
+            <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
+              <Phone size={14} className="mr-1.5" /> Get a Quote
             </Button>
           </Link>
         </div>
@@ -75,7 +65,7 @@ const Navbar = () => {
         <div className="md:hidden flex items-center gap-1">
           <ThemeToggle />
           <button
-            className="p-2 text-primary-foreground"
+            className="p-2 text-foreground"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
@@ -91,7 +81,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-primary border-b border-primary-foreground/10 overflow-hidden"
+            className="md:hidden bg-background border-b border-border overflow-hidden"
           >
             <div className="px-6 py-4 space-y-2">
               {navLinks.map((link) => (
@@ -99,27 +89,26 @@ const Navbar = () => {
                   key={link.href}
                   to={link.href}
                   onClick={() => setOpen(false)}
-                  className="block py-2 text-sm font-medium text-primary-foreground/70 hover:text-primary-foreground"
+                  className={`block py-2 text-sm font-medium ${location.pathname === link.href ? "text-primary font-semibold" : "text-foreground/80 hover:text-primary"}`}
                 >
                   {link.label}
                 </Link>
               ))}
               {user ? (
                 <Link to="/auth-redirect" onClick={() => setOpen(false)}>
-                  <Button variant="outline" className="w-full mt-2 border-primary-foreground/20 text-primary-foreground">Dashboard</Button>
+                  <Button variant="outline" className="w-full mt-2">Dashboard</Button>
                 </Link>
               ) : (
                 <Link to="/login" onClick={() => setOpen(false)}>
-                  <Button variant="outline" className="w-full mt-2 border-primary-foreground/20 text-primary-foreground">
+                  <Button variant="outline" className="w-full mt-2">
                     <LogIn size={14} className="mr-1" /> Login
                   </Button>
                 </Link>
               )}
-              <Link to="/start-a-project" onClick={() => setOpen(false)}>
-                <Button variant="hero" className="w-full mt-2">Start a Project</Button>
-              </Link>
               <Link to="/contact" onClick={() => setOpen(false)}>
-                <Button variant="outline" className="w-full mt-1 border-primary-foreground/20 text-primary-foreground">Book Consultation</Button>
+                <Button className="w-full mt-1 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
+                  <Phone size={14} className="mr-1.5" /> Get a Quote
+                </Button>
               </Link>
             </div>
           </motion.div>
