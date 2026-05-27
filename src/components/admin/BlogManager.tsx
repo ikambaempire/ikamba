@@ -31,7 +31,7 @@ const emptyPost = {
   content: "",
   category: "",
   cover_image_url: "",
-  author: "Ikamba Media",
+  author: "CPC Ltd",
   published: false,
 };
 
@@ -75,7 +75,7 @@ const BlogManager = () => {
       content: post.content,
       category: post.category || "",
       cover_image_url: post.cover_image_url || "",
-      author: post.author || "Ikamba Media",
+      author: post.author || "CPC Ltd",
       published: post.published,
     });
     setEditorMode(true);
@@ -168,7 +168,7 @@ const BlogManager = () => {
       content: form.content,
       category: form.category || null,
       cover_image_url: form.cover_image_url || null,
-      author: form.author || "Ikamba Media",
+      author: form.author || "CPC Ltd",
       published: isPublished,
       published_at: isPublished ? (editing?.published_at || new Date().toISOString()) : null,
     };

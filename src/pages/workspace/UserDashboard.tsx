@@ -123,7 +123,7 @@ const UserDashboard = () => {
             <CardContent className="p-12 text-center">
               <FileText className="mx-auto mb-3 text-muted-foreground/30" size={40} />
               <h3 className="text-foreground font-semibold mb-1">No projects yet</h3>
-              <p className="text-muted-foreground text-sm mb-4">Submit your first brief to get started with Ikamba.</p>
+              <p className="text-muted-foreground text-sm mb-4">Submit your first brief to get started with CPC.</p>
               <Link to="/workspace/new-brief">
                 <Button variant="hero" size="sm">
                   <Plus size={14} className="mr-1" /> Submit Your First Brief
