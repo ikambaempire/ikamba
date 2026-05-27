@@ -2,21 +2,16 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { AuthProvider } from "@/hooks/useAuth";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import PageTransition from "@/components/PageTransition";
 import Index from "./pages/Index";
-import Solutions from "./pages/Solutions";
-import Work from "./pages/Work";
-import HowItWorks from "./pages/HowItWorks";
-import Insights from "./pages/Insights";
+import Services from "./pages/Solutions";
+import Training from "./pages/Training";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import StartAProject from "./pages/StartAProject";
-import CaptionGenerator from "./pages/CaptionGenerator";
-import DesignStudio from "./pages/DesignStudio";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AuthRedirect from "./pages/AuthRedirect";
@@ -25,7 +20,6 @@ import UserDashboard from "./pages/workspace/UserDashboard";
 import NewBrief from "./pages/workspace/NewBrief";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ProjectDetail from "./pages/ProjectDetail";
-import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,20 +32,22 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         {/* Public */}
         <Route path="/" element={<PageTransition><Index /></PageTransition>} />
-        <Route path="/solutions" element={<PageTransition><Solutions /></PageTransition>} />
-        <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
-        <Route path="/how-it-works" element={<PageTransition><HowItWorks /></PageTransition>} />
-        <Route path="/insights" element={<PageTransition><Insights /></PageTransition>} />
-        <Route path="/insights/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
+        <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
+        <Route path="/training" element={<PageTransition><Training /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-        <Route path="/start-a-project" element={<PageTransition><StartAProject /></PageTransition>} />
-        <Route path="/caption-generator" element={<PageTransition><CaptionGenerator /></PageTransition>} />
-        <Route path="/design-studio" element={<DesignStudio />} />
 
         {/* Legacy redirects */}
-        <Route path="/platform" element={<PageTransition><Solutions /></PageTransition>} />
-        <Route path="/case-studies" element={<PageTransition><Work /></PageTransition>} />
+        <Route path="/solutions" element={<Navigate to="/services" replace />} />
+        <Route path="/work" element={<Navigate to="/services" replace />} />
+        <Route path="/insights" element={<Navigate to="/" replace />} />
+        <Route path="/insights/:slug" element={<Navigate to="/" replace />} />
+        <Route path="/how-it-works" element={<Navigate to="/services" replace />} />
+        <Route path="/start-a-project" element={<Navigate to="/contact" replace />} />
+        <Route path="/caption-generator" element={<Navigate to="/" replace />} />
+        <Route path="/design-studio" element={<Navigate to="/" replace />} />
+        <Route path="/platform" element={<Navigate to="/services" replace />} />
+        <Route path="/case-studies" element={<Navigate to="/services" replace />} />
 
         {/* Auth */}
         <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
