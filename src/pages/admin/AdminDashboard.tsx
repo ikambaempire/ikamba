@@ -50,7 +50,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [orgName, setOrgName] = useState("");
   const [view, setView] = useState<"table" | "kanban">("table");
-  const [tab, setTab] = useState<"projects" | "blog" | "users">("projects");
+  const [tab, setTab] = useState<"projects" | "bookings" | "blog" | "users">("bookings");
 
   const fetchData = async () => {
     const [projRes, clientRes] = await Promise.all([
