@@ -5,14 +5,30 @@ import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", preferred_date: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message received. A CPC advisor will be in touch within 24 hours.");
-    setForm({ name: "", email: "", phone: "", service: "", message: "" });
+    setSubmitting(true);
+    const { error } = await supabase.from("bookings").insert({
+      name: form.name,
+      email: form.email,
+      phone: form.phone || null,
+      service: form.service || null,
+      preferred_date: form.preferred_date || null,
+      message: form.message,
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Could not submit. Please try again or call us directly.");
+      return;
+    }
+    toast.success("Booking received! A CPC advisor will contact you within 24 hours.");
+    setForm({ name: "", email: "", phone: "", service: "", preferred_date: "", message: "" });
   };
 
   return (
