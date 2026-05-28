@@ -183,6 +183,8 @@ const AdminDashboard = () => {
 
         {tab === "users" ? (
           <UserManager />
+        ) : tab === "bookings" ? (
+          <BookingManager />
         ) : tab === "blog" ? (
           <BlogManager />
         ) : (
