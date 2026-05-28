@@ -164,15 +164,18 @@ const AdminDashboard = () => {
         </div>
 
         {/* Tab switcher */}
-        <div className="flex items-center gap-1 mb-6 border-b border-border">
-          <button onClick={() => setTab("projects")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${tab === "projects" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+        <div className="flex items-center gap-1 mb-6 border-b border-border overflow-x-auto">
+          <button onClick={() => setTab("bookings")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === "bookings" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+            <CalendarCheck size={14} /> Bookings
+          </button>
+          <button onClick={() => setTab("projects")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${tab === "projects" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
             Projects
           </button>
-          <button onClick={() => setTab("blog")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 ${tab === "blog" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+          <button onClick={() => setTab("blog")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === "blog" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
             <FileText size={14} /> Blog
           </button>
           {roles.includes("super_admin") && (
-            <button onClick={() => setTab("users")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 ${tab === "users" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+            <button onClick={() => setTab("users")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === "users" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
               <Users size={14} /> Users
             </button>
           )}
