@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
+import { ArrowRight, Phone, Mail, MapPin, Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
 import cpcLogo from "@/assets/cpc-logo-full.png";
 
 const Footer = () => (
