@@ -15,6 +15,8 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AuthRedirect from "./pages/AuthRedirect";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import ClientDashboard from "./pages/workspace/ClientDashboard";
 import UserDashboard from "./pages/workspace/UserDashboard";
 import NewBrief from "./pages/workspace/NewBrief";
