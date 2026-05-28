@@ -8,10 +8,11 @@ import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import {
-  BarChart3, Clock, AlertTriangle, CheckCircle2, LogOut, Layers, TrendingUp, Building2, LayoutGrid, TableIcon, FileText, Users,
+  BarChart3, Clock, AlertTriangle, CheckCircle2, LogOut, Layers, TrendingUp, Building2, LayoutGrid, TableIcon, FileText, Users, CalendarCheck,
 } from "lucide-react";
 import KanbanBoard from "@/components/admin/KanbanBoard";
 import BlogManager from "@/components/admin/BlogManager";
+import BookingManager from "@/components/admin/BookingManager";
 import UserManager from "@/components/admin/UserManager";
 import type { Database } from "@/integrations/supabase/types";
 
