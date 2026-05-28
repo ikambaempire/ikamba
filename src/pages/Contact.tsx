@@ -55,8 +55,8 @@ const Contact = () => {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Form */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-2 text-foreground">Send Us a Message</h2>
-            <p className="text-muted-foreground mb-6">Fill in the form and we'll respond within 24 hours.</p>
+            <h2 className="text-2xl font-bold mb-2 text-foreground">Book a Free Consultation</h2>
+            <p className="text-muted-foreground mb-6">Fill in the form and a CPC advisor will confirm your booking within 24 hours.</p>
             <form onSubmit={handleSubmit} className="space-y-5 bg-card border border-border rounded-2xl p-6 md:p-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
@@ -74,26 +74,32 @@ const Contact = () => {
                   <input value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Service of Interest</label>
-                  <select value={form.service} onChange={e => setForm(f => ({ ...f, service: e.target.value }))} className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
-                    <option value="">Select a service…</option>
-                    <option>Taxation Services</option>
-                    <option>Accounting Services</option>
-                    <option>Digital Marketing</option>
-                    <option>Professional Training</option>
-                    <option>Business Registration</option>
-                    <option>Work Permits & Immigration</option>
-                    <option>Billing & Debt Recovery</option>
-                    <option>Annual Returns Filing</option>
-                    <option>Other</option>
-                  </select>
+                  <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Preferred Date</label>
+                  <input type="date" value={form.preferred_date} onChange={e => setForm(f => ({ ...f, preferred_date: e.target.value }))} className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
                 </div>
+              </div>
+              <div>
+                <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">Service of Interest</label>
+                <select value={form.service} onChange={e => setForm(f => ({ ...f, service: e.target.value }))} className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring">
+                  <option value="">Select a service…</option>
+                  <option>Taxation Services</option>
+                  <option>Accounting Services</option>
+                  <option>Digital Marketing</option>
+                  <option>Professional Training</option>
+                  <option>Business Registration</option>
+                  <option>Work Permits & Immigration</option>
+                  <option>Billing & Debt Recovery</option>
+                  <option>Annual Returns Filing</option>
+                  <option>Other</option>
+                </select>
               </div>
               <div>
                 <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 block">How can we help? *</label>
                 <textarea value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} required rows={5} className="w-full rounded-md border border-input bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none" />
               </div>
-              <Button type="submit" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">Send Message</Button>
+              <Button type="submit" size="lg" disabled={submitting} className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
+                {submitting ? "Submitting…" : "Submit Booking"}
+              </Button>
             </form>
           </div>
 
