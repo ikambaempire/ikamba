@@ -10,6 +10,7 @@ import cpcLogo from "@/assets/cpc-logo-full.png";
 const navLinks = [
   { label: "Services", href: "/services" },
   { label: "Training", href: "/training" },
+  { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

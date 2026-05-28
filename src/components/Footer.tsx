@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
+import { ArrowRight, Phone, Mail, MapPin, Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
 import cpcLogo from "@/assets/cpc-logo-full.png";
 
 const Footer = () => (
@@ -35,10 +35,30 @@ const Footer = () => (
 
         <div>
           <h4 className="text-xs font-semibold uppercase tracking-widest text-primary-foreground/50 mb-4">Connect</h4>
-          <ul className="space-y-2 text-sm text-primary-foreground/80">
-            <li className="flex items-center gap-2"><Facebook size={14} /> Correct Professional Consultants Ltd</li>
-            <li className="flex items-center gap-2"><Instagram size={14} /> Correct Professional Consultants Ltd</li>
-            <li className="flex items-center gap-2"><Youtube size={14} /> CPC Ltd TV</li>
+          <ul className="space-y-3 text-sm text-primary-foreground/80">
+            <li>
+              <a href="https://www.facebook.com/correctprofessionalconsultants" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
+                <Facebook size={14} /> Facebook
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/correctprofessionalconsultants" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
+                <Instagram size={14} /> Instagram
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/company/correct-professional-consultants" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
+                <Linkedin size={14} /> LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/@cpcltd" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
+                <Youtube size={14} /> YouTube
+              </a>
+            </li>
+            <li className="pt-2">
+              <Link to="/blog" className="text-accent font-semibold hover:underline">Read our blog →</Link>
+            </li>
           </ul>
         </div>
 

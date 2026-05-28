@@ -106,6 +106,48 @@ export type Database = {
         }
         Relationships: []
       }
+      bookings: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          email: string
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          preferred_date: string | null
+          service: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          preferred_date?: string | null
+          service?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          preferred_date?: string | null
+          service?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       clients: {
         Row: {
           contact_email: string | null

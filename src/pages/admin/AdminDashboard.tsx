@@ -8,10 +8,11 @@ import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import {
-  BarChart3, Clock, AlertTriangle, CheckCircle2, LogOut, Layers, TrendingUp, Building2, LayoutGrid, TableIcon, FileText, Users,
+  BarChart3, Clock, AlertTriangle, CheckCircle2, LogOut, Layers, TrendingUp, Building2, LayoutGrid, TableIcon, FileText, Users, CalendarCheck,
 } from "lucide-react";
 import KanbanBoard from "@/components/admin/KanbanBoard";
 import BlogManager from "@/components/admin/BlogManager";
+import BookingManager from "@/components/admin/BookingManager";
 import UserManager from "@/components/admin/UserManager";
 import type { Database } from "@/integrations/supabase/types";
 
@@ -49,7 +50,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [orgName, setOrgName] = useState("");
   const [view, setView] = useState<"table" | "kanban">("table");
-  const [tab, setTab] = useState<"projects" | "blog" | "users">("projects");
+  const [tab, setTab] = useState<"projects" | "bookings" | "blog" | "users">("bookings");
 
   const fetchData = async () => {
     const [projRes, clientRes] = await Promise.all([
@@ -124,7 +125,7 @@ const AdminDashboard = () => {
         <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="font-heading text-lg font-extrabold text-foreground">
-              IKAMBA<span className="text-accent">.</span>
+              CPC<span className="text-accent">.</span>
             </span>
             <span className="text-muted-foreground/30 text-xs">|</span>
             <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
@@ -163,15 +164,18 @@ const AdminDashboard = () => {
         </div>
 
         {/* Tab switcher */}
-        <div className="flex items-center gap-1 mb-6 border-b border-border">
-          <button onClick={() => setTab("projects")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${tab === "projects" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+        <div className="flex items-center gap-1 mb-6 border-b border-border overflow-x-auto">
+          <button onClick={() => setTab("bookings")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === "bookings" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+            <CalendarCheck size={14} /> Bookings
+          </button>
+          <button onClick={() => setTab("projects")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${tab === "projects" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
             Projects
           </button>
-          <button onClick={() => setTab("blog")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 ${tab === "blog" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+          <button onClick={() => setTab("blog")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === "blog" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
             <FileText size={14} /> Blog
           </button>
           {roles.includes("super_admin") && (
-            <button onClick={() => setTab("users")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 ${tab === "users" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+            <button onClick={() => setTab("users")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === "users" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
               <Users size={14} /> Users
             </button>
           )}
@@ -179,6 +183,8 @@ const AdminDashboard = () => {
 
         {tab === "users" ? (
           <UserManager />
+        ) : tab === "bookings" ? (
+          <BookingManager />
         ) : tab === "blog" ? (
           <BlogManager />
         ) : (

@@ -15,6 +15,8 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AuthRedirect from "./pages/AuthRedirect";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import ClientDashboard from "./pages/workspace/ClientDashboard";
 import UserDashboard from "./pages/workspace/UserDashboard";
 import NewBrief from "./pages/workspace/NewBrief";
@@ -36,18 +38,20 @@ const AnimatedRoutes = () => {
         <Route path="/training" element={<PageTransition><Training /></PageTransition>} />
         <Route path="/about" element={<PageTransition><About /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+        <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
 
         {/* Legacy redirects */}
         <Route path="/solutions" element={<Navigate to="/services" replace />} />
         <Route path="/work" element={<Navigate to="/services" replace />} />
-        <Route path="/insights" element={<Navigate to="/" replace />} />
-        <Route path="/insights/:slug" element={<Navigate to="/" replace />} />
+        <Route path="/insights" element={<Navigate to="/blog" replace />} />
+        <Route path="/insights/:slug" element={<Navigate to="/blog" replace />} />
         <Route path="/how-it-works" element={<Navigate to="/services" replace />} />
         <Route path="/start-a-project" element={<Navigate to="/contact" replace />} />
         <Route path="/caption-generator" element={<Navigate to="/" replace />} />
         <Route path="/design-studio" element={<Navigate to="/" replace />} />
         <Route path="/platform" element={<Navigate to="/services" replace />} />
-        <Route path="/case-studies" element={<Navigate to="/services" replace />} />
+        <Route path="/case-studies" element={<Navigate to="/blog" replace />} />
 
         {/* Auth */}
         <Route path="/login" element={<PageTransition><Login /></PageTransition>} />

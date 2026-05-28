@@ -59,10 +59,6 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Left: copy */}
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 rounded-full px-3 py-1 mb-5">
-                <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                <span className="text-[11px] uppercase tracking-[0.2em] font-semibold text-white/90">Professional · Excellence · Trust</span>
-              </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] mb-5 text-balance">
                 Smart Consulting for{" "}
