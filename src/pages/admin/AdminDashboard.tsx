@@ -1,143 +1,85 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
-} from "@/components/ui/table";
-import {
-  BarChart3, Clock, AlertTriangle, CheckCircle2, LogOut, Layers, TrendingUp, Building2, LayoutGrid, TableIcon, FileText, Users, CalendarCheck,
+  LogOut, Building2, CalendarCheck, FileText, Users, Clock,
+  CheckCircle2, XCircle, TrendingUp, Mail, Phone,
 } from "lucide-react";
-import KanbanBoard from "@/components/admin/KanbanBoard";
 import BlogManager from "@/components/admin/BlogManager";
 import BookingManager from "@/components/admin/BookingManager";
 import UserManager from "@/components/admin/UserManager";
-import type { Database } from "@/integrations/supabase/types";
 
-type Project = Database["public"]["Tables"]["projects"]["Row"];
-type Client = Database["public"]["Tables"]["clients"]["Row"];
-type ProjectStatus = Database["public"]["Enums"]["project_status"];
-type PriorityLevel = Database["public"]["Enums"]["priority_level"];
-
-const statusLabels: Record<ProjectStatus, string> = {
-  brief_received: "Brief Received",
-  strategy_alignment: "Strategy",
-  production: "Production",
-  editing: "Editing",
-  client_review: "Client Review",
-  final_delivery: "Final Delivery",
-  archive: "Archived",
-};
-
-const allStatuses: ProjectStatus[] = [
-  "brief_received", "strategy_alignment", "production", "editing", "client_review", "final_delivery", "archive",
-];
-
-const priorityColors: Record<PriorityLevel, string> = {
-  low: "bg-muted text-muted-foreground",
-  medium: "bg-primary/10 text-primary",
-  high: "bg-accent/15 text-accent-foreground",
-  urgent: "bg-destructive/15 text-destructive",
-};
+type Tab = "overview" | "bookings" | "blog" | "users";
 
 const AdminDashboard = () => {
   const { user, profile, signOut, roles } = useAuth();
-  const navigate = useNavigate();
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [clients, setClients] = useState<Client[]>([]);
+  const [tab, setTab] = useState<Tab>("overview");
+  const [stats, setStats] = useState({
+    pending: 0, confirmed: 0, completed: 0, cancelled: 0,
+    thisMonth: 0, total: 0, posts: 0, recent: [] as any[],
+  });
   const [loading, setLoading] = useState(true);
-  const [orgName, setOrgName] = useState("");
-  const [view, setView] = useState<"table" | "kanban">("table");
-  const [tab, setTab] = useState<"projects" | "bookings" | "blog" | "users">("bookings");
 
-  const fetchData = async () => {
-    const [projRes, clientRes] = await Promise.all([
-      supabase.from("projects").select("*").order("updated_at", { ascending: false }),
-      supabase.from("clients").select("*"),
+  const fetchStats = async () => {
+    const [bookingsRes, postsRes] = await Promise.all([
+      supabase.from("bookings").select("*").order("created_at", { ascending: false }),
+      supabase.from("blog_posts").select("id", { count: "exact", head: true }),
     ]);
-    if (projRes.data) setProjects(projRes.data);
-    if (clientRes.data) setClients(clientRes.data);
-
-    if (profile?.organization_id) {
-      const { data: org } = await supabase.from("organizations").select("name").eq("id", profile.organization_id).single();
-      if (org) setOrgName(org.name);
-    }
+    const bookings = bookingsRes.data || [];
+    const now = new Date();
+    setStats({
+      pending: bookings.filter((b: any) => b.status === "pending").length,
+      confirmed: bookings.filter((b: any) => b.status === "confirmed").length,
+      completed: bookings.filter((b: any) => b.status === "completed").length,
+      cancelled: bookings.filter((b: any) => b.status === "cancelled").length,
+      thisMonth: bookings.filter((b: any) => {
+        const d = new Date(b.created_at);
+        return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+      }).length,
+      total: bookings.length,
+      posts: postsRes.count || 0,
+      recent: bookings.slice(0, 5),
+    });
     setLoading(false);
   };
 
-  useEffect(() => { fetchData(); }, [profile?.organization_id]);
-
-  const getClientName = (clientId: string) => clients.find((c) => c.id === clientId)?.name || "—";
-  const getDaysInStage = (stageEnteredAt: string) => Math.floor((Date.now() - new Date(stageEnteredAt).getTime()) / 86400000);
-
-  const getDeadlineRisk = (deadline: string | null, status: ProjectStatus) => {
-    if (!deadline || ["final_delivery", "archive"].includes(status)) return "green";
-    const daysLeft = Math.floor((new Date(deadline).getTime() - Date.now()) / 86400000);
-    if (daysLeft < 0) return "red";
-    if (daysLeft <= 3) return "orange";
-    return "green";
-  };
-
-  const active = projects.filter((p) => !["archive", "final_delivery"].includes(p.status));
-  const inReview = projects.filter((p) => p.status === "client_review");
-  const overdue = projects.filter((p) => p.deadline && new Date(p.deadline) < new Date() && !["final_delivery", "archive"].includes(p.status));
-  const deliveredThisMonth = projects.filter((p) => {
-    if (p.status !== "final_delivery") return false;
-    const now = new Date();
-    const updated = new Date(p.updated_at);
-    return updated.getMonth() === now.getMonth() && updated.getFullYear() === now.getFullYear();
-  });
-  const avgRevisions = projects.length > 0
-    ? (projects.reduce((s, p) => s + p.revision_count, 0) / projects.length).toFixed(1)
-    : "0";
-
-  const updateProjectStatus = async (projectId: string, newStatus: ProjectStatus) => {
-    const project = projects.find((p) => p.id === projectId);
-    if (!project) return;
-    await supabase.from("project_status_logs").insert({
-      project_id: projectId,
-      old_status: project.status,
-      new_status: newStatus,
-      changed_by: user?.id,
-    });
-    await supabase.from("projects").update({ status: newStatus, stage_entered_at: new Date().toISOString() }).eq("id", projectId);
-    fetchData();
-  };
-
-  const updatePriority = async (projectId: string, priority: PriorityLevel) => {
-    await supabase.from("projects").update({ priority }).eq("id", projectId);
-    fetchData();
-  };
+  useEffect(() => { fetchStats(); }, []);
 
   const metrics = [
-    { icon: Layers, label: "Active Projects", value: active.length, color: "text-primary" },
-    { icon: Clock, label: "In Review", value: inReview.length, color: "text-muted-foreground" },
-    { icon: AlertTriangle, label: "Overdue", value: overdue.length, color: "text-destructive" },
-    { icon: CheckCircle2, label: "Delivered This Month", value: deliveredThisMonth.length, color: "text-success" },
-    { icon: TrendingUp, label: "Avg Revisions", value: avgRevisions, color: "text-accent" },
+    { icon: Clock, label: "Pending Bookings", value: stats.pending, color: "text-accent", bg: "bg-accent/10" },
+    { icon: CheckCircle2, label: "Confirmed", value: stats.confirmed, color: "text-primary", bg: "bg-primary/10" },
+    { icon: CheckCircle2, label: "Completed", value: stats.completed, color: "text-success", bg: "bg-success/10" },
+    { icon: XCircle, label: "Cancelled", value: stats.cancelled, color: "text-destructive", bg: "bg-destructive/10" },
+    { icon: TrendingUp, label: "This Month", value: stats.thisMonth, color: "text-primary", bg: "bg-primary/10" },
+    { icon: FileText, label: "Blog Posts", value: stats.posts, color: "text-accent", bg: "bg-accent/10" },
   ];
+
+  const statusColor = (s: string) =>
+    s === "pending" ? "bg-accent/15 text-accent-foreground" :
+    s === "confirmed" ? "bg-primary/15 text-primary" :
+    s === "completed" ? "bg-success/15 text-success" :
+    "bg-muted text-muted-foreground";
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
+      <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-20">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="font-heading text-lg font-extrabold text-foreground">
               CPC<span className="text-accent">.</span>
             </span>
-            <span className="text-muted-foreground/30 text-xs">|</span>
-            <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
+            <span className="text-muted-foreground/30 text-xs hidden sm:inline">|</span>
+            <div className="hidden sm:flex items-center gap-1.5 text-muted-foreground text-sm">
               <Building2 size={14} />
-              <span>{orgName || "Admin Dashboard"}</span>
+              <span>Consultancy Admin</span>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-accent border border-accent/30 px-2 py-0.5 rounded-full">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] sm:text-xs text-accent border border-accent/30 px-2 py-0.5 rounded-full">
               {roles[0]?.replace("_", " ").toUpperCase()}
             </span>
-            <span className="text-muted-foreground text-sm hidden sm:block">
+            <span className="text-muted-foreground text-sm hidden md:block max-w-[200px] truncate">
               {profile?.full_name || user?.email}
             </span>
             <Button variant="ghost" size="sm" onClick={signOut} className="text-muted-foreground hover:text-foreground">
@@ -147,151 +89,95 @@ const AdminDashboard = () => {
         </div>
       </header>
 
-      <main className="max-w-[1400px] mx-auto px-6 py-8">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-foreground">Global Overview</h1>
-          <p className="text-muted-foreground text-sm mt-1">Operational status across all projects</p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">
-          {metrics.map((m, i) => (
-            <div key={i} className="bg-card border border-border rounded-lg p-5">
-              <m.icon className={`${m.color} mb-2`} size={20} />
-              <p className="text-2xl font-bold text-foreground">{loading ? "—" : m.value}</p>
-              <p className="text-xs text-muted-foreground mt-1">{m.label}</p>
-            </div>
-          ))}
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 py-6 md:py-8">
+        <div className="mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Welcome back{profile?.full_name ? `, ${profile.full_name.split(" ")[0]}` : ""}</h1>
+          <p className="text-muted-foreground text-sm mt-1">Manage bookings, publish insights, and oversee your team.</p>
         </div>
 
         {/* Tab switcher */}
         <div className="flex items-center gap-1 mb-6 border-b border-border overflow-x-auto">
-          <button onClick={() => setTab("bookings")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === "bookings" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
-            <CalendarCheck size={14} /> Bookings
-          </button>
-          <button onClick={() => setTab("projects")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${tab === "projects" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
-            Projects
-          </button>
-          <button onClick={() => setTab("blog")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === "blog" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
-            <FileText size={14} /> Blog
-          </button>
-          {roles.includes("super_admin") && (
-            <button onClick={() => setTab("users")} className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === "users" ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
-              <Users size={14} /> Users
+          {([
+            { id: "overview", label: "Overview", icon: TrendingUp },
+            { id: "bookings", label: "Bookings", icon: CalendarCheck },
+            { id: "blog", label: "Blog", icon: FileText },
+            ...(roles.includes("super_admin") ? [{ id: "users", label: "Team", icon: Users }] : []),
+          ] as { id: Tab; label: string; icon: any }[]).map((t) => (
+            <button key={t.id} onClick={() => setTab(t.id)}
+              className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === t.id ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+              <t.icon size={14} /> {t.label}
             </button>
-          )}
+          ))}
         </div>
 
-        {tab === "users" ? (
-          <UserManager />
-        ) : tab === "bookings" ? (
-          <BookingManager />
-        ) : tab === "blog" ? (
-          <BlogManager />
-        ) : (
-        <>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-foreground">
-            {view === "table" ? "Master Project Table" : "Workflow Pipeline"}
-          </h2>
-          <div className="flex items-center gap-3">
-            <span className="text-muted-foreground text-sm">{projects.length} projects</span>
-            <div className="flex items-center bg-muted rounded-md p-0.5">
-              <Button variant="ghost" size="sm" onClick={() => setView("table")}
-                className={`h-7 px-2.5 ${view === "table" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
-                <TableIcon size={14} />
-              </Button>
-              <Button variant="ghost" size="sm" onClick={() => setView("kanban")}
-                className={`h-7 px-2.5 ${view === "kanban" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
-                <LayoutGrid size={14} />
-              </Button>
+        {tab === "overview" && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+              {metrics.map((m, i) => (
+                <div key={i} className="bg-card border border-border rounded-xl p-4 hover:border-primary/30 transition-colors">
+                  <div className={`w-9 h-9 rounded-lg ${m.bg} flex items-center justify-center mb-2.5`}>
+                    <m.icon className={m.color} size={18} />
+                  </div>
+                  <p className="text-2xl font-extrabold text-foreground">{loading ? "—" : m.value}</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{m.label}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 bg-card border border-border rounded-xl p-5 md:p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="font-bold text-foreground">Recent Bookings</h2>
+                  <button onClick={() => setTab("bookings")} className="text-xs text-primary hover:underline">View all →</button>
+                </div>
+                {loading ? (
+                  <div className="text-center text-muted-foreground py-8">Loading...</div>
+                ) : stats.recent.length === 0 ? (
+                  <div className="text-center text-muted-foreground py-8 text-sm">No bookings yet.</div>
+                ) : (
+                  <div className="space-y-2">
+                    {stats.recent.map((b: any) => (
+                      <div key={b.id} className="flex items-center justify-between gap-3 py-3 border-b border-border last:border-0">
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium text-foreground text-sm truncate">{b.name}</p>
+                          <p className="text-xs text-muted-foreground truncate flex items-center gap-2 mt-0.5">
+                            <Mail size={11} /> {b.email}
+                            {b.phone && <><Phone size={11} className="ml-1" /> {b.phone}</>}
+                          </p>
+                        </div>
+                        <span className={`text-[10px] px-2 py-1 rounded-full font-medium uppercase tracking-wide ${statusColor(b.status)}`}>
+                          {b.status}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-gradient-to-br from-primary to-[hsl(var(--brand-blue-mid))] rounded-xl p-6 text-white shadow-lg">
+                <p className="text-xs uppercase tracking-[0.2em] font-semibold text-white/70 mb-3">Quick Actions</p>
+                <h3 className="text-xl font-extrabold mb-4 leading-snug">Run your consultancy from one place.</h3>
+                <div className="space-y-2">
+                  <button onClick={() => setTab("bookings")} className="w-full text-left bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-sm font-medium transition-colors flex items-center justify-between">
+                    Manage bookings <CalendarCheck size={14} />
+                  </button>
+                  <button onClick={() => setTab("blog")} className="w-full text-left bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-sm font-medium transition-colors flex items-center justify-between">
+                    Publish a new article <FileText size={14} />
+                  </button>
+                  {roles.includes("super_admin") && (
+                    <button onClick={() => setTab("users")} className="w-full text-left bg-white/10 hover:bg-white/20 backdrop-blur rounded-lg px-4 py-3 text-sm font-medium transition-colors flex items-center justify-between">
+                      Manage team & admins <Users size={14} />
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
-        {view === "kanban" ? (
-          loading ? (
-            <div className="p-12 text-center text-muted-foreground">Loading...</div>
-          ) : (
-            <KanbanBoard
-              projects={projects}
-              clients={clients.map((c) => ({ id: c.id, name: c.name }))}
-              onStatusChange={updateProjectStatus}
-            />
-          )
-        ) : (
-        <div className="bg-card border border-border rounded-lg overflow-x-auto">
-          {loading ? (
-            <div className="p-12 text-center text-muted-foreground">Loading...</div>
-          ) : (
-            <Table>
-              <TableHeader>
-                <TableRow className="border-border hover:bg-transparent">
-                  <TableHead className="text-muted-foreground text-xs">Client</TableHead>
-                  <TableHead className="text-muted-foreground text-xs">Project</TableHead>
-                  <TableHead className="text-muted-foreground text-xs">Type</TableHead>
-                  <TableHead className="text-muted-foreground text-xs">Status</TableHead>
-                  <TableHead className="text-muted-foreground text-xs">Priority</TableHead>
-                  <TableHead className="text-muted-foreground text-xs">Deadline</TableHead>
-                  <TableHead className="text-muted-foreground text-xs">Days in Stage</TableHead>
-                  <TableHead className="text-muted-foreground text-xs">Revisions</TableHead>
-                  <TableHead className="text-muted-foreground text-xs">Updated</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {projects.map((p) => {
-                  const risk = getDeadlineRisk(p.deadline, p.status);
-                  const days = getDaysInStage(p.stage_entered_at);
-                  return (
-                    <TableRow key={p.id} className="border-border hover:bg-muted/30 cursor-pointer" onClick={() => navigate(`/project/${p.id}`)}>
-                      <TableCell className="text-muted-foreground text-sm">{getClientName(p.client_id)}</TableCell>
-                      <TableCell className="text-foreground font-medium text-sm">{p.name}</TableCell>
-                      <TableCell className="text-muted-foreground text-xs">{p.project_type || "—"}</TableCell>
-                      <TableCell>
-                        <Select value={p.status} onValueChange={(v) => { updateProjectStatus(p.id, v as ProjectStatus); }}>
-                          <SelectTrigger className="h-7 text-xs bg-transparent border-border text-foreground w-[140px]" onClick={(e) => e.stopPropagation()}>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {allStatuses.map((s) => (
-                              <SelectItem key={s} value={s}>{statusLabels[s]}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                      <TableCell>
-                        <Select value={p.priority} onValueChange={(v) => { updatePriority(p.id, v as PriorityLevel); }}>
-                          <SelectTrigger className={`h-7 text-xs border-0 w-[90px] ${priorityColors[p.priority]}`} onClick={(e) => e.stopPropagation()}>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {(["low", "medium", "high", "urgent"] as PriorityLevel[]).map((pr) => (
-                              <SelectItem key={pr} value={pr}>{pr.charAt(0).toUpperCase() + pr.slice(1)}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                      <TableCell>
-                        <span className={`text-sm ${risk === "red" ? "text-destructive font-semibold" : risk === "orange" ? "text-accent" : "text-muted-foreground"}`}>
-                          {p.deadline ? new Date(p.deadline).toLocaleDateString() : "—"}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <span className={`text-sm ${days > 7 ? "text-accent" : "text-muted-foreground"}`}>{days}d</span>
-                      </TableCell>
-                      <TableCell>
-                        <span className={`text-sm ${p.revision_count > 2 ? "text-accent font-semibold" : "text-muted-foreground"}`}>{p.revision_count}</span>
-                      </TableCell>
-                      <TableCell className="text-muted-foreground text-xs">{new Date(p.updated_at).toLocaleDateString()}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          )}
-        </div>
-        )}
-        </>
-        )}
+        {tab === "bookings" && <BookingManager />}
+        {tab === "blog" && <BlogManager />}
+        {tab === "users" && roles.includes("super_admin") && <UserManager />}
       </main>
     </div>
   );

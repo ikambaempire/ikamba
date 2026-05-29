@@ -107,13 +107,6 @@ const Index = () => {
                   ))}
                 </div>
               </div>
-              {/* Real photo collage of professionals */}
-              <div className="hidden lg:block absolute -z-10 -bottom-10 -right-10 w-56 h-72 rounded-2xl overflow-hidden shadow-xl rotate-3">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="African business professional consulting" className="w-full h-full object-cover" loading="lazy" />
-              </div>
-              <div className="hidden lg:block absolute -z-10 -top-10 -left-10 w-48 h-60 rounded-2xl overflow-hidden shadow-xl -rotate-3">
-                <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80" alt="Black entrepreneur reviewing accounts" className="w-full h-full object-cover" loading="lazy" />
-              </div>
             </motion.div>
           </div>
         </div>
@@ -152,6 +145,22 @@ const Index = () => {
               </Button>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* People strip — humanize */}
+      <section className="bg-muted/30 py-12 md:py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80", alt: "Advisor meeting with client" },
+            { src: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80", alt: "Reviewing financial reports" },
+            { src: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80", alt: "Team handshake" },
+          ].map((p, i) => (
+            <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}
+              className="rounded-2xl overflow-hidden aspect-[4/3] shadow-md">
+              <img src={p.src} alt={p.alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+            </motion.div>
+          ))}
         </div>
       </section>
 
