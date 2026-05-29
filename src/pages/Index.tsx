@@ -83,13 +83,7 @@ const Index = () => {
                 </Link>
               </div>
 
-              <div className="flex flex-wrap items-center gap-4 text-xs text-white/70">
-                {values.map((v) => (
-                  <span key={v} className="flex items-center gap-1.5">
-                    <CheckCircle2 size={14} className="text-accent" /> {v}
-                  </span>
-                ))}
-              </div>
+              {/* values banner removed per request */}
             </motion.div>
 
             {/* Right: brand card */}
@@ -113,8 +107,13 @@ const Index = () => {
                   ))}
                 </div>
               </div>
-              <div className="absolute -z-10 -bottom-6 -right-6 w-32 h-32 bg-accent/30 rounded-full blur-3xl" />
-              <div className="absolute -z-10 -top-6 -left-6 w-32 h-32 bg-brand-teal/40 rounded-full blur-3xl" style={{ background: "hsl(var(--brand-teal) / 0.4)" }} />
+              {/* Real photo collage of professionals */}
+              <div className="hidden lg:block absolute -z-10 -bottom-10 -right-10 w-56 h-72 rounded-2xl overflow-hidden shadow-xl rotate-3">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="African business professional consulting" className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="hidden lg:block absolute -z-10 -top-10 -left-10 w-48 h-60 rounded-2xl overflow-hidden shadow-xl -rotate-3">
+                <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80" alt="Black entrepreneur reviewing accounts" className="w-full h-full object-cover" loading="lazy" />
+              </div>
             </motion.div>
           </div>
         </div>
