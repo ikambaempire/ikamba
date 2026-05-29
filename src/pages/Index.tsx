@@ -83,13 +83,7 @@ const Index = () => {
                 </Link>
               </div>
 
-              <div className="flex flex-wrap items-center gap-4 text-xs text-white/70">
-                {values.map((v) => (
-                  <span key={v} className="flex items-center gap-1.5">
-                    <CheckCircle2 size={14} className="text-accent" /> {v}
-                  </span>
-                ))}
-              </div>
+              {/* values banner removed per request */}
             </motion.div>
 
             {/* Right: brand card */}
