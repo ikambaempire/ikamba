@@ -107,13 +107,6 @@ const Index = () => {
                   ))}
                 </div>
               </div>
-              {/* Real photo collage of professionals */}
-              <div className="hidden lg:block absolute -z-10 -bottom-10 -right-10 w-56 h-72 rounded-2xl overflow-hidden shadow-xl rotate-3">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="African business professional consulting" className="w-full h-full object-cover" loading="lazy" />
-              </div>
-              <div className="hidden lg:block absolute -z-10 -top-10 -left-10 w-48 h-60 rounded-2xl overflow-hidden shadow-xl -rotate-3">
-                <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80" alt="Black entrepreneur reviewing accounts" className="w-full h-full object-cover" loading="lazy" />
-              </div>
             </motion.div>
           </div>
         </div>
