@@ -148,6 +148,22 @@ const Index = () => {
         </div>
       </section>
 
+      {/* People strip — humanize */}
+      <section className="bg-muted/30 py-12 md:py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80", alt: "Advisor meeting with client" },
+            { src: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80", alt: "Reviewing financial reports" },
+            { src: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80", alt: "Team handshake" },
+          ].map((p, i) => (
+            <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}
+              className="rounded-2xl overflow-hidden aspect-[4/3] shadow-md">
+              <img src={p.src} alt={p.alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
       {/* Why CPC */}
       <section className="section-padding gradient-navy text-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
