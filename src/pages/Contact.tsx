@@ -6,30 +6,33 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const Contact = () => {
+  const { settings } = useSiteSettings();
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", preferred_date: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const { error } = await supabase.from("bookings").insert({
+    const { error } = await supabase.from("contact_messages").insert({
       name: form.name,
       email: form.email,
       phone: form.phone || null,
       service: form.service || null,
-      preferred_date: form.preferred_date || null,
-      message: form.message,
+      message: form.message + (form.preferred_date ? `\n\nPreferred date: ${form.preferred_date}` : ""),
     });
     setSubmitting(false);
     if (error) {
       toast.error("Could not submit. Please try again or call us directly.");
       return;
     }
-    toast.success("Booking received! A CPC advisor will contact you within 24 hours.");
+    toast.success("Message received! A CPC advisor will contact you within 24 hours.");
     setForm({ name: "", email: "", phone: "", service: "", preferred_date: "", message: "" });
   };
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -110,40 +113,45 @@ const Contact = () => {
                 <Phone className="text-accent shrink-0 mt-0.5" size={18} />
                 <div>
                   <p className="text-xs uppercase tracking-widest text-primary-foreground/60 font-semibold mb-1">Phone</p>
-                  <p className="text-sm">+250 788 506 194</p>
-                  <p className="text-sm">+250 781 722 386</p>
+                  <p className="text-sm">{settings.contact_phone}</p>
+                  {settings.whatsapp_number && <p className="text-xs text-primary-foreground/70">WhatsApp: {settings.whatsapp_number}</p>}
                 </div>
               </div>
               <div className="flex gap-3 items-start">
                 <Mail className="text-accent shrink-0 mt-0.5" size={18} />
                 <div>
                   <p className="text-xs uppercase tracking-widest text-primary-foreground/60 font-semibold mb-1">Email</p>
-                  <p className="text-sm break-all">correctprofesionalconsultants@gmail.com</p>
+                  <p className="text-sm break-all">{settings.contact_email}</p>
                 </div>
               </div>
               <div className="flex gap-3 items-start">
                 <MapPin className="text-accent shrink-0 mt-0.5" size={18} />
                 <div>
                   <p className="text-xs uppercase tracking-widest text-primary-foreground/60 font-semibold mb-1">Head Office</p>
-                  <p className="text-sm leading-relaxed">KN 48 Street, Nyarugenge<br/>Yussa City Center (Makuza Plaza)<br/>Tower B, 8th Floor, Kigali, Rwanda</p>
+                  <p className="text-sm leading-relaxed">
+                    {settings.address_line1}{settings.address_line2 ? <><br/>{settings.address_line2}</> : null}
+                    {settings.city ? <><br/>{settings.city}</> : null}
+                  </p>
                 </div>
               </div>
-              <div className="flex gap-3 items-start">
-                <Clock className="text-accent shrink-0 mt-0.5" size={18} />
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-primary-foreground/60 font-semibold mb-1">Hours</p>
-                  <p className="text-sm">Mon – Fri · 8:00 – 17:00</p>
-                  <p className="text-sm">Sat · 9:00 – 13:00</p>
+              {settings.working_hours && (
+                <div className="flex gap-3 items-start">
+                  <Clock className="text-accent shrink-0 mt-0.5" size={18} />
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-primary-foreground/60 font-semibold mb-1">Hours</p>
+                    <p className="text-sm whitespace-pre-line">{settings.working_hours}</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
-            <a href="tel:+250788506194" className="block">
+            <a href={`tel:${settings.contact_phone.replace(/\s/g, "")}`} className="block">
               <Button size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
                 <Phone size={16} className="mr-2" /> Call Now
               </Button>
             </a>
           </div>
+
         </div>
       </section>
 

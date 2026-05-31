@@ -189,6 +189,45 @@ export type Database = {
           },
         ]
       }
+      contact_messages: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          phone: string | null
+          service: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+          service?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+          service?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       organizations: {
         Row: {
           created_at: string
@@ -413,6 +452,117 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      site_settings: {
+        Row: {
+          address_line1: string | null
+          address_line2: string | null
+          city: string | null
+          contact_email: string
+          contact_phone: string
+          facebook_url: string | null
+          facebook_visible: boolean
+          id: string
+          instagram_url: string | null
+          instagram_visible: boolean
+          linkedin_url: string | null
+          linkedin_visible: boolean
+          meta_description: string
+          singleton: boolean
+          site_title: string
+          tagline: string
+          tiktok_url: string | null
+          tiktok_visible: boolean
+          updated_at: string
+          whatsapp_number: string | null
+          working_hours: string | null
+          youtube_url: string | null
+          youtube_visible: boolean
+        }
+        Insert: {
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          contact_email?: string
+          contact_phone?: string
+          facebook_url?: string | null
+          facebook_visible?: boolean
+          id?: string
+          instagram_url?: string | null
+          instagram_visible?: boolean
+          linkedin_url?: string | null
+          linkedin_visible?: boolean
+          meta_description?: string
+          singleton?: boolean
+          site_title?: string
+          tagline?: string
+          tiktok_url?: string | null
+          tiktok_visible?: boolean
+          updated_at?: string
+          whatsapp_number?: string | null
+          working_hours?: string | null
+          youtube_url?: string | null
+          youtube_visible?: boolean
+        }
+        Update: {
+          address_line1?: string | null
+          address_line2?: string | null
+          city?: string | null
+          contact_email?: string
+          contact_phone?: string
+          facebook_url?: string | null
+          facebook_visible?: boolean
+          id?: string
+          instagram_url?: string | null
+          instagram_visible?: boolean
+          linkedin_url?: string | null
+          linkedin_visible?: boolean
+          meta_description?: string
+          singleton?: boolean
+          site_title?: string
+          tagline?: string
+          tiktok_url?: string | null
+          tiktok_visible?: boolean
+          updated_at?: string
+          whatsapp_number?: string | null
+          working_hours?: string | null
+          youtube_url?: string | null
+          youtube_visible?: boolean
+        }
+        Relationships: []
+      }
+      trusted_industries: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          logo_url: string
+          name: string
+          sort_order: number
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          logo_url: string
+          name: string
+          sort_order?: number
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          logo_url?: string
+          name?: string
+          sort_order?: number
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
