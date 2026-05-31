@@ -113,40 +113,45 @@ const Contact = () => {
                 <Phone className="text-accent shrink-0 mt-0.5" size={18} />
                 <div>
                   <p className="text-xs uppercase tracking-widest text-primary-foreground/60 font-semibold mb-1">Phone</p>
-                  <p className="text-sm">+250 788 506 194</p>
-                  <p className="text-sm">+250 781 722 386</p>
+                  <p className="text-sm">{settings.contact_phone}</p>
+                  {settings.whatsapp_number && <p className="text-xs text-primary-foreground/70">WhatsApp: {settings.whatsapp_number}</p>}
                 </div>
               </div>
               <div className="flex gap-3 items-start">
                 <Mail className="text-accent shrink-0 mt-0.5" size={18} />
                 <div>
                   <p className="text-xs uppercase tracking-widest text-primary-foreground/60 font-semibold mb-1">Email</p>
-                  <p className="text-sm break-all">correctprofesionalconsultants@gmail.com</p>
+                  <p className="text-sm break-all">{settings.contact_email}</p>
                 </div>
               </div>
               <div className="flex gap-3 items-start">
                 <MapPin className="text-accent shrink-0 mt-0.5" size={18} />
                 <div>
                   <p className="text-xs uppercase tracking-widest text-primary-foreground/60 font-semibold mb-1">Head Office</p>
-                  <p className="text-sm leading-relaxed">KN 48 Street, Nyarugenge<br/>Yussa City Center (Makuza Plaza)<br/>Tower B, 8th Floor, Kigali, Rwanda</p>
+                  <p className="text-sm leading-relaxed">
+                    {settings.address_line1}{settings.address_line2 ? <><br/>{settings.address_line2}</> : null}
+                    {settings.city ? <><br/>{settings.city}</> : null}
+                  </p>
                 </div>
               </div>
-              <div className="flex gap-3 items-start">
-                <Clock className="text-accent shrink-0 mt-0.5" size={18} />
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-primary-foreground/60 font-semibold mb-1">Hours</p>
-                  <p className="text-sm">Mon – Fri · 8:00 – 17:00</p>
-                  <p className="text-sm">Sat · 9:00 – 13:00</p>
+              {settings.working_hours && (
+                <div className="flex gap-3 items-start">
+                  <Clock className="text-accent shrink-0 mt-0.5" size={18} />
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-primary-foreground/60 font-semibold mb-1">Hours</p>
+                    <p className="text-sm whitespace-pre-line">{settings.working_hours}</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
-            <a href="tel:+250788506194" className="block">
+            <a href={`tel:${settings.contact_phone.replace(/\s/g, "")}`} className="block">
               <Button size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">
                 <Phone size={16} className="mr-2" /> Call Now
               </Button>
             </a>
           </div>
+
         </div>
       </section>
 
