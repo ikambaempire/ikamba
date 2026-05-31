@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import TrustedIndustriesBar from "@/components/home/TrustedIndustriesBar";
+
 import Card3D from "@/components/home/Card3D";
 import cpcLogo from "@/assets/cpc-logo-full.png";
 
@@ -49,11 +51,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <TrustedIndustriesBar />
 
       {/* Hero — split layout */}
-      <section className="relative pt-24 md:pt-28 pb-16 md:pb-24 overflow-hidden gradient-brand text-white">
+      <section className="relative pt-10 md:pt-14 pb-16 md:pb-24 overflow-hidden gradient-brand text-white">
         <div className="absolute inset-0 opacity-20 pointer-events-none"
           style={{ backgroundImage: "radial-gradient(circle at 15% 15%, hsl(var(--accent)) 0%, transparent 35%), radial-gradient(circle at 85% 85%, hsl(var(--brand-teal)) 0%, transparent 35%)" }} />
+
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
