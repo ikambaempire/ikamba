@@ -106,11 +106,9 @@ const Index = () => {
 
                 <div className="grid grid-cols-2 gap-4 pt-6 border-t border-border">
                   {stats.map((s) => (
-                    <div key={s.label}>
-                      <p className="text-2xl md:text-3xl font-extrabold text-primary">{s.value}</p>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider mt-0.5">{s.label}</p>
-                    </div>
+                    <StatCounter key={s.label} value={s.value} label={s.label} />
                   ))}
+
                 </div>
               </div>
             </motion.div>
