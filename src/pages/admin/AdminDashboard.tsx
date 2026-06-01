@@ -106,31 +106,72 @@ const AdminDashboard = () => {
             <span className="text-muted-foreground text-sm hidden lg:block max-w-[200px] truncate">
               {profile?.full_name || user?.email}
             </span>
-            <Button variant="ghost" size="sm" onClick={signOut} className="text-muted-foreground hover:text-foreground">
+            <Button variant="ghost" size="sm" onClick={signOut} className="text-muted-foreground hover:text-foreground hidden sm:inline-flex">
               <LogOut size={16} />
             </Button>
+            <button
+              onClick={() => setMobileNavOpen(v => !v)}
+              aria-label="Toggle navigation menu"
+              aria-expanded={mobileNavOpen}
+              className="md:hidden p-2 -mr-1 rounded-lg hover:bg-muted text-foreground transition-colors"
+            >
+              {mobileNavOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile slide-down nav */}
+        <AnimatePresence>
+          {mobileNavOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              className="md:hidden border-t border-border bg-card overflow-hidden"
+            >
+              <div className="max-w-[1400px] mx-auto px-3 py-3">
+                <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground px-2 mb-2">Navigate</p>
+                <nav className="flex flex-col gap-1">
+                  {tabs.filter(t => !t.superOnly || roles.includes("super_admin")).map((t) => {
+                    const active = tab === t.id;
+                    return (
+                      <button
+                        key={t.id}
+                        onClick={() => { setTab(t.id); setMobileNavOpen(false); }}
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left ${active ? "bg-accent/10 text-accent" : "text-foreground/80 hover:bg-muted"}`}
+                      >
+                        <t.icon size={16} className={active ? "text-accent" : "text-muted-foreground"} />
+                        <span className="flex-1">{t.label}</span>
+                        {active && <span className="w-1.5 h-1.5 rounded-full bg-accent" />}
+                      </button>
+                    );
+                  })}
+                </nav>
+                <div className="border-t border-border mt-3 pt-3 px-2 flex items-center justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-medium text-foreground truncate">{profile?.full_name || "Admin"}</p>
+                    <p className="text-[11px] text-muted-foreground truncate">{user?.email}</p>
+                  </div>
+                  <Button variant="ghost" size="sm" onClick={signOut} className="text-muted-foreground hover:text-foreground shrink-0">
+                    <LogOut size={14} className="mr-1.5" /> Sign out
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       <main className="max-w-[1400px] mx-auto px-4 sm:px-6 py-6 md:py-8">
-        <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground">Welcome back{profile?.full_name ? `, ${profile.full_name.split(" ")[0]}` : ""}</h1>
-          <p className="text-muted-foreground text-sm mt-1">Manage enquiries, bookings, content, and your brand from one place.</p>
-        </div>
-
-        {/* Mobile tab selector */}
-        <div className="md:hidden mb-5">
-          <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground block mb-1.5">Section</label>
-          <select
-            value={tab}
-            onChange={(e) => setTab(e.target.value as Tab)}
-            className="w-full bg-card border border-border rounded-lg px-3 py-2.5 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-          >
-            {tabs.filter(t => !t.superOnly || roles.includes("super_admin")).map((t) => (
-              <option key={t.id} value={t.id}>{t.label}</option>
-            ))}
-          </select>
+        <div className="mb-6 md:mb-8 flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground">Welcome back{profile?.full_name ? `, ${profile.full_name.split(" ")[0]}` : ""}</h1>
+            <p className="text-muted-foreground text-sm mt-1">Manage enquiries, bookings, content, and your brand from one place.</p>
+          </div>
+          <span className="md:hidden shrink-0 mt-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground bg-muted px-2.5 py-1 rounded-full whitespace-nowrap">
+            {tabs.find(t => t.id === tab)?.label}
+          </span>
         </div>
 
         {/* Desktop tab strip */}
