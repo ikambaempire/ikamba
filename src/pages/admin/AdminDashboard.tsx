@@ -85,9 +85,9 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-20">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="font-heading text-lg font-extrabold text-foreground">
+        <div className="max-w-[1400px] mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <span className="font-heading text-base sm:text-lg font-extrabold text-foreground shrink-0">
               CPC<span className="text-accent">.</span>
             </span>
             <span className="text-muted-foreground/30 text-xs hidden sm:inline">|</span>
@@ -95,12 +95,13 @@ const AdminDashboard = () => {
               <Building2 size={14} />
               <span>Consultancy Admin</span>
             </div>
+            <span className="sm:hidden text-[10px] text-muted-foreground truncate">Admin</span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-[10px] sm:text-xs text-accent border border-accent/30 px-2 py-0.5 rounded-full">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            <span className="text-[9px] sm:text-xs text-accent border border-accent/30 px-1.5 sm:px-2 py-0.5 rounded-full whitespace-nowrap">
               {roles[0]?.replace("_", " ").toUpperCase()}
             </span>
-            <span className="text-muted-foreground text-sm hidden md:block max-w-[200px] truncate">
+            <span className="text-muted-foreground text-sm hidden lg:block max-w-[200px] truncate">
               {profile?.full_name || user?.email}
             </span>
             <Button variant="ghost" size="sm" onClick={signOut} className="text-muted-foreground hover:text-foreground">
@@ -116,7 +117,22 @@ const AdminDashboard = () => {
           <p className="text-muted-foreground text-sm mt-1">Manage enquiries, bookings, content, and your brand from one place.</p>
         </div>
 
-        <div className="flex items-center gap-1 mb-6 border-b border-border overflow-x-auto">
+        {/* Mobile tab selector */}
+        <div className="md:hidden mb-5">
+          <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground block mb-1.5">Section</label>
+          <select
+            value={tab}
+            onChange={(e) => setTab(e.target.value as Tab)}
+            className="w-full bg-card border border-border rounded-lg px-3 py-2.5 text-sm font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+          >
+            {tabs.filter(t => !t.superOnly || roles.includes("super_admin")).map((t) => (
+              <option key={t.id} value={t.id}>{t.label}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Desktop tab strip */}
+        <div className="hidden md:flex items-center gap-1 mb-6 border-b border-border overflow-x-auto">
           {tabs.filter(t => !t.superOnly || roles.includes("super_admin")).map((t) => (
             <button key={t.id} onClick={() => setTab(t.id)}
               className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${tab === t.id ? "border-accent text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
