@@ -115,6 +115,8 @@ const Index = () => {
         </div>
       </section>
 
+      <TrustedIndustriesBar />
+
       {/* Services Grid */}
       <section className="section-padding bg-background">
         <div className="max-w-6xl mx-auto">
