@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import {
   LogOut, Building2, CalendarCheck, FileText, Users, Clock,
   CheckCircle2, XCircle, TrendingUp, Mail, Phone, MessageSquare,
-  Settings as SettingsIcon, Award,
+  Settings as SettingsIcon, Award, Menu, X,
 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import BlogManager from "@/components/admin/BlogManager";
 import BookingManager from "@/components/admin/BookingManager";
 import UserManager from "@/components/admin/UserManager";
