@@ -9,6 +9,9 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TrustedIndustriesBar from "@/components/home/TrustedIndustriesBar";
+import StatCounter from "@/components/home/StatCounter";
+
+
 
 import Card3D from "@/components/home/Card3D";
 import cpcLogo from "@/assets/cpc-logo-full.png";
@@ -103,11 +106,9 @@ const Index = () => {
 
                 <div className="grid grid-cols-2 gap-4 pt-6 border-t border-border">
                   {stats.map((s) => (
-                    <div key={s.label}>
-                      <p className="text-2xl md:text-3xl font-extrabold text-primary">{s.value}</p>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider mt-0.5">{s.label}</p>
-                    </div>
+                    <StatCounter key={s.label} value={s.value} label={s.label} />
                   ))}
+
                 </div>
               </div>
             </motion.div>
@@ -157,10 +158,11 @@ const Index = () => {
       <section className="bg-muted/30 py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
-            { src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80", alt: "Advisor meeting with client" },
-            { src: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80", alt: "Reviewing financial reports" },
-            { src: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80", alt: "Team handshake" },
+            { src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80", alt: "Black female advisor meeting with client" },
+            { src: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=800&q=80", alt: "Black professional reviewing financial reports" },
+            { src: "https://images.unsplash.com/photo-1542178243-bc20204b769f?auto=format&fit=crop&w=800&q=80", alt: "Black business team handshake" },
           ].map((p, i) => (
+
             <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}
               className="rounded-2xl overflow-hidden aspect-[4/3] shadow-md">
               <img src={p.src} alt={p.alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
