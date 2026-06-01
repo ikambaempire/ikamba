@@ -9,6 +9,9 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TrustedIndustriesBar from "@/components/home/TrustedIndustriesBar";
+import StatCounter from "@/components/home/StatCounter";
+
+
 
 import Card3D from "@/components/home/Card3D";
 import cpcLogo from "@/assets/cpc-logo-full.png";
