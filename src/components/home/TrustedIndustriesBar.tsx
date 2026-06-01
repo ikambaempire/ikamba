@@ -49,7 +49,7 @@ const TrustedIndustriesBar = () => {
   };
 
   return (
-    <section className="bg-muted/40 border-b border-border pt-20 sm:pt-24 pb-5 sm:pb-6" aria-label="Trusted industries">
+    <section className="bg-muted/40 border-y border-border py-8 sm:py-10" aria-label="Trusted industries">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         <p className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-muted-foreground text-center mb-4">
           Trusted by industries across Rwanda
