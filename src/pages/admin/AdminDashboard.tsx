@@ -20,6 +20,7 @@ type Tab = "overview" | "bookings" | "enquiries" | "industries" | "blog" | "user
 const AdminDashboard = () => {
   const { user, profile, signOut, roles } = useAuth();
   const [tab, setTab] = useState<Tab>("overview");
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [stats, setStats] = useState({
     pending: 0, confirmed: 0, completed: 0, cancelled: 0,
     thisMonth: 0, total: 0, posts: 0, enquiriesNew: 0, industries: 0,
