@@ -57,10 +57,10 @@ const About = () => (
     <section className="bg-muted/30 py-10 md:py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {[
-          "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
-          "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80",
-          "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80",
-          "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80",
+          a1.url,
+          a2.url,
+          a3.url,
+          a4.url,
         ].map((src, i) => (
           <div key={i} className="aspect-square rounded-xl overflow-hidden shadow-sm">
             <img src={src} alt="Team and clients" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
