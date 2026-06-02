@@ -83,7 +83,7 @@ const Services = () => (
 
     {/* Humanizing banner */}
     <section className="relative h-56 md:h-72 overflow-hidden">
-      <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1600&q=80" alt="Professional consulting team in discussion" className="w-full h-full object-cover" loading="lazy" />
+      <img src={solImg.url} alt="Professional consulting team in discussion" className="w-full h-full object-cover" loading="lazy" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/40 to-transparent" />
       <div className="absolute inset-0 flex items-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-10">
         <p className="text-white text-xl md:text-2xl font-bold max-w-lg">Real advisors. Real results. Real businesses across Rwanda.</p>
