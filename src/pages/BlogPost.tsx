@@ -5,6 +5,7 @@ import { Calendar, ArrowLeft, User } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import postFallback from "@/assets/people/images_7.jpg.asset.json";
 
 interface BlogPost {
   id: string;
