@@ -7,6 +7,10 @@ import {
   ArrowRight, Target, Eye, ShieldCheck, Award, Handshake, Sparkles, Users,
 } from "lucide-react";
 import Card3D from "@/components/home/Card3D";
+import a1 from "@/assets/people/download.jpg.asset.json";
+import a2 from "@/assets/people/images_11.jpg.asset.json";
+import a3 from "@/assets/people/images_9.jpg.asset.json";
+import a4 from "@/assets/people/images_8.jpg.asset.json";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -53,10 +57,10 @@ const About = () => (
     <section className="bg-muted/30 py-10 md:py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {[
-          "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
-          "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80",
-          "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80",
-          "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80",
+          a1.url,
+          a2.url,
+          a3.url,
+          a4.url,
         ].map((src, i) => (
           <div key={i} className="aspect-square rounded-xl overflow-hidden shadow-sm">
             <img src={src} alt="Team and clients" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />

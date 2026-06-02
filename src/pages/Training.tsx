@@ -8,6 +8,7 @@ import {
   CheckCircle2, Users, Clock, ArrowRight,
 } from "lucide-react";
 import Card3D from "@/components/home/Card3D";
+import trainImg from "@/assets/people/images_10.jpg.asset.json";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -71,7 +72,7 @@ const Training = () => (
 
     {/* Classroom banner */}
     <section className="relative h-56 md:h-72 overflow-hidden">
-      <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1600&q=80" alt="Trainees in a professional workshop" className="w-full h-full object-cover" loading="lazy" />
+      <img src={trainImg.url} alt="Trainer leading a professional classroom session" className="w-full h-full object-cover" loading="lazy" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/85 to-primary/20" />
       <div className="absolute inset-0 flex items-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-10">
         <p className="text-white text-xl md:text-2xl font-bold max-w-lg">Practical, hands-on training delivered by working professionals.</p>

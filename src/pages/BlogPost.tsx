@@ -5,6 +5,7 @@ import { Calendar, ArrowLeft, User } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import postFallback from "@/assets/people/images_7.jpg.asset.json";
 
 interface BlogPost {
   id: string;
@@ -19,7 +20,7 @@ interface BlogPost {
   created_at: string;
 }
 
-const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80";
+const FALLBACK_IMAGE = postFallback.url;
 
 const renderMarkdown = (md: string) => {
   let html = md
