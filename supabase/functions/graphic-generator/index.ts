@@ -58,10 +58,30 @@ const getModelForQuality = (quality) => {
   return "google/gemini-2.5-flash-image";
 };
 
+import { createClient } from "npm:@supabase/supabase-js@2";
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const sb = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+      { global: { headers: { Authorization: authHeader } } }
+    );
+    const { data: claims, error: authErr } = await sb.auth.getClaims(authHeader.replace("Bearer ", ""));
+    if (authErr || !claims?.claims) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const { prompt, editImage, count = 1, quality = "high" } = await req.json();
     const safePrompt = typeof prompt === "string" ? prompt.trim() : "";
     const safeCount = Math.max(1, Math.min(Number(count) || 1, 10));
