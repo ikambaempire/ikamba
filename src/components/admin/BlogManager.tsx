@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Plus, Pencil, Trash2, Upload, Image as ImageIcon, Youtube, ArrowLeft, Eye, Bold, Heading2, List, Link2 } from "lucide-react";
 import { toast } from "sonner";
+import { renderSafeMarkdown } from "@/lib/markdown";
 
 interface BlogPost {
   id: string;
