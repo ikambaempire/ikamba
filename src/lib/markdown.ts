@@ -7,7 +7,7 @@ marked.setOptions({ breaks: true, gfm: true });
 // sanitize the resulting HTML to neutralize any XSS attempts.
 const youtubeRegex = /\[youtube:([a-zA-Z0-9_-]{11})\]/g;
 
-const purifyConfig: DOMPurify.Config = {
+const purifyConfig = {
   ALLOWED_TAGS: [
     "p", "br", "hr", "strong", "em", "u", "s", "code", "pre", "blockquote",
     "h1", "h2", "h3", "h4", "h5", "h6",
