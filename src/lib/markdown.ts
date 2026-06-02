@@ -41,5 +41,5 @@ export function renderSafeMarkdown(md: string): string {
       `<div class="my-6 aspect-video"><iframe class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe></div>`,
   );
   const rawHtml = marked.parse(withEmbeds, { async: false }) as string;
-  return DOMPurify.sanitize(rawHtml, purifyConfig);
+  return DOMPurify.sanitize(rawHtml, purifyConfig) as unknown as string;
 }
