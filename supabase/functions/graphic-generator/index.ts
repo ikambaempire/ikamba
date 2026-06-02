@@ -163,12 +163,12 @@ Deno.serve(async (req) => {
 
       const messages = [{ role: "system", content: SYSTEM_PROMPT }];
 
-      if (editImage) {
+      if (safeEditImage) {
         messages.push({
           role: "user",
           content: [
             { type: "text", text: variationPrompt },
-            { type: "image_url", image_url: { url: editImage } },
+            { type: "image_url", image_url: { url: safeEditImage } },
           ],
         });
       } else {
