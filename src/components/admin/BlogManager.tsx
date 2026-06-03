@@ -8,7 +8,6 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Plus, Pencil, Trash2, Upload, Image as ImageIcon, Youtube, ArrowLeft, Eye, Bold, Heading2, List, Link2 } from "lucide-react";
 import { toast } from "sonner";
-import { renderSafeMarkdown } from "@/lib/markdown";
 
 interface BlogPost {
   id: string;
@@ -195,8 +194,20 @@ const BlogManager = () => {
     else { toast.success("Post deleted"); fetchPosts(); }
   };
 
-  const renderMarkdownPreview = (md: string) =>
-    `<div class="prose prose-sm max-w-none">${renderSafeMarkdown(md)}</div>`;
+  const renderMarkdownPreview = (md: string) => {
+    let html = md
+      .replace(/\[youtube:([a-zA-Z0-9_-]{11})\]/g, '<div class="my-4"><iframe width="100%" height="315" src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen style="border-radius:12px"></iframe></div>')
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="rounded-lg my-4 max-w-full" />')
+      .replace(/^### (.+)$/gm, '<h3 class="text-lg font-bold mt-6 mb-2">$1</h3>')
+      .replace(/^## (.+)$/gm, '<h2 class="text-xl font-bold mt-8 mb-3">$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-accent underline">$1</a>')
+      .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc">$1</li>')
+      .replace(/\n\n/g, '</p><p class="mb-3 text-muted-foreground">')
+    ;
+    return `<p class="mb-3 text-muted-foreground">${html}</p>`;
+  };
 
   // ========= EDITOR VIEW =========
   if (editorMode) {

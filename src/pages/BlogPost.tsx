@@ -22,10 +22,21 @@ interface BlogPost {
 
 const FALLBACK_IMAGE = postFallback.url;
 
-import { renderSafeMarkdown } from "@/lib/markdown";
-
-const renderMarkdown = (md: string) =>
-  `<div class="prose prose-lg max-w-none text-foreground/80">${renderSafeMarkdown(md)}</div>`;
+const renderMarkdown = (md: string) => {
+  let html = md
+    .replace(/\[youtube:([a-zA-Z0-9_-]{11})\]/g,
+      '<div class="my-6 aspect-video"><iframe class="w-full h-full rounded-xl" src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe></div>')
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g,
+      '<img src="$2" alt="$1" class="rounded-xl my-6 w-full" />')
+    .replace(/^### (.+)$/gm, '<h3 class="text-xl font-bold mt-8 mb-3 text-foreground">$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-extrabold mt-10 mb-4 text-foreground">$1</h2>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-foreground font-semibold">$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-primary underline hover:text-accent" target="_blank" rel="noopener">$1</a>')
+    .replace(/^- (.+)$/gm, '<li class="ml-5 list-disc mb-1">$1</li>')
+    .replace(/\n\n/g, '</p><p class="mb-5 text-foreground/80 leading-relaxed">');
+  return `<p class="mb-5 text-foreground/80 leading-relaxed text-lg">${html}</p>`;
+};
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();

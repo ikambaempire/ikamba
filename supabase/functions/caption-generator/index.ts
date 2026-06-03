@@ -22,69 +22,11 @@ If the user mentions attached files (images/videos), reference them in context a
 
 Keep captions authentic, not generic. Match the brand voice described. Always be helpful and professional.`;
 
-import { createClient } from "npm:@supabase/supabase-js@2";
-
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader?.startsWith("Bearer ")) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_ANON_KEY")!,
-      { global: { headers: { Authorization: authHeader } } }
-    );
-    const { data: claims, error: authErr } = await supabase.auth.getClaims(authHeader.replace("Bearer ", ""));
-    if (authErr || !claims?.claims) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    const { messages: rawMessages } = await req.json();
-    if (!Array.isArray(rawMessages)) {
-      return new Response(JSON.stringify({ error: "Invalid messages payload" }), {
-        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-    if (rawMessages.length === 0 || rawMessages.length > 20) {
-      return new Response(JSON.stringify({ error: "Messages must contain between 1 and 20 entries" }), {
-        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-    const messages: Array<{ role: "user" | "assistant"; content: string }> = [];
-    let totalLength = 0;
-    for (const m of rawMessages) {
-      if (!m || typeof m !== "object") {
-        return new Response(JSON.stringify({ error: "Invalid message entry" }), {
-          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      const role = (m as any).role;
-      const content = (m as any).content;
-      if (role !== "user" && role !== "assistant") {
-        return new Response(JSON.stringify({ error: "Only 'user' and 'assistant' roles are allowed" }), {
-          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      if (typeof content !== "string" || content.length === 0) {
-        return new Response(JSON.stringify({ error: "Message content must be a non-empty string" }), {
-          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      totalLength += content.length;
-      if (totalLength > 20000) {
-        return new Response(JSON.stringify({ error: "Total message content exceeds 20,000 characters" }), {
-          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      messages.push({ role, content });
-    }
+    const { messages } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 

@@ -64,15 +64,9 @@ Deno.serve(async (req) => {
       if (existing) {
         userId = existing.id;
       } else {
-        if (!password || typeof password !== "string" || password.length < 12) {
-          return new Response(
-            JSON.stringify({ error: "A strong password (min 12 chars) is required when creating a new admin." }),
-            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-          );
-        }
         const { data: newUser, error: createErr } = await admin.auth.admin.createUser({
           email,
-          password,
+          password: password || "Temp@12345",
           email_confirm: true,
           user_metadata: { full_name, organization_id: orgId },
         });

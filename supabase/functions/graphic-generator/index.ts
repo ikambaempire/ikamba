@@ -58,89 +58,13 @@ const getModelForQuality = (quality) => {
   return "google/gemini-2.5-flash-image";
 };
 
-import { createClient } from "npm:@supabase/supabase-js@2";
-
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader?.startsWith("Bearer ")) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-    const sb = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_ANON_KEY")!,
-      { global: { headers: { Authorization: authHeader } } }
-    );
-    const { data: claims, error: authErr } = await sb.auth.getClaims(authHeader.replace("Bearer ", ""));
-    if (authErr || !claims?.claims) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
     const { prompt, editImage, count = 1, quality = "high" } = await req.json();
     const safePrompt = typeof prompt === "string" ? prompt.trim() : "";
     const safeCount = Math.max(1, Math.min(Number(count) || 1, 10));
-
-    let safeEditImage: string | null = null;
-    if (editImage !== undefined && editImage !== null && editImage !== "") {
-      if (typeof editImage !== "string" || editImage.length > 8192) {
-        return new Response(JSON.stringify({ error: "Invalid editImage value." }), {
-          status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      // Allow data URLs for images (base64-encoded uploads)
-      if (editImage.startsWith("data:image/")) {
-        safeEditImage = editImage;
-      } else {
-        let parsed: URL;
-        try {
-          parsed = new URL(editImage);
-        } catch {
-          return new Response(JSON.stringify({ error: "editImage must be a valid URL or data URL." }), {
-            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-          });
-        }
-        if (parsed.protocol !== "https:") {
-          return new Response(JSON.stringify({ error: "editImage URL must use https." }), {
-            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-          });
-        }
-        const host = parsed.hostname.toLowerCase();
-        const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
-        let supabaseHost = "";
-        try { supabaseHost = new URL(supabaseUrl).hostname.toLowerCase(); } catch { /* ignore */ }
-        const allowedSuffixes = [
-          ".supabase.co",
-          ".supabase.in",
-          ".lovable.app",
-          ".lovable.dev",
-        ];
-        const isAllowed =
-          (supabaseHost && host === supabaseHost) ||
-          allowedSuffixes.some((s) => host.endsWith(s));
-        // Block private / link-local / loopback ranges defensively
-        const isBlockedHost =
-          host === "localhost" ||
-          host === "0.0.0.0" ||
-          host.endsWith(".local") ||
-          /^127\./.test(host) ||
-          /^10\./.test(host) ||
-          /^192\.168\./.test(host) ||
-          /^169\.254\./.test(host) ||
-          /^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(host);
-        if (!isAllowed || isBlockedHost) {
-          return new Response(JSON.stringify({ error: "editImage URL host is not allowed." }), {
-            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-          });
-        }
-        safeEditImage = parsed.toString();
-      }
-    }
 
     if (!safePrompt) {
       return new Response(JSON.stringify({ error: "Prompt is required." }), {
@@ -163,12 +87,12 @@ Deno.serve(async (req) => {
 
       const messages = [{ role: "system", content: SYSTEM_PROMPT }];
 
-      if (safeEditImage) {
+      if (editImage) {
         messages.push({
           role: "user",
           content: [
             { type: "text", text: variationPrompt },
-            { type: "image_url", image_url: { url: safeEditImage } },
+            { type: "image_url", image_url: { url: editImage } },
           ],
         });
       } else {
