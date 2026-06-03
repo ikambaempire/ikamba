@@ -13,14 +13,8 @@ const AuthRedirect = () => {
       return;
     }
     const timer = setTimeout(() => {
-      if (isInternal) {
-        navigate("/admin", { replace: true });
-      } else if (isClient) {
-        navigate("/workspace", { replace: true });
-      } else {
-        // Regular users (including Google sign-ups with no role yet)
-        navigate("/dashboard", { replace: true });
-      }
+      // All authenticated accounts land on the admin dashboard.
+      navigate("/admin", { replace: true });
     }, 300);
     return () => clearTimeout(timer);
   }, [user, isInternal, isClient, loading, roles, navigate]);
