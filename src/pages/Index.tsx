@@ -15,9 +15,6 @@ import StatCounter from "@/components/home/StatCounter";
 
 import Card3D from "@/components/home/Card3D";
 import cpcLogo from "@/assets/cpc-logo-full.png";
-import img12 from "@/assets/people/images_12.jpg.asset.json";
-import img8 from "@/assets/people/images_8.jpg.asset.json";
-import dl1 from "@/assets/people/download_1.jpg.asset.json";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -157,22 +154,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* People strip — humanize */}
-      <section className="bg-muted/30 py-12 md:py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[
-            { src: img12.url, alt: "CPC advisors discussing strategy with a client" },
-            { src: img8.url, alt: "Team collaborating on a project review" },
-            { src: dl1.url, alt: "Successful business handshake" },
-          ].map((p, i) => (
-
-            <motion.div key={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}
-              className="rounded-2xl overflow-hidden aspect-[4/3] shadow-md">
-              <img src={p.src} alt={p.alt} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
       {/* Why CPC */}
       <section className="section-padding gradient-navy text-white">
