@@ -47,6 +47,8 @@ const About = () => (
           </p>
         </motion.div>
       </div>
+    </section>
+
     {/* Animated icons band */}
     <section className="relative overflow-hidden gradient-brand py-12 md:py-16">
       <div className="absolute inset-0 opacity-25 pointer-events-none"
