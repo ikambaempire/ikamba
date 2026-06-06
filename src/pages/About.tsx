@@ -7,10 +7,6 @@ import {
   ArrowRight, Target, Eye, ShieldCheck, Award, Handshake, Sparkles, Users,
 } from "lucide-react";
 import Card3D from "@/components/home/Card3D";
-import a1 from "@/assets/people/download.jpg.asset.json";
-import a2 from "@/assets/people/images_11.jpg.asset.json";
-import a3 from "@/assets/people/images_9.jpg.asset.json";
-import a4 from "@/assets/people/images_8.jpg.asset.json";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
