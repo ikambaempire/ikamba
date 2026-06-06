@@ -8,7 +8,7 @@ import {
   CheckCircle2, Users, Clock, ArrowRight,
 } from "lucide-react";
 import Card3D from "@/components/home/Card3D";
-import trainImg from "@/assets/people/images_10.jpg.asset.json";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
