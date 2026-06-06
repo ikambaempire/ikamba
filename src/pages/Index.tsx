@@ -15,9 +15,6 @@ import StatCounter from "@/components/home/StatCounter";
 
 import Card3D from "@/components/home/Card3D";
 import cpcLogo from "@/assets/cpc-logo-full.png";
-import img12 from "@/assets/people/images_12.jpg.asset.json";
-import img8 from "@/assets/people/images_8.jpg.asset.json";
-import dl1 from "@/assets/people/download_1.jpg.asset.json";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
