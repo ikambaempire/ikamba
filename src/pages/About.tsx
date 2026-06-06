@@ -7,10 +7,6 @@ import {
   ArrowRight, Target, Eye, ShieldCheck, Award, Handshake, Sparkles, Users,
 } from "lucide-react";
 import Card3D from "@/components/home/Card3D";
-import a1 from "@/assets/people/download.jpg.asset.json";
-import a2 from "@/assets/people/images_11.jpg.asset.json";
-import a3 from "@/assets/people/images_9.jpg.asset.json";
-import a4 from "@/assets/people/images_8.jpg.asset.json";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -53,18 +49,24 @@ const About = () => (
       </div>
     </section>
 
-    {/* Humanizing portrait band */}
-    <section className="bg-muted/30 py-10 md:py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+    {/* Animated icons band */}
+    <section className="relative overflow-hidden gradient-brand py-12 md:py-16">
+      <div className="absolute inset-0 opacity-25 pointer-events-none"
+        style={{ backgroundImage: "radial-gradient(circle at 15% 25%, hsl(var(--accent)) 0%, transparent 40%), radial-gradient(circle at 85% 75%, hsl(var(--brand-teal)) 0%, transparent 40%)" }} />
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {[
-          a1.url,
-          a2.url,
-          a3.url,
-          a4.url,
-        ].map((src, i) => (
-          <div key={i} className="aspect-square rounded-xl overflow-hidden shadow-sm">
-            <img src={src} alt="Team and clients" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" loading="lazy" />
-          </div>
+          { Icon: ShieldCheck, label: "Integrity" },
+          { Icon: Award, label: "Excellence" },
+          { Icon: Handshake, label: "Trust" },
+          { Icon: Users, label: "Client-Focused" },
+        ].map(({ Icon, label }, i) => (
+          <motion.div key={i}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity, delay: i * 0.3, ease: "easeInOut" }}
+            className="flex flex-col items-center justify-center gap-3 bg-white/10 backdrop-blur border border-white/20 rounded-2xl py-6 shadow-lg">
+            <Icon className="text-accent" size={32} />
+            <p className="text-white font-semibold text-sm md:text-base">{label}</p>
+          </motion.div>
         ))}
       </div>
     </section>

@@ -8,7 +8,7 @@ import {
   CheckCircle2, Users, Clock, ArrowRight,
 } from "lucide-react";
 import Card3D from "@/components/home/Card3D";
-import trainImg from "@/assets/people/images_10.jpg.asset.json";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -70,12 +70,22 @@ const Training = () => (
       </div>
     </section>
 
-    {/* Classroom banner */}
-    <section className="relative h-56 md:h-72 overflow-hidden">
-      <img src={trainImg.url} alt="Trainer leading a professional classroom session" className="w-full h-full object-cover" loading="lazy" />
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/85 to-primary/20" />
-      <div className="absolute inset-0 flex items-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-10">
-        <p className="text-white text-xl md:text-2xl font-bold max-w-lg">Practical, hands-on training delivered by working professionals.</p>
+    {/* Animated icons banner */}
+    <section className="relative h-56 md:h-72 overflow-hidden gradient-brand">
+      <div className="absolute inset-0 opacity-25 pointer-events-none"
+        style={{ backgroundImage: "radial-gradient(circle at 20% 30%, hsl(var(--accent)) 0%, transparent 40%), radial-gradient(circle at 80% 70%, hsl(var(--brand-teal)) 0%, transparent 40%)" }} />
+      <div className="absolute inset-0 flex items-center justify-between max-w-6xl mx-auto px-4 sm:px-6 lg:px-10">
+        <p className="text-white text-xl md:text-2xl font-bold max-w-md relative z-10">Practical, hands-on training delivered by working professionals.</p>
+        <div className="hidden md:flex items-center gap-6 relative z-10">
+          {[GraduationCap, BookOpen, Users, Clock].map((Icon, i) => (
+            <motion.div key={i}
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 3, repeat: Infinity, delay: i * 0.3, ease: "easeInOut" }}
+              className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur border border-white/25 flex items-center justify-center shadow-lg">
+              <Icon className="text-accent" size={26} />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
 
