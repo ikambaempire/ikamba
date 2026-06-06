@@ -104,7 +104,7 @@ const Index = () => {
                 </div>
                 <img src={cpcLogo} alt="CPC Logo" className="h-16 md:h-20 w-auto mb-6" />
                 <p className="text-xs uppercase tracking-[0.2em] font-semibold text-primary mb-2">Head Office</p>
-                <p className="text-foreground font-semibold mb-1">Yussa City Center (Makuza Plaza)</p>
+                <p className="text-foreground font-semibold mb-1">YYUSSA City Center (Makuza Plaza)</p>
                 <p className="text-muted-foreground text-sm mb-6">Tower B · 8th Floor · KN 48 St, Nyarugenge, Kigali</p>
 
                 <div className="grid grid-cols-2 gap-4 pt-6 border-t border-border">
