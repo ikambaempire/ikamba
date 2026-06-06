@@ -110,8 +110,8 @@ const BlogPostPage = () => {
 
       {/* Cover */}
       <section className="relative pt-20">
-        <div className="aspect-[21/9] w-full overflow-hidden bg-muted">
-          <img src={post.cover_image_url || FALLBACK_IMAGE} alt={post.title} className="w-full h-full object-cover" />
+        <div className="w-full overflow-hidden bg-muted max-h-[60vh] md:max-h-[70vh]">
+          <img src={post.cover_image_url || FALLBACK_IMAGE} alt={post.title} className="w-full h-auto max-h-[60vh] md:max-h-[70vh] object-contain mx-auto" />
         </div>
       </section>
 
