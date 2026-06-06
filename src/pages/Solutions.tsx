@@ -8,7 +8,7 @@ import {
   Building2, FileCheck, Receipt, Plane, Phone, CheckCircle2,
 } from "lucide-react";
 import Card3D from "@/components/home/Card3D";
-import solImg from "@/assets/people/images_9.jpg.asset.json";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(4px)" },
