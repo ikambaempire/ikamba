@@ -55,7 +55,7 @@ const AnimatedRoutes = () => {
 
         {/* Auth */}
         <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
-        <Route path="/signup" element={<PageTransition><Signup /></PageTransition>} />
+        <Route path="/signup" element={<Navigate to="/login" replace />} />
         <Route path="/auth-redirect" element={<AuthRedirect />} />
 
         {/* Client Workspace */}
