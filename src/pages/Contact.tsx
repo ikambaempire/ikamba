@@ -17,19 +17,20 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const { error } = await supabase.from("contact_messages").insert({
+    const { error } = await supabase.from("bookings").insert({
       name: form.name,
       email: form.email,
       phone: form.phone || null,
       service: form.service || null,
-      message: form.message + (form.preferred_date ? `\n\nPreferred date: ${form.preferred_date}` : ""),
+      preferred_date: form.preferred_date || null,
+      message: form.message || null,
     });
     setSubmitting(false);
     if (error) {
       toast.error("Could not submit. Please try again or call us directly.");
       return;
     }
-    toast.success("Message received! A CPC advisor will contact you within 24 hours.");
+    toast.success("Booking received! A CPC advisor will contact you within 24 hours.");
     setForm({ name: "", email: "", phone: "", service: "", preferred_date: "", message: "" });
   };
 
