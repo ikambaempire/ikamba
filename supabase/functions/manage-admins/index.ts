@@ -5,6 +5,9 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const json = (body: unknown, status = 200) =>
+  new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
@@ -12,28 +15,27 @@ Deno.serve(async (req) => {
   const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
   const admin = createClient(supabaseUrl, serviceKey, { auth: { autoRefreshToken: false, persistSession: false } });
 
-  // Verify caller is super_admin
   const authHeader = req.headers.get("Authorization");
-  if (!authHeader) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-  
+  if (!authHeader) return json({ error: "Unauthorized" }, 401);
+
   const token = authHeader.replace("Bearer ", "");
   const { data: { user: caller } } = await admin.auth.getUser(token);
-  if (!caller) return new Response(JSON.stringify({ error: "Invalid token" }), { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+  if (!caller) return json({ error: "Invalid token" }, 401);
 
   const { data: callerRoles } = await admin.from("user_roles").select("role").eq("user_id", caller.id);
   const isSuperAdmin = callerRoles?.some(r => r.role === "super_admin");
-  if (!isSuperAdmin) return new Response(JSON.stringify({ error: "Only super admins can manage users" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+  const isOrgAdmin = callerRoles?.some(r => r.role === "org_admin");
+  if (!isSuperAdmin && !isOrgAdmin) return json({ error: "Only admins can manage users" }, 403);
 
   const body = await req.json();
   const { action } = body;
+  const ALLOWED_ROLES = ["org_admin", "project_manager"];
 
   try {
     if (action === "list") {
-      // List all users with roles
       const { data: users } = await admin.auth.admin.listUsers();
       const { data: roles } = await admin.from("user_roles").select("*");
       const { data: profiles } = await admin.from("profiles").select("user_id, full_name");
-      
       const result = users.users.map(u => ({
         id: u.id,
         email: u.email,
@@ -41,25 +43,19 @@ Deno.serve(async (req) => {
         roles: roles?.filter(r => r.user_id === u.id).map(r => r.role) || [],
         created_at: u.created_at,
       }));
-      
-      return new Response(JSON.stringify({ users: result }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      return json({ users: result });
     }
 
     if (action === "add_admin") {
       const { email, password, full_name, role } = body;
-      const allowedRoles = ["org_admin", "project_manager", "producer", "editor"];
-      if (!allowedRoles.includes(role)) {
-        return new Response(JSON.stringify({ error: "Invalid role. Super admin cannot be assigned this way." }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-      }
+      if (!ALLOWED_ROLES.includes(role)) return json({ error: "Invalid role" }, 400);
 
-      // Get caller's org
       const { data: callerProfile } = await admin.from("profiles").select("organization_id").eq("user_id", caller.id).single();
       const orgId = callerProfile?.organization_id;
 
-      // Check if user exists
       const { data: existingUsers } = await admin.auth.admin.listUsers();
       const existing = existingUsers.users.find(u => u.email === email);
-      
+
       let userId: string;
       if (existing) {
         userId = existing.id;
@@ -74,42 +70,47 @@ Deno.serve(async (req) => {
         userId = newUser.user.id;
       }
 
-      // Remove existing role if any, then add new one
       await admin.from("user_roles").delete().eq("user_id", userId).neq("role", "super_admin");
       await admin.from("user_roles").insert({ user_id: userId, role, organization_id: orgId });
 
-      // Update profile
       if (full_name) {
         await admin.from("profiles").update({ full_name, organization_id: orgId }).eq("user_id", userId);
       }
-
-      return new Response(JSON.stringify({ success: true, user_id: userId }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
-    }
-
-    if (action === "remove_role") {
-      const { user_id, role } = body;
-      if (role === "super_admin") {
-        return new Response(JSON.stringify({ error: "Cannot remove super_admin role" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-      }
-      await admin.from("user_roles").delete().eq("user_id", user_id).eq("role", role);
-      return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      return json({ success: true, user_id: userId });
     }
 
     if (action === "update_role") {
       const { user_id, new_role } = body;
-      const allowedRoles = ["org_admin", "project_manager", "producer", "editor", "client", "viewer"];
-      if (!allowedRoles.includes(new_role)) {
-        return new Response(JSON.stringify({ error: "Invalid role" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-      }
-      // Remove non-super_admin roles and set new one
+      if (!ALLOWED_ROLES.includes(new_role)) return json({ error: "Invalid role" }, 400);
+      const { data: targetRoles } = await admin.from("user_roles").select("role").eq("user_id", user_id);
+      if (targetRoles?.some(r => r.role === "super_admin")) return json({ error: "Cannot change the Owner role" }, 400);
       const { data: callerProfile } = await admin.from("profiles").select("organization_id").eq("user_id", caller.id).single();
       await admin.from("user_roles").delete().eq("user_id", user_id).neq("role", "super_admin");
-      await admin.from("user_roles").insert({ user_id: user_id, role: new_role, organization_id: callerProfile?.organization_id });
-      return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      await admin.from("user_roles").insert({ user_id, role: new_role, organization_id: callerProfile?.organization_id });
+      return json({ success: true });
     }
 
-    return new Response(JSON.stringify({ error: "Unknown action" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    if (action === "delete_user") {
+      const { user_id } = body;
+      if (user_id === caller.id) return json({ error: "You cannot delete your own account" }, 400);
+      const { data: targetRoles } = await admin.from("user_roles").select("role").eq("user_id", user_id);
+      if (targetRoles?.some(r => r.role === "super_admin")) return json({ error: "Cannot delete the Owner account" }, 400);
+      await admin.from("user_roles").delete().eq("user_id", user_id);
+      await admin.from("profiles").delete().eq("user_id", user_id);
+      const { error: delErr } = await admin.auth.admin.deleteUser(user_id);
+      if (delErr) throw delErr;
+      return json({ success: true });
+    }
+
+    if (action === "remove_role") {
+      const { user_id, role } = body;
+      if (role === "super_admin") return json({ error: "Cannot remove Owner role" }, 400);
+      await admin.from("user_roles").delete().eq("user_id", user_id).eq("role", role);
+      return json({ success: true });
+    }
+
+    return json({ error: "Unknown action" }, 400);
   } catch (err: any) {
-    return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    return json({ error: err.message }, 500);
   }
 });
