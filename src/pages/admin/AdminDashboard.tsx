@@ -80,7 +80,7 @@ const AdminDashboard = () => {
     { id: "bookings", label: "Bookings", icon: CalendarCheck },
     { id: "industries", label: "Trusted Industries", icon: Award },
     { id: "blog", label: "Blog", icon: FileText },
-    { id: "users", label: "Team", icon: Users, superOnly: true },
+    { id: "users", label: "Team", icon: Users },
     { id: "settings", label: "Settings", icon: SettingsIcon },
   ];
 
@@ -267,7 +267,7 @@ const AdminDashboard = () => {
         {tab === "bookings" && <BookingManager />}
         {tab === "industries" && <TrustedIndustriesManager />}
         {tab === "blog" && <BlogManager />}
-        {tab === "users" && roles.includes("super_admin") && <UserManager />}
+        {tab === "users" && <UserManager />}
         {tab === "settings" && <SettingsManager />}
       </main>
     </div>

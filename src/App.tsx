@@ -13,7 +13,7 @@ import Training from "./pages/Training";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+
 import AuthRedirect from "./pages/AuthRedirect";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
@@ -55,7 +55,7 @@ const AnimatedRoutes = () => {
 
         {/* Auth */}
         <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
-        <Route path="/signup" element={<PageTransition><Signup /></PageTransition>} />
+        <Route path="/signup" element={<Navigate to="/login" replace />} />
         <Route path="/auth-redirect" element={<AuthRedirect />} />
 
         {/* Client Workspace */}
