@@ -13,7 +13,7 @@ import Training from "./pages/Training";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+
 import AuthRedirect from "./pages/AuthRedirect";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
