@@ -267,7 +267,7 @@ const AdminDashboard = () => {
         {tab === "bookings" && <BookingManager />}
         {tab === "industries" && <TrustedIndustriesManager />}
         {tab === "blog" && <BlogManager />}
-        {tab === "users" && roles.includes("super_admin") && <UserManager />}
+        {tab === "users" && <UserManager />}
         {tab === "settings" && <SettingsManager />}
       </main>
     </div>
